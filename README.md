@@ -11,6 +11,7 @@ empirics/
     ├── 04_H1.R                    ← H1a (JSD + bootstrap) + H1b (directional bars)
     ├── 05_H2.R                    ← H2a (per-bucket) + H2b (moderation) + H2c (dispersion)
     └── 06_H6.R                    ← H6 (system polarization over time, both channels)
+    
 Workflow
 
 Edit PATHS in R/00_config.R — point them at your speech and manifesto RDS files.
