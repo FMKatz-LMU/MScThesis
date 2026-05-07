@@ -1,0 +1,18 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.RDataTmp*
+
+# API keys
+manifesto_apikey.txt
+
+# Large binary / corpus files
+germaparl_v2.3.0-rc1.tar.gz
+cwb/
+
+# Large data files (too big for git)
+Data/sentences_for_classification.csv
+Data/sentences_classified/
+Data/sentences_dt.rds
+Data/speeches_by_lp.rds
