@@ -23,8 +23,10 @@ source(here::here("R/02_helpers.R"))
 sd_list <- readRDS(file.path(PATHS$cache_dir, "speech_dists.rds"))
 md_list <- readRDS(file.path(PATHS$cache_dir, "manifesto_dists.rds"))
 
-speech_A    <- sd_list$A
-speech_B    <- sd_list$B
+.primary_A_key <- sprintf("soft_tau%s__A", format(TAU_PRIMARY, nsmall = 1))
+.primary_B_key <- sprintf("soft_tau%s__B", format(TAU_PRIMARY, nsmall = 1))
+speech_A    <- if (.primary_A_key %in% names(sd_list)) sd_list[[.primary_A_key]] else sd_list$A
+speech_B    <- if (.primary_B_key %in% names(sd_list)) sd_list[[.primary_B_key]] else sd_list$B
 manifesto_A <- md_list$A
 manifesto_B <- md_list$B
 
@@ -32,20 +34,8 @@ m1_map <- LP_ELECTION %>% filter(lp %in% LEGISLATIVE_PERIODS)
 
 # ============================================================================
 # H2a — Topic-level salience variation (per-bucket JSD contribution)
+# (per_bucket_jsd is now in 02_helpers.R; reused here.)
 # ============================================================================
-per_bucket_jsd <- function(p, q) {
-  stopifnot(length(p) == length(q), !is.null(names(p)), all(names(p) == names(q)))
-  p <- p / sum(p); q <- q / sum(q)
-  m <- 0.5 * (p + q)
-  out <- numeric(length(p)); names(out) <- names(p)
-  for (i in seq_along(p)) {
-    a <- 0
-    if (p[i] > 0 && m[i] > 0) a <- a + 0.5 * p[i] * log2(p[i] / m[i])
-    if (q[i] > 0 && m[i] > 0) a <- a + 0.5 * q[i] * log2(q[i] / m[i])
-    out[i] <- a
-  }
-  out
-}
 
 message("[H2a] Computing per-bucket JSD contributions ...")
 
@@ -75,44 +65,67 @@ h2a_long <- bind_rows(lapply(seq_len(nrow(joined)), function(i) {
          bucket = names(contrib), jsd_contrib = unname(contrib))
 }))
 
-REACTIVE_BUCKETS <- c("Migration", "Foreign Policy & Defence", "European Integration")
-
 h2a_summary <- h2a_long %>%
   group_by(bucket) %>%
   summarise(mean_contrib = mean(jsd_contrib, na.rm = TRUE),
             sd_contrib   = sd(jsd_contrib,   na.rm = TRUE),
             n_cells      = sum(!is.na(jsd_contrib)),
             .groups = "drop") %>%
-  mutate(bucket_type = if_else(bucket %in% REACTIVE_BUCKETS, "Reactive", "Programmatic")) %>%
   arrange(desc(mean_contrib))
 
 write_csv(h2a_long,    file.path(PATHS$out_dir, "H2a_per_bucket_long.csv"))
 write_csv(h2a_summary, file.path(PATHS$out_dir, "H2a_per_bucket_summary.csv"))
 
-p_h2a <- h2a_summary %>%
-  mutate(bucket = fct_reorder(bucket, mean_contrib)) %>%
-  ggplot(aes(x = mean_contrib, y = bucket, fill = bucket_type)) +
-  geom_col(width = 0.7, alpha = 0.85) +
+# H2a reframed (MIv2 §6.3): drop Reactive/Programmatic colouring; single
+# neutral fill, with the Democracy & Political System bar singled out as a
+# procedural-language artefact (parliamentary phrasing absent from manifestos).
+DPS_BUCKET   <- "Democracy & Political System"
+H2A_NEUTRAL  <- "#264653"
+H2A_HIGHLIGHT<- "#E76F51"
+
+h2a_plot_data <- h2a_summary %>%
+  mutate(bucket = fct_reorder(bucket, mean_contrib),
+         is_dps = bucket == DPS_BUCKET)
+
+bucket_levels <- levels(h2a_plot_data$bucket)
+
+p_h2a <- ggplot(h2a_plot_data,
+                aes(x = mean_contrib, y = bucket, fill = is_dps)) +
+  geom_col(width = 0.7, alpha = 0.9) +
   geom_jitter(
     data = h2a_long %>%
-      inner_join(h2a_summary %>% select(bucket, bucket_type), by = "bucket") %>%
-      mutate(bucket = factor(bucket,
-                             levels = levels(fct_reorder(h2a_summary$bucket,
-                                                          h2a_summary$mean_contrib)))),
-    aes(x = jsd_contrib, y = bucket, colour = bucket_type),
+      mutate(bucket = factor(bucket, levels = bucket_levels),
+             is_dps = bucket == DPS_BUCKET),
+    aes(x = jsd_contrib, y = bucket, colour = is_dps),
     inherit.aes = FALSE,
     height = 0.18, width = 0, size = 1.4, alpha = 0.55
   ) +
-  scale_fill_manual(values = c("Reactive" = "#E76F51", "Programmatic" = "#2A9D8F"),
-                    name = NULL) +
-  scale_colour_manual(values = c("Reactive" = "#A23B22", "Programmatic" = "#1A6F66"),
-                      name = NULL, guide = "none") +
+  geom_text(
+    data = h2a_plot_data %>% filter(is_dps),
+    aes(x = mean_contrib, y = bucket,
+        label = "procedural-language\nartefact"),
+    hjust = -0.05, vjust = 0.5, size = 3, colour = "#A23B22",
+    inherit.aes = FALSE, lineheight = 0.9
+  ) +
+  scale_fill_manual(values = c(`FALSE` = H2A_NEUTRAL, `TRUE` = H2A_HIGHLIGHT),
+                    guide = "none") +
+  scale_colour_manual(values = c(`FALSE` = "#1A3640", `TRUE` = "#A23B22"),
+                      guide = "none") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.18))) +
   labs(
     title    = "H2a — Topic-level salience divergence",
-    subtitle = "Mean per-bucket contribution to JSD; dots = individual (party, LP) cells",
+    subtitle = paste0(
+      "Mean per-bucket contribution to JSD across cells; dots = individual (party, LP) cells.\n",
+      "Procedural and institutional language inflates Democracy & Political System on the\n",
+      "speech side relative to manifestos (genre artefact, see MIv2 §6.3)."
+    ),
     x        = "Mean JSD contribution",
     y        = NULL,
-    caption  = "Reactive = topics whose parliamentary presence is largely event-driven."
+    caption  = paste0(
+      "The Democracy & Political System bar reflects parliamentary procedural-rhetorical\n",
+      "phrasing absent from manifestos rather than substantive divergence on democratic-\n",
+      "political topics. See MIv2 §6.4 for a tightened pre-filter robustness check."
+    )
   ) +
   theme_thesis()
 
@@ -131,37 +144,8 @@ ggsave(file.path(PATHS$fig_dir, "H2a_per_bucket_bar.png"),  p_h2a, width = 8.5, 
 # All shares renormalized within-domain before scoring.
 
 message("\n[H2b] Computing per-domain polarization scores ...")
-
-polarization_score <- function(df_long, party_val, scope_val, scope_col) {
-  full_b <- c(BUCKETS_B, "Andere")
-  d <- df_long %>%
-    filter(.data$party          == .env$party_val,
-           .data[[scope_col]]   == .env$scope_val,
-           bucket %in% full_b)
-
-  norm <- function(x, name) {
-    s <- sum(x$share)
-    if (s <= 0) return(setNames(rep(NA_real_, length(name)), name))
-    setNames(x$share[match(name, x$bucket)], name) / s
-  }
-
-  econ <- d %>% filter(bucket %in% c("Marktliberalismus", "Staatsintervention", "Wirtschaft Allgemein"))
-  welf <- d %>% filter(bucket %in% c("Sozialstaat Ausbau", "Sozialstaat Begrenzung"))
-  migr <- d %>% filter(bucket %in% c("Migration restriktiv", "Migration liberal"))
-  euro <- d %>% filter(bucket %in% c("Pro-EU", "Contra-EU"))
-
-  econ_n <- norm(econ, c("Marktliberalismus", "Staatsintervention"))
-  welf_n <- norm(welf, c("Sozialstaat Begrenzung", "Sozialstaat Ausbau"))
-  migr_n <- norm(migr, c("Migration restriktiv", "Migration liberal"))
-  euro_n <- norm(euro, c("Contra-EU", "Pro-EU"))
-
-  tibble(
-    Economy   = if (anyNA(econ_n)) NA_real_ else unname(econ_n[1] - econ_n[2]),
-    Welfare   = if (anyNA(welf_n)) NA_real_ else unname(welf_n[1] - welf_n[2]),
-    Migration = if (anyNA(migr_n)) NA_real_ else unname(migr_n[1] - migr_n[2]),
-    Europe    = if (anyNA(euro_n)) NA_real_ else unname(euro_n[1] - euro_n[2])
-  )
-}
+# polarization_score is now in 02_helpers.R (single canonical implementation
+# shared with 06_H3.R and 07_H4.R).
 
 sp_pol_rows <- vector("list", nrow(distinct(speech_B, party, lp)))
 for (i in seq_len(nrow(distinct(speech_B, party, lp)))) {
@@ -231,29 +215,53 @@ ggsave(file.path(PATHS$fig_dir, "H2b_polarization_scatter.png"),
        p_h2b, width = 10, height = 8, dpi = 200, bg = "white")
 
 # ============================================================================
-# H2c — Inter-party dispersion of polarization scores
+# H2c — Inter-party dispersion of polarization scores (Dalton-weighted)
+# ----------------------------------------------------------------------------
+# MIv2 §6.6: weighted standard deviation of party position scores, Dalton-
+# style. Speech channel weighted by SEAT_SHARES (per LP); manifesto channel
+# weighted by VOTE_SHARES (per election, projected onto LP via M1 mapping).
 # ============================================================================
-message("\n[H2c] Computing inter-party dispersion ...")
+message("\n[H2c] Computing Dalton-weighted inter-party dispersion ...")
 
+# Speech-side (all 6 parties)
 disp_speech_all <- speech_pol %>%
+  inner_join(SEAT_SHARES, by = c("party", "lp")) %>%
   group_by(lp, domain) %>%
-  summarise(sd_speech_all = sd(speech_pol, na.rm = TRUE), .groups = "drop")
+  summarise(out = list(dalton_polarization(speech_pol, seat_share)),
+            .groups = "drop") %>%
+  unnest(out) %>%
+  transmute(lp, domain, sd_speech_all = polarization)
 
+# Speech-side (excluding AfD)
 disp_speech_noafd <- speech_pol %>%
   filter(party != "AfD") %>%
+  inner_join(SEAT_SHARES, by = c("party", "lp")) %>%
   group_by(lp, domain) %>%
-  summarise(sd_speech_no_afd = sd(speech_pol, na.rm = TRUE), .groups = "drop")
+  summarise(out = list(dalton_polarization(speech_pol, seat_share)),
+            .groups = "drop") %>%
+  unnest(out) %>%
+  transmute(lp, domain, sd_speech_no_afd = polarization)
 
+# Manifesto-side (all 6 parties), projected onto LP via M1 mapping
 disp_manifesto <- manifesto_pol %>%
+  inner_join(VOTE_SHARES, by = c("party", "election_date")) %>%
   inner_join(m1_map, by = "election_date") %>%
   group_by(lp, domain) %>%
-  summarise(sd_manifesto = sd(manifesto_pol, na.rm = TRUE), .groups = "drop")
+  summarise(out = list(dalton_polarization(manifesto_pol, vote_share)),
+            .groups = "drop") %>%
+  unnest(out) %>%
+  transmute(lp, domain, sd_manifesto = polarization)
 
+# Manifesto-side (excluding AfD)
 disp_manifesto_noafd <- manifesto_pol %>%
   filter(party != "AfD") %>%
+  inner_join(VOTE_SHARES, by = c("party", "election_date")) %>%
   inner_join(m1_map, by = "election_date") %>%
   group_by(lp, domain) %>%
-  summarise(sd_manifesto_no_afd = sd(manifesto_pol, na.rm = TRUE), .groups = "drop")
+  summarise(out = list(dalton_polarization(manifesto_pol, vote_share)),
+            .groups = "drop") %>%
+  unnest(out) %>%
+  transmute(lp, domain, sd_manifesto_no_afd = polarization)
 
 h2c_long <- disp_manifesto %>%
   full_join(disp_manifesto_noafd, by = c("lp", "domain")) %>%
@@ -297,10 +305,11 @@ p_h2c <- h2c_long %>%
   facet_wrap(~ domain, scales = "free_y", ncol = 2) +
   labs(
     title    = "H2c — Inter-party dispersion: manifesto vs. speech",
-    subtitle = "SD of party polarization scores per LP, by domain",
+    subtitle = "Dalton-weighted SD of party polarization scores per LP, by domain",
     x        = "Legislative period",
-    y        = "SD of party polarization score",
+    y        = "Weighted SD of party polarization score",
     caption  = paste0(
+      "Manifesto channel weighted by vote share (Dalton standard); speech channel weighted by seat share.\n",
       "AfD entered the Bundestag in LP 19 (2017).\n",
       "Gap between solid and dashed = polarization differential between channels;\n",
       "gap between solid and twodash = AfD's compositional contribution to speech-side dispersion."

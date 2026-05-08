@@ -43,6 +43,9 @@ MANIFESTO_MODE_PRIMARY <- "M1"
 BOOTSTRAP_DRAWS <- 1000L
 BOOTSTRAP_SEED  <- 20260507L
 
+# Minimum speech sentences to include a (party, LP) cell (consistent with compute_jsd.R)
+N_SENT_MIN <- 1000L
+
 # ---- THE 56 MARPOR HANDBOOK 4 CODES ----------------------------------------
 MARPOR_CODES_56 <- c(
   101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
@@ -157,7 +160,217 @@ theme_thesis <- function(base_size = 11) {
     )
 }
 
+# ============================================================================
+# ROBUSTNESS-CHECK CONSTANTS  (MIv2 §3.3, §3.5, §6.4)
+# ============================================================================
+
+# Temperature sweep for the speech-side softmax (MIv2 §3.3).
+# tau < 1 sharpens, tau > 1 flattens. tau = 1 is the model's native output.
+TEMPERATURES <- c(sharp = 0.5, native = 1.0, flat = 2.0)
+TAU_PRIMARY  <- 1.0
+
+# Argmax-with-threshold robustness (MIv2 §3.5). Sentences whose top-1
+# probability is below CONF_THRESHOLD are routed to a residual 'Andere'
+# bucket; otherwise the argmax bucket gets the unit mass.
+CONF_THRESHOLDS <- c(low = 0.4, high = 0.5)
+
+# Tightened pre-filter robustness for H2a (MIv2 §6.4).
+# Note on data-side limitations (decided 2026-05-08, see project memory):
+#   * speaker_role is NOT a column in the parquet — Script_Speechrefinement.R
+#     already filters speaker_role ∈ {mp, government} upstream during corpus
+#     extraction. Presidium/president speech is therefore already excluded
+#     before the parquet is written. drop_speakers_role is kept here for
+#     documentation but is a no-op.
+#   * n_words is NOT a column either; sentence length is computed from the
+#     `sentence` text via lengths(strsplit(sentence, "\\s+")).
+#   * Speeches are already filtered to >= 100 words upstream, so the
+#     per-speech word filter would only marginally trim further. We leave
+#     min_speech_words documented but disable it via drop_short_speeches=FALSE
+#     to keep the filter strictly sentence-level (spec §3.1.3 fallback).
+TIGHT_FILTER <- list(
+  min_words_per_sentence = 8L,
+  drop_speakers_role     = c("presidium", "vice-president", "president"),  # no-op (column missing)
+  drop_short_speeches    = FALSE,                                          # disabled, see comment
+  min_speech_words       = 50L
+)
+
+# ============================================================================
+# OWNERSHIP PRIORS  (MIv2 §6.7 H3a, §6.8 H3b)
+# ============================================================================
+
+# H3a — Salience-side issue ownership (Aggregation A buckets).
+# Multiple ownership claims per party are allowed (e.g. AfD owns both
+# Migration AND Law & Order and National Identity).
+OWNERSHIP_A <- tribble(
+  ~party,    ~bucket_A,
+  "Grüne",   "Environment",
+  "Linke",   "Welfare & Social Policy",
+  "FDP",     "Economy",
+  "AfD",     "Migration",
+  "AfD",     "Law & Order and National Identity",
+  "CDU/CSU", "Economy",
+  "CDU/CSU", "Law & Order and National Identity",
+  "SPD",     "Welfare & Social Policy"
+)
+
+# H3b — Directional-side issue ownership (Aggregation B domains).
+# Europe is intentionally excluded — no party owns the EU domain in the
+# German party system over LP 13–20 (MIv2 §6.8).
+OWNERSHIP_B <- tribble(
+  ~party,    ~domain_B,
+  "FDP",     "Economy",
+  "Linke",   "Welfare",
+  "AfD",     "Migration",
+  "CDU/CSU", "Economy",
+  "SPD",     "Welfare"
+)
+
+stopifnot(all(OWNERSHIP_A$party    %in% PARTIES_KEEP))
+stopifnot(all(OWNERSHIP_A$bucket_A %in% BUCKETS_A))
+stopifnot(all(OWNERSHIP_B$party    %in% PARTIES_KEEP))
+stopifnot(all(OWNERSHIP_B$domain_B %in% DOMAINS_B))
+
+# ============================================================================
+# WEIGHT LOOKUPS  (moved verbatim from 06_H6.R, used by H4 and H3)
+# ----------------------------------------------------------------------------
+# Source: Bundeswahlleiterin (official federal election results) and
+# Deutscher Bundestag (official seat distributions per LP, after corrections).
+# Numbers as percentages at the START of the LP (before any defections).
+# ============================================================================
+
+VOTE_SHARES <- tribble(
+  ~election_date,           ~party,      ~vote_share,
+  # 1994 federal election
+  as.Date("1994-10-16"),    "CDU/CSU",   41.5,
+  as.Date("1994-10-16"),    "SPD",       36.4,
+  as.Date("1994-10-16"),    "FDP",       6.9,
+  as.Date("1994-10-16"),    "Grüne",     7.3,
+  as.Date("1994-10-16"),    "Linke",     4.4,    # PDS
+  as.Date("1994-10-16"),    "AfD",       0,
+  # 1998
+  as.Date("1998-09-27"),    "CDU/CSU",   35.1,
+  as.Date("1998-09-27"),    "SPD",       40.9,
+  as.Date("1998-09-27"),    "FDP",       6.2,
+  as.Date("1998-09-27"),    "Grüne",     6.7,
+  as.Date("1998-09-27"),    "Linke",     5.1,    # PDS
+  as.Date("1998-09-27"),    "AfD",       0,
+  # 2002
+  as.Date("2002-09-22"),    "CDU/CSU",   38.5,
+  as.Date("2002-09-22"),    "SPD",       38.5,
+  as.Date("2002-09-22"),    "FDP",       7.4,
+  as.Date("2002-09-22"),    "Grüne",     8.6,
+  as.Date("2002-09-22"),    "Linke",     4.0,    # PDS, below 5%
+  as.Date("2002-09-22"),    "AfD",       0,
+  # 2005
+  as.Date("2005-09-18"),    "CDU/CSU",   35.2,
+  as.Date("2005-09-18"),    "SPD",       34.2,
+  as.Date("2005-09-18"),    "FDP",       9.8,
+  as.Date("2005-09-18"),    "Grüne",     8.1,
+  as.Date("2005-09-18"),    "Linke",     8.7,    # Linkspartei.PDS
+  as.Date("2005-09-18"),    "AfD",       0,
+  # 2009
+  as.Date("2009-09-27"),    "CDU/CSU",   33.8,
+  as.Date("2009-09-27"),    "SPD",       23.0,
+  as.Date("2009-09-27"),    "FDP",       14.6,
+  as.Date("2009-09-27"),    "Grüne",     10.7,
+  as.Date("2009-09-27"),    "Linke",     11.9,
+  as.Date("2009-09-27"),    "AfD",       0,
+  # 2013
+  as.Date("2013-09-22"),    "CDU/CSU",   41.5,
+  as.Date("2013-09-22"),    "SPD",       25.7,
+  as.Date("2013-09-22"),    "FDP",       4.8,    # below 5%-Hürde
+  as.Date("2013-09-22"),    "Grüne",     8.4,
+  as.Date("2013-09-22"),    "Linke",     8.6,
+  as.Date("2013-09-22"),    "AfD",       4.7,    # below 5%-Hürde, manifesto exists
+  # 2017
+  as.Date("2017-09-24"),    "CDU/CSU",   32.9,
+  as.Date("2017-09-24"),    "SPD",       20.5,
+  as.Date("2017-09-24"),    "FDP",       10.7,
+  as.Date("2017-09-24"),    "Grüne",     8.9,
+  as.Date("2017-09-24"),    "Linke",     9.2,
+  as.Date("2017-09-24"),    "AfD",       12.6,
+  # 2021
+  as.Date("2021-09-26"),    "CDU/CSU",   24.1,
+  as.Date("2021-09-26"),    "SPD",       25.7,
+  as.Date("2021-09-26"),    "FDP",       11.5,
+  as.Date("2021-09-26"),    "Grüne",     14.8,
+  as.Date("2021-09-26"),    "Linke",     4.9,    # below 5% but Grundmandate
+  as.Date("2021-09-26"),    "AfD",       10.3
+)
+
+SEAT_SHARES <- tribble(
+  ~lp, ~party,     ~seat_share,
+  # LP 13 (1994–1998): 672 seats total
+  13, "CDU/CSU",   43.8,
+  13, "SPD",       37.5,
+  13, "FDP",       7.0,
+  13, "Grüne",     7.3,
+  13, "Linke",     4.4,    # PDS, 30 seats
+  13, "AfD",       0,
+  # LP 14 (1998–2002): 669 seats
+  14, "CDU/CSU",   36.6,
+  14, "SPD",       44.5,
+  14, "FDP",       6.3,
+  14, "Grüne",     7.0,
+  14, "Linke",     5.4,    # PDS, 36 seats
+  14, "AfD",       0,
+  # LP 15 (2002–2005): 603 seats — PDS only had 2 direct mandates
+  15, "CDU/CSU",   41.1,
+  15, "SPD",       41.6,
+  15, "FDP",       7.8,
+  15, "Grüne",     9.1,
+  15, "Linke",     0.3,    # PDS 2 Direktmandate, no fraction status
+  15, "AfD",       0,
+  # LP 16 (2005–2009): 614 seats
+  16, "CDU/CSU",   36.8,
+  16, "SPD",       36.2,
+  16, "FDP",       9.9,
+  16, "Grüne",     8.3,
+  16, "Linke",     8.8,
+  16, "AfD",       0,
+  # LP 17 (2009–2013): 622 seats
+  17, "CDU/CSU",   38.4,
+  17, "SPD",       23.5,
+  17, "FDP",       15.0,
+  17, "Grüne",     10.9,
+  17, "Linke",     12.2,
+  17, "AfD",       0,
+  # LP 18 (2013–2017): 631 seats — FDP, AfD out
+  18, "CDU/CSU",   49.3,
+  18, "SPD",       30.6,
+  18, "FDP",       0,
+  18, "Grüne",     10.0,
+  18, "Linke",     10.1,
+  18, "AfD",       0,
+  # LP 19 (2017–2021): 709 seats
+  19, "CDU/CSU",   34.7,
+  19, "SPD",       21.6,
+  19, "FDP",       11.3,
+  19, "Grüne",     9.4,
+  19, "Linke",     9.7,
+  19, "AfD",       13.3,
+  # LP 20 (2021–2025): 736 seats
+  20, "CDU/CSU",   26.6,
+  20, "SPD",       28.0,
+  20, "FDP",       12.5,
+  20, "Grüne",     16.0,
+  20, "Linke",     5.3,
+  20, "AfD",       11.7
+)
+
+stopifnot(all(VOTE_SHARES$party %in% PARTIES_KEEP))
+stopifnot(all(SEAT_SHARES$party %in% PARTIES_KEEP))
+.vs_check <- VOTE_SHARES %>% group_by(election_date) %>%
+  summarise(total = sum(vote_share), .groups = "drop")
+stopifnot(all(.vs_check$total <= 100.5))
+.ss_check <- SEAT_SHARES %>% group_by(lp) %>%
+  summarise(total = sum(seat_share), .groups = "drop")
+stopifnot(all(.ss_check$total <= 100.5))
+rm(.vs_check, .ss_check)
+
 message("[00_config] Configuration loaded. ",
         length(BUCKETS_A), " A-buckets; ",
         length(BUCKETS_B), " B-buckets across ",
-        length(DOMAINS_B), " domains.")
+        length(DOMAINS_B), " domains; ",
+        length(TEMPERATURES), " τ values; ",
+        nrow(OWNERSHIP_A), " H3a + ", nrow(OWNERSHIP_B), " H3b ownership claims.")

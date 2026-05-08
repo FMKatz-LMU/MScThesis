@@ -16,7 +16,7 @@ normalize_party <- function(x) {
   out[grepl("cdu|csu|union", x_low) & !grepl("verband", x_low)] <- "CDU/CSU"
   out[grepl("\\bspd\\b|sozialdemokrat", x_low)]                 <- "SPD"
   out[grepl("\\bfdp\\b|freie demokrat", x_low)]                 <- "FDP"
-  out[grepl("gr[uü]ne|b[uü]ndnis ?90", x_low)]                  <- "Grüne"
+  out[grepl("gr[uü]n|gruen|b[uü]ndnis", x_low)]                  <- "Grüne"
   out[grepl("\\blinke\\b|pds|linkspartei|die linke", x_low)]    <- "Linke"
   out[grepl("\\bafd\\b|alternative.*deutschland", x_low)]       <- "AfD"
 
@@ -160,6 +160,138 @@ temper <- function(prob_mat, tau) {
   log_p <- log(pmax(prob_mat, .Machine$double.eps)) / tau
   e <- exp(log_p - apply(log_p, 1, max))
   e / rowSums(e)
+}
+
+# ----------------------------------------------------------------------------
+# Hard aggregation on the speech side (argmax + threshold rule).
+# Each sentence's full unit mass is routed to its argmax bucket if max-prob
+# >= threshold, otherwise to a residual 'Andere' bucket.
+#
+# Inputs:
+#   prob_mat    — n_sentences x 56 softmax probability matrix
+#                 (columns in MARPOR_CODES_56 order)
+#   lookup      — data frame with `code` and a bucket column
+#   bucket_col  — name of the bucket column in lookup (e.g. "bucket_A")
+#   all_buckets — full ordered vector of bucket names (without Andere)
+#   threshold   — minimum top-1 probability to accept the argmax label
+#
+# Edge cases:
+#   * Rows where the argmax probability equals threshold are accepted (>=).
+#   * Rows whose argmax code is in MARPOR_CODES_56 but is not mapped to any
+#     all_buckets entry (relevant for Aggregation B) go to 'Andere'.
+#
+# Returns a named numeric vector summing to 1 over c(all_buckets, 'Andere').
+# ----------------------------------------------------------------------------
+hard_aggregate <- function(prob_mat, lookup, bucket_col, all_buckets, threshold) {
+  stopifnot(ncol(prob_mat) == 56L)
+  if (nrow(prob_mat) == 0L) {
+    out <- rep(0, length(all_buckets) + 1L)
+    names(out) <- c(all_buckets, "Andere")
+    return(out)
+  }
+  # code -> bucket lookup as named char vector (NA for unmapped codes).
+  code_to_bucket <- setNames(rep(NA_character_, 56L), as.character(MARPOR_CODES_56))
+  for (k in seq_len(nrow(lookup))) {
+    cd <- as.character(lookup$code[k])
+    bk <- lookup[[bucket_col]][k]
+    if (cd %in% names(code_to_bucket) && bk %in% all_buckets)
+      code_to_bucket[cd] <- bk
+  }
+  # Argmax + max-prob.
+  argmax_idx  <- max.col(prob_mat, ties.method = "first")
+  max_prob    <- prob_mat[cbind(seq_len(nrow(prob_mat)), argmax_idx)]
+  argmax_code <- as.character(MARPOR_CODES_56[argmax_idx])
+  assigned    <- code_to_bucket[argmax_code]
+  # Route to Andere if below threshold OR argmax code is unmapped.
+  go_andere   <- is.na(assigned) | max_prob < threshold
+  assigned[go_andere] <- "Andere"
+  out_levels  <- c(all_buckets, "Andere")
+  tab         <- tabulate(match(assigned, out_levels), nbins = length(out_levels))
+  out         <- tab / nrow(prob_mat)
+  names(out)  <- out_levels
+  out
+}
+
+# ----------------------------------------------------------------------------
+# Per-bucket JSD contribution.
+# Decomposes the scalar JSD(p, q) into per-coordinate contributions.
+#   contrib_i = 0.5 * (p_i log(p_i / m_i) + q_i log(q_i / m_i))   with m = (p+q)/2
+# Sum of contributions equals jsd(p, q). Both inputs are renormalized to 1.
+# ----------------------------------------------------------------------------
+per_bucket_jsd <- function(p, q) {
+  stopifnot(length(p) == length(q), !is.null(names(p)), all(names(p) == names(q)))
+  p <- p / sum(p); q <- q / sum(q)
+  m <- 0.5 * (p + q)
+  out <- numeric(length(p)); names(out) <- names(p)
+  for (i in seq_along(p)) {
+    a <- 0
+    if (p[i] > 0 && m[i] > 0) a <- a + 0.5 * p[i] * log2(p[i] / m[i])
+    if (q[i] > 0 && m[i] > 0) a <- a + 0.5 * q[i] * log2(q[i] / m[i])
+    out[i] <- a
+  }
+  out
+}
+
+# ----------------------------------------------------------------------------
+# Polarization score per (party, scope).
+# Promoted from 05_H2.R / 06_H6.R. Single canonical signature.
+#
+# Sign convention (positive = right-coded, market-liberal / restrictive /
+# Eurosceptic / retrenchment):
+#   Economy   = (Marktlib   - Staatsint)  / (Marktlib + Staatsint)
+#               (Wirtschaft Allgemein excluded from the denominator)
+#   Welfare   = (Begrenzung - Ausbau)     / (Begrenzung + Ausbau)
+#   Migration = (restriktiv - liberal)    / (restriktiv + liberal)
+#   Europe    = (Contra-EU  - Pro-EU)     / (Contra-EU  + Pro-EU)
+#
+# Returns NA for a domain when the in-domain mass is zero.
+# ----------------------------------------------------------------------------
+polarization_score <- function(df_long, party_, scope_val, scope_col) {
+  d <- df_long %>%
+    filter(.data$party == party_, .data[[scope_col]] == scope_val,
+           bucket %in% c(BUCKETS_B, "Andere"))
+
+  pull_pair <- function(sub_df, pos_label, neg_label) {
+    s <- sub_df$share[sub_df$bucket == pos_label]
+    n <- sub_df$share[sub_df$bucket == neg_label]
+    s <- if (length(s)) s else 0
+    n <- if (length(n)) n else 0
+    tot <- s + n
+    if (tot <= 0) return(NA_real_)
+    (s - n) / tot
+  }
+
+  econ <- d %>% filter(bucket %in% c("Marktliberalismus", "Staatsintervention"))
+  welf <- d %>% filter(bucket %in% c("Sozialstaat Ausbau", "Sozialstaat Begrenzung"))
+  migr <- d %>% filter(bucket %in% c("Migration restriktiv", "Migration liberal"))
+  euro <- d %>% filter(bucket %in% c("Pro-EU", "Contra-EU"))
+
+  tibble(
+    Economy   = pull_pair(econ, "Marktliberalismus",      "Staatsintervention"),
+    Welfare   = pull_pair(welf, "Sozialstaat Begrenzung", "Sozialstaat Ausbau"),
+    Migration = pull_pair(migr, "Migration restriktiv",   "Migration liberal"),
+    Europe    = pull_pair(euro, "Contra-EU",              "Pro-EU")
+  )
+}
+
+# ----------------------------------------------------------------------------
+# Dalton-style weighted dispersion of position scores.
+# Promoted from 06_H6.R.
+#
+# Inputs: positions (numeric vector), weights (numeric vector, same length).
+# weights are renormalized to sum to 1 after dropping NAs/zeros.
+#   polarization = sqrt( sum_i w_i * (p_i - mu)^2 )  where mu = sum_i w_i * p_i
+# Returns NA polarization if fewer than 2 valid (positions, weights).
+# ----------------------------------------------------------------------------
+dalton_polarization <- function(positions, weights) {
+  ok <- !is.na(positions) & !is.na(weights) & weights > 0
+  if (sum(ok) < 2L)
+    return(tibble(mean_pos = NA_real_, polarization = NA_real_, n_parties = sum(ok)))
+  p <- positions[ok]; w <- weights[ok]
+  w  <- w / sum(w)
+  mu <- sum(w * p)
+  sigma <- sqrt(sum(w * (p - mu)^2))
+  tibble(mean_pos = mu, polarization = sigma, n_parties = sum(ok))
 }
 
 message("[02_helpers] Helpers loaded.")

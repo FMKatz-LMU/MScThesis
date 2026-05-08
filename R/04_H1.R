@@ -27,8 +27,12 @@ sd_list  <- readRDS(file.path(PATHS$cache_dir, "speech_dists.rds"))
 md_list  <- readRDS(file.path(PATHS$cache_dir, "manifesto_dists.rds"))
 mat_list <- readRDS(file.path(PATHS$cache_dir, "speech_prob_matrix.rds"))
 
-speech_A    <- sd_list$A
-speech_B    <- sd_list$B
+# Read primary specification by explicit key (spec §3.4).
+# Falls back to legacy $A / $B shims for backward compatibility.
+.primary_A_key <- sprintf("soft_tau%s__A", format(TAU_PRIMARY, nsmall = 1))
+.primary_B_key <- sprintf("soft_tau%s__B", format(TAU_PRIMARY, nsmall = 1))
+speech_A    <- if (.primary_A_key %in% names(sd_list)) sd_list[[.primary_A_key]] else sd_list$A
+speech_B    <- if (.primary_B_key %in% names(sd_list)) sd_list[[.primary_B_key]] else sd_list$B
 manifesto_A <- md_list$A
 manifesto_B <- md_list$B
 
@@ -114,6 +118,22 @@ for (i in seq_len(nrow(cell_keys))) {
     hi95 <- NA_real_
   }
 
+  # Multinomial bootstrap fallback: large cells with no CI source
+  # (e.g. Linke LP 13-15 — absent from jsd_permutation.rds because
+  # compute_jsd.R excluded PDS before the bootstrap step).
+  if (is.na(lo95) && !is.na(n_sent_cell) && n_sent_cell >= N_SENT_MIN && sum(sv) > 0) {
+    sv_prob <- sv / sum(sv)
+    set.seed(BOOTSTRAP_SEED + i)
+    reps <- numeric(BOOTSTRAP_DRAWS)
+    for (b in seq_len(BOOTSTRAP_DRAWS)) {
+      boot_sv <- as.numeric(rmultinom(1L, n_sent_cell, prob = sv_prob)) / n_sent_cell
+      reps[b] <- jsd(boot_sv, mv)
+    }
+    ci    <- quantile(reps, c(0.025, 0.975), na.rm = TRUE)
+    lo95  <- unname(ci[1])
+    hi95  <- unname(ci[2])
+  }
+
   h1a_rows[[i]] <- tibble(party = pty, lp = lp_i, election_date = ed,
                           jsd = jsd_point, lo95 = lo95, hi95 = hi95,
                           n_sent = n_sent_cell, manifesto_present = TRUE)
@@ -126,6 +146,31 @@ for (i in seq_len(nrow(cell_keys))) {
 
 h1a_tbl <- bind_rows(h1a_rows) %>%
   mutate(party = factor(party, levels = PARTIES_KEEP))
+
+# ---- Exclusion rules (consistent with compute_jsd.R) -----------------------
+excluded_cells <- h1a_tbl %>%
+  filter(
+    (party == "FDP" & lp == 18L) |
+    (!is.na(n_sent) & n_sent < N_SENT_MIN)
+  ) %>%
+  mutate(exclusion_reason = case_when(
+    party == "FDP" & lp == 18L ~
+      "FDP absent from Bundestag LP18 (missed 5% threshold 2013); n_sent are mis-attributions",
+    !is.na(n_sent) & n_sent < N_SENT_MIN ~
+      paste0("n_sent (", n_sent, ") < N_SENT_MIN (", N_SENT_MIN, ")"),
+    TRUE ~ NA_character_
+  ))
+
+if (nrow(excluded_cells) > 0) {
+  message(sprintf("[H1a] Excluding %d cell(s): %s",
+                  nrow(excluded_cells),
+                  paste(paste0(excluded_cells$party, " LP", excluded_cells$lp), collapse = ", ")))
+  write_csv(excluded_cells, file.path(PATHS$out_dir, "excluded_cells.csv"))
+}
+
+h1a_tbl <- h1a_tbl %>%
+  filter(!(party == "FDP" & lp == 18L)) %>%
+  filter(is.na(n_sent) | n_sent >= N_SENT_MIN)
 
 write_csv(h1a_tbl, file.path(PATHS$out_dir, "H1a_jsd_table.csv"))
 
@@ -247,10 +292,25 @@ h1b_pooled <- h1b_long %>%
   mutate(sub_bucket = factor(sub_bucket, levels = names(SUB_COLOURS)),
          source     = factor(source, levels = c("Manifesto", "Speech")))
 
+# Per-party mean overall JSD on B → strip labels (spec §3.4 / MIv2 §6.2).
+party_jsd_strip <- h1b_overall_jsd %>%
+  group_by(party) %>%
+  summarise(mean_jsd_B = mean(jsd_B, na.rm = TRUE), .groups = "drop")
+strip_labels <- setNames(
+  sprintf("%s  (mean JSD = %.3f)",
+          as.character(party_jsd_strip$party), party_jsd_strip$mean_jsd_B),
+  as.character(party_jsd_strip$party)
+)
+
 p_h1b <- h1b_pooled %>%
   ggplot(aes(x = source, y = share_within_domain, fill = sub_bucket)) +
   geom_col(width = 0.7) +
-  facet_grid(rows = vars(party), cols = vars(domain), switch = "y") +
+  # Thin vertical separator between Manifesto (x=1) and Speech (x=2) bars
+  # — the only between-bar position in a 2-bar panel; spec §3.4 describes
+  # separators "dividing topic groups within each panel".
+  geom_vline(xintercept = 1.5, colour = "grey85", linewidth = 0.3) +
+  facet_grid(rows = vars(party), cols = vars(domain), switch = "y",
+             labeller = labeller(party = strip_labels)) +
   scale_fill_manual(values = SUB_COLOURS, name = NULL,
                     guide = guide_legend(nrow = 3)) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1),
@@ -261,7 +321,8 @@ p_h1b <- h1b_pooled %>%
     x = NULL, y = NULL,
     caption  = paste0(
       "Within each panel cell, manifesto and speech bars sum to 100% of mass within the domain (Andere excluded).\n",
-      "M1 mapping. Colours grouped by domain."
+      "Row strip text shows each party's mean overall JSD on Aggregation B across LPs (M1 mapping).\n",
+      "M1 mapping. Colours grouped by domain. Thin vertical separators divide manifesto/speech bars."
     )
   ) +
   theme_thesis() +
