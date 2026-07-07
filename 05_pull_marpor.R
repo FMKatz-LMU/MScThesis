@@ -36,15 +36,24 @@
 library(manifestoR)
 library(data.table)
 
-setwd("S:/RProj_MSc/MScThesis")
-mp_setapikey("manifesto_apikey.txt")
+# WIRING-FIX (2026-07-07): kein setwd() mehr (Alt-Pfad S:/ nach Projektumzug),
+# und die Speech-Spaltennamen kommen nicht mehr aus
+# Data/speech_distributions_party_lp.rds (Henne-Ei: die RDS stammte aus dem
+# alten Diagnose-Skript Data_Check_after_ManifestoBERTa.R und existiert in
+# einem Frischlauf nicht). Stattdessen direkt aus dem Parquet-Schema des
+# klassifizierten Korpus — identisches grep-Muster wie in 07/12.
+source(here::here("00_config.R"))
+mp_setapikey(here::here("manifesto_apikey.txt"))
 
 
 # ---- 1. Reference tables ------------------------------------------------
 
 # Speech-side prob columns (canonical 56-class column names: "NNN - <Label>").
-speech_agg <- readRDS("Data/speech_distributions_party_lp.rds")
-prob_cols  <- grep("^[0-9]{3} - ", names(speech_agg), value = TRUE)
+chunk_files <- list.files(PATHS$parquet_dir, pattern = "\\.parquet$", full.names = TRUE)
+stopifnot("Kein klassifizierter Korpus unter PATHS$parquet_dir — erst 04 laufen lassen" =
+            length(chunk_files) > 0)
+.schema_nms <- arrow::read_parquet(chunk_files[1], as_data_frame = FALSE)$schema$names
+prob_cols   <- grep("^[0-9]{3} - ", .schema_nms, value = TRUE)
 stopifnot(length(prob_cols) == 56)
 
 # Bare 3-digit code -> speech-side column name lookup.
@@ -277,7 +286,7 @@ if (length(missing_cells) > 0) {
   cat("\nCoverage check: all required (party_label, LP) cells present under M1.\n")
 }
 
-saveRDS(manifesto_distributions, "Data/manifesto_distributions.rds")
+saveRDS(manifesto_distributions, here::here("Data", "manifesto_distributions.rds"))
 cat("\nSaved: Data/manifesto_distributions.rds\n")
 
 

@@ -26,14 +26,49 @@ suppressPackageStartupMessages({
 n_cores <- parallel::detectCores()
 data.table::setDTthreads(max(1L, n_cores - 1L))
 
-# CWB-Registry liegt im Projekt (here::here statt getwd(), konsistent mit der Pipeline)
-RcppCWB::cqp_initialize(registry = here::here("cwb", "registry"))
+# ---- 0. CWB-Registry robust initialisieren ----------------------------------
+# Drei klassische Fehlerquellen werden hier explizit abgefangen:
+#   (a) Registry-Ordner fehlt (z.B. im Test-Clone: cwb/ ist gitignored)
+#   (b) HOME-Zeile in der Registry-Datei zeigt auf einen alten Pfad
+#       (Projekt-Umzug S:/ -> C:/) -> Korpus laedt nicht
+#   (c) CQP ist durch library(polmineR) bereits initialisiert ->
+#       cqp_initialize() wirft einen Fehler; dann Registry nur umschalten.
+REGISTRY_DIR <- here::here("cwb", "registry")
+if (!dir.exists(REGISTRY_DIR)) {
+  stop("CWB-Registry nicht gefunden: ", REGISTRY_DIR,
+       "\n  -> Im Testprojekt: REGISTRY_DIR auf das Original zeigen lassen, z.B.\n",
+       "     REGISTRY_DIR <- 'C:/RProj_MSc/MScThesis/cwb/registry'")
+}
+reg_file <- file.path(REGISTRY_DIR, "germaparl2")
+if (file.exists(reg_file)) {
+  home_line <- grep("^HOME", readLines(reg_file, warn = FALSE), value = TRUE)
+  if (length(home_line)) {
+    home_path <- gsub('^HOME\\s+|"', "", home_line[1])
+    if (!dir.exists(home_path)) {
+      stop("Registry-HOME zeigt auf nicht existentes Verzeichnis:\n    ", home_path,
+           "\n  Klassische Umzugs-Falle (S:/ -> C:/). Fix: die HOME-Zeile in\n    ",
+           reg_file, "\n  per Texteditor auf den aktuellen Pfad des indexierten",
+           " Korpus aendern\n  (typisch: <Projekt>/cwb/indexed_corpora/germaparl2).")
+    }
+  }
+} else {
+  stop("Registry-Datei 'germaparl2' fehlt in ", REGISTRY_DIR)
+}
+if (RcppCWB::cqp_is_initialized()) {
+  RcppCWB::cqp_reset_registry(registry = REGISTRY_DIR)
+} else {
+  RcppCWB::cqp_initialize(registry = REGISTRY_DIR)
+}
 
 DATA_DIR <- here::here("Data")
 fs::dir_create(DATA_DIR)
 
 # ---- 1. Reden je Legislaturperiode extrahieren -----------------------------
-stopifnot("GERMAPARL2" %in% polmineR::corpus()$corpus)
+if (!"GERMAPARL2" %in% polmineR::corpus()$corpus) {
+  stop("GERMAPARL2 nicht in der Korpusliste. Registry initialisiert, aber der\n",
+       "  Korpus wird nicht erkannt — HOME-Pfad und INFO-Zeile in ", reg_file,
+       " pruefen,\n  danach R-Session NEU STARTEN (CQP cached die Registry).")
+}
 
 target_lps     <- c(13, 14, 15, 16, 17, 18, 19, 20)
 speeches_by_lp <- list()

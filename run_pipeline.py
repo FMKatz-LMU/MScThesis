@@ -56,11 +56,11 @@ PIPELINE = [
     dict(n=1,  file="01_build_speech_corpus.R",      lang="R",  stage="build",
          mode="auto",    note="braucht GERMAPARL2/CWB (polmineR)"),
     dict(n=2,  file="02_resegment_somajo.py",        lang="py", stage="build",
-         mode="confirm", note="CPU; braucht somajo + pandas; liest all_speeches.csv"),
-    dict(n=3,  file="03_classify_manifestoberta.py", lang="py", stage="build",
-         mode="manual",  note="GPU + transformers, ~Stunden. ManifestoBERTa-Inferenz."),
-    dict(n=4,  file="04_procedural_flag.py",         lang="py", stage="build",
-         mode="confirm", note="CPU; braucht procedural_filter_decisions_v1.csv"),
+         mode="confirm", note="CPU, ~Stunden; braucht somajo + pandas; liest all_speeches.csv -> sentences_somajo.csv"),
+    dict(n=3,  file="03_procedural_flag.py",         lang="py", stage="build",
+         mode="confirm", note="CPU; braucht procedural_filter_decisions_v1.csv; liest sentences_somajo.csv"),
+    dict(n=4,  file="04_classify_manifestoberta.py", lang="py", stage="build",
+         mode="manual",  note="GPU, ~Stunden. ManifestoBERTa 2024-1-1 -> 56-Prob-Parquet-Chunks. Liest sentences_somajo_flagged.csv"),
     dict(n=5,  file="05_pull_marpor.R",              lang="R",  stage="build",
          mode="auto",    note="braucht MARPOR-API-Key (manifestoR)"),
     dict(n=6,  file="06_gold_realign_validate.R",    lang="R",  stage="build",
@@ -74,7 +74,7 @@ PIPELINE = [
     dict(n=10, file="10_train_000.py",               lang="py", stage="build",
          mode="manual",  note=f"GPU gbert-large; venv {GBERT_VENV}; braucht Sonnet-Labels (08)"),
     dict(n=11, file="11_apply_000.py",               lang="py", stage="build",
-         mode="manual",  note=f"GPU gbert-Apply, ~Stunden; venv {GBERT_VENV}; schreibt _000-Korpus"),
+         mode="manual",  note=f"GPU gbert-Apply, ~Stunden; venv {GBERT_VENV}; schreibt _000_exactonly-Korpus"),
     dict(n=12, file="12_aggregate.R",                lang="R",  stage="analysis",
          mode="auto",    note="~6-25 min: streamt _000-Korpus + Bootstrap -> Caches"),
     dict(n=13, file="13_dps_speclock.R",             lang="R",  stage="analysis",
@@ -177,10 +177,8 @@ def ask(prompt, choices):
         return "q"
     while True:
         a = input(prompt).strip().lower()
-        if a == "":
-            if "\n" in choices:   # Enter nur erlaubt, wo explizit angeboten (manual: Enter=erledigt)
-                return "\n"
-            continue              # confirm-Prompts: leeres Enter NICHT als Zustimmung werten
+        if a == "" and "\n" in choices:   # Enter erlaubt
+            return "\n"
         if a in choices:
             return a
 
@@ -211,7 +209,7 @@ def handle_step(step, args):
     # mode == "manual"
     print(paint("  ⏸  MANUELLER SCHRITT — bitte EXTERN ausfuehren:", C.YELLOW))
     print(paint(f"     {cmd_str(step, args)}", C.BOLD))
-    if step["file"] in ("10_train_000.py", "11_apply_000.py"):
+    if step["file"] in ("04_classify_manifestoberta.py", "10_train_000.py", "11_apply_000.py"):
         print(paint(f"     (zuerst venv aktivieren: {GBERT_VENV}\\Scripts\\activate)", C.DIM))
     if step["file"] == "08_control_sonnet.py":
         print(paint("     (ANTHROPIC_API_KEY setzen; kostet API-Credits)", C.DIM))
@@ -245,16 +243,6 @@ def main():
     if shutil.which(args.rscript) is None and any(s["lang"] == "R" for s in steps) and not args.dry_run:
         print(paint(f"\nWARNUNG: '{args.rscript}' nicht im PATH gefunden — R-Schritte werden scheitern.\n"
                     f"  -> R installieren oder --rscript C:/Pfad/zu/Rscript.exe angeben.", C.RED))
-
-    # --- Pre-flight: install missing R packages --------------------------------
-    if any(s["lang"] == "R" for s in steps) and not args.dry_run:
-        deps_script = os.path.join(args.root, "00_install_deps.R")
-        if os.path.exists(deps_script):
-            banner("R-Abhaengigkeiten pruefen / installieren", C.CYAN)
-            res = subprocess.run([args.rscript, deps_script], cwd=args.root)
-            if res.returncode != 0:
-                print(paint("FEHLER: R-Paketinstallation fehlgeschlagen — abgebrochen.", C.RED))
-                return 1
 
     done, skipped = [], []
     for s in steps:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-04_procedural_flag.py — Prozedursatz-Filter v2 (EXACT-ONLY) auf den SoMaJo-Korpus.
+03_procedural_flag.py — Prozedursatz-Filter v2 (EXACT-ONLY) auf den SoMaJo-Korpus.
 
 MERGE (pipeline reorg 2026-06): vereint die bisherigen zwei Dateien
   * procedural_rules.py  (Normalisierung + DORMANTE Regelschicht)
@@ -21,7 +21,7 @@ Flag, don't drop: Es wird NICHTS entfernt. Jeder Satz bekommt drei Zusatzspalten
   is_procedural  : 0/1
   proc_class     : anrede | dank_schluss | prozedural | interjektion | gliederung | ""
   proc_source    : exact (Top-500-Liste) | ""        (in v2 nie "rule")
-ManifestoBERTa klassifiziert anschliessend ALLE Saetze; der Filter wird erst bei
+ManifestoBERTa (Schritt 04) klassifiziert anschliessend ALLE Saetze; der Filter wird erst bei
 der Aggregation angewandt (gefiltert = primaer, ungefiltert = Robustheit).
 
 Benoetigt im selben Ordner: procedural_filter_decisions_v1.csv
@@ -30,7 +30,7 @@ Benoetigt im selben Ordner: procedural_filter_decisions_v1.csv
 VERSION: v2 (2026-06-18, exact-only). v1 (2026-06-12) = exact+rule.
 
 Aufruf:
-  python 04_procedural_flag.py --in Data/sentences_somajo.csv ^
+  python 03_procedural_flag.py --in Data/sentences_somajo.csv ^
       --out Data/sentences_somajo_flagged.csv ^
       --decisions procedural_filter_decisions_v1.csv ^
       --stats results/procedural_flag_stats.csv
@@ -75,7 +75,7 @@ def normalize(s):
 
 # ================================================================================
 # DORMANT ab v2 — nur noch fuer den optionalen exact+rule-Robustness-Arm.
-# Der Korpus-Flagger (unten, Teil 2) ruft rule_layer_class NICHT auf.
+# flag_procedural.py (v2) ruft rule_layer_class NICHT auf.
 # ================================================================================
 
 # ------------------------------------------------------- Segment-Klassen ----

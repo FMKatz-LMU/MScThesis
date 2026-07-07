@@ -2,7 +2,7 @@
 # =============================================================================
 #  11_apply_000.py — 000-Filter auf den vollen Korpus anwenden
 # -----------------------------------------------------------------------------
-#  Laedt das in 10_train_000.py finetunte Modell (model_000_gbert/) und
+#  Laedt das in 19_train_000_text.py finetunte Modell (model_000_gbert/) und
 #  laeuft ueber die 576 v2-Chunks. Schreibt pro Satz:
 #     p_000   float  — Wahrscheinlichkeit der 000-Klasse (nicht codierbar)
 #     is_000  bool   — p_000 >= THRESHOLD
@@ -32,9 +32,13 @@ import pandas as pd
 # ---------------------------------------------------------------------------
 # 0) KONFIGURATION   (PROJECT_ROOT analog zu 00_config.R)
 # ---------------------------------------------------------------------------
-PROJECT_ROOT = r"C:/RProj_MSc/MScThesis"
+# PROJECT_ROOT: env-Variable MSC_PROJECT_ROOT gewinnt (Testprojekt!), sonst Default.
+PROJECT_ROOT = os.environ.get("MSC_PROJECT_ROOT", r"C:/RProj_MSc/MScThesis")
 CHUNK_DIR    = os.path.join(PROJECT_ROOT, "Data", "sentences_classified_v2")
-OUT_DIR      = CHUNK_DIR + "_000"               # Schwester-Verzeichnis, gleiche Dateinamen
+OUT_DIR      = CHUNK_DIR + "_000_exactonly"     # Schwester-Verzeichnis, gleiche Dateinamen.
+#   Name "_000_exactonly": seit dem Reorg flaggt 03 exact-only AB QUELLE (der
+#   fruehere reflag-Patch entfaellt). Der Name matcht .PARQUET_DIR_000_OVERRIDE
+#   in 00_config.R, damit 12 den Output ohne Umkonfiguration findet.
 MODEL_DIR    = "model_000_gbert"
 
 THRESHOLD    = 0.5            # is_000 = p_000 >= THRESHOLD (p_000 wird mitgeschrieben)
@@ -57,7 +61,7 @@ def load_model():
     import torch
     from transformers import AutoTokenizer, AutoModelForSequenceClassification
     if not os.path.isdir(MODEL_DIR):
-        sys.exit(f"FEHLER: Modellordner '{MODEL_DIR}' fehlt. Erst 10_train_000.py laufen lassen.")
+        sys.exit(f"FEHLER: Modellordner '{MODEL_DIR}' fehlt. Erst 19_train_000_text.py laufen lassen.")
     cfg_path = os.path.join(MODEL_DIR, "filter_config.json")
     cfg = json.load(open(cfg_path)) if os.path.exists(cfg_path) else {}
     max_len     = int(cfg.get("max_len", DEFAULT_MAX_LEN))
@@ -180,7 +184,7 @@ def main():
     print("------------------------------------------------------------------")
     print("SANITY: is_000-Rate sollte grob bei ~0,22 liegen (Korpus-000-Anteil).")
     print("        Stark daneben -> Modell/Eingabe pruefen (Segment A=Satz, B=Kontext).")
-    print("NAECHSTER SCHRITT (R-Pipeline): in 12_aggregate.R den v2_000-Pfad")
+    print("NAECHSTER SCHRITT (R-Pipeline): in 03_load_and_aggregate.R den v2_000-Pfad")
     print("        einlesen und VOR der Aggregation auf is_000==FALSE filtern; dann")
     print("        H1a-JSD mit/ohne Filter vergleichen und pruefen, ob die surgische")
     print("        305-Exklusion neben dem 000-Filter noch noetig ist (oder doppelt zaehlt).")
