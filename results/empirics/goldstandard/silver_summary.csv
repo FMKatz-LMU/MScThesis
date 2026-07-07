@@ -1,0 +1,8 @@
+"metric","value"
+"kappa_A_incl000",0.5561
+"kappa_A_codeable",0.5313
+"agree_A_codeable",0.589
+"kappa_B_domain",0.3218
+"n_matched",259
+"n_codeable",236
+"ManifestoBERTa_kappa_A",0.63

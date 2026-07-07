@@ -34,7 +34,7 @@ PATHS <- list(
   agg_B_manifesto = file.path(PROJECT_ROOT, "Data/agg_B_manifesto.rds"),
   jsd_permutation = file.path(PROJECT_ROOT, "Data/jsd_permutation.rds"),
   # v2 classified parquet (SoMaJo re-segmented + procedural-flagged) — the
-  # PRIMARY corpus streamed by 12_aggregate.R.
+  # PRIMARY corpus streamed by 03_load_and_aggregate.R.
   parquet_dir     = file.path(PROJECT_ROOT, "Data/sentences_classified_v2"),
   # Output directories
   out_dir         = file.path(PROJECT_ROOT, "results/empirics"),
@@ -90,7 +90,7 @@ N_SENT_MIN <- 1000L
 #             residual non-codeables still leak into 305, and genuine procedural
 #             floor language (Political Authority) remains. The surgical 305-only
 #             exclusion is therefore the PRIMARY correction ON TOP of filtered_000,
-#             not a robustness arm. Corroborated by 13 PART 2 (residual 305 excess
+#             not a robustness arm. Corroborated by 11 PART 2 (residual 305 excess
 #             persists on filtered_000) and PART 3 (low gold-305 precision). "incl"
 #             on filtered_000 = the filter-only robustness arm. For the directional
 #             layer (scheme B: H1b/H2b/H2c/H3) code 305 is residual ("Andere") and
@@ -105,7 +105,7 @@ FILTER_PRIMARY   <- "filtered_000"
 # (disproportionately code 305). The manifesto side is already 000-free (MARPOR
 # drops uncoded quasi-sentences, then renormalises). filtered_000 restores that
 # symmetry: a sentence is dropped when is_procedural OR is_000 is TRUE (union).
-# p_000/is_000 are written per sentence by 11_apply_000.py. 12 re-derives
+# p_000/is_000 are written per sentence by 20_apply_000_text.py. 03 re-derives
 # the boolean from the stored p_000 at this threshold, so the cutoff is an
 # R-side knob (no GPU re-run needed to change it). 0.50 = validated operating
 # point (CV/holdout: deflation ≈ oracle, flag rate ≈ true null-class rate).
@@ -120,7 +120,7 @@ CODE305_PRIMARY_H1A_H2A <- "excl"   # PRIMARY. filtered_000 removes the 305
                                     # 305 remains), so the surgical 305-only
                                     # exclusion sits ON TOP of filtered_000.
                                     # Pre-committed via 10 (excl removes a non-
-                                    # trivial residual DPS share) + 13 PART 2/3.
+                                    # trivial residual DPS share) + 11 PART 2/3.
 CODE305_PRIMARY_DEFAULT <- "incl"   # all other hypotheses
 
 # The MARPOR code the 305-only exclusion removes, and the A/B bucket carrying it
@@ -267,7 +267,7 @@ CONF_THRESHOLDS <- c(low = 0.4, high = 0.5)
 
 # Tightened pre-filter robustness for H2a (MIv2 §6.4).
 # Note on data-side limitations (decided 2026-05-08, see project memory):
-#   * speaker_role is NOT a column in the parquet — 01_build_speech_corpus.R
+#   * speaker_role is NOT a column in the parquet — Script_Speechrefinement.R
 #     already filters speaker_role ∈ {mp, government} upstream during corpus
 #     extraction. Presidium/president speech is therefore already excluded
 #     before the parquet is written. drop_speakers_role is kept here for
@@ -291,7 +291,7 @@ TIGHT_FILTER <- list(
 # cut from the design; OWNERSHIP_A/OWNERSHIP_B and the old 06 script that used
 # them are gone. Nothing in 02/03 or 04-11 references them.
 # ============================================================================
-# WEIGHT LOOKUPS  (used by H2c in 15 and by H3 in 16_H3.R)
+# WEIGHT LOOKUPS  (used by H2c in 05 and by H3 in 06_H3.R)
 # ----------------------------------------------------------------------------
 # Source: Bundeswahlleiterin (official federal election results) and
 # Deutscher Bundestag (official seat distributions per LP, after corrections).
@@ -704,7 +704,7 @@ drop_305_from_buckets <- function(v, p305, bucket305) {
 
 # ----------------------------------------------------------------------------
 # Polarization score per (party, scope).
-# Promoted from 15_H2.R / 16_H3.R. Single canonical signature.
+# Promoted from 05_H2.R / 06_H6.R. Single canonical signature.
 #
 # Sign convention (positive = right-coded, market-liberal / restrictive /
 # Eurosceptic / retrenchment):
@@ -746,7 +746,7 @@ polarization_score <- function(df_long, party_, scope_val, scope_col) {
 
 # ----------------------------------------------------------------------------
 # Dalton-style weighted dispersion of position scores.
-# Promoted from 16_H3.R.
+# Promoted from 06_H6.R.
 #
 # Inputs: positions (numeric vector), weights (numeric vector, same length).
 # weights are renormalized to sum to 1 after dropping NAs/zeros.

@@ -1,0 +1,11 @@
+class,support,precision,recall,f1
+Nicht zuordenbar (000),2289,,0,
+Welfare & Social Policy,1737,0.744,0.539,0.625
+Economy,1707,0.668,0.61,0.638
+Democracy & Political System,1490,0.312,0.848,0.456
+Foreign Policy & Defence,981,0.764,0.677,0.718
+Environment,531,0.757,0.627,0.686
+Law & Order and National Identity,435,0.435,0.572,0.495
+Social Groups,335,0.318,0.681,0.434
+European Integration,272,0.643,0.636,0.64
+Migration,223,0.446,0.534,0.486

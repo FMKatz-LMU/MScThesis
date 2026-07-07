@@ -1,0 +1,4 @@
+metric,n,value
+kappa_A_raw_incl_notassignable,259,0.57
+kappa_A_codeable_only,236,0.635
+soft_agreement_mass_on_human_bucket,236,0.582

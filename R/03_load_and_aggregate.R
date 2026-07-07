@@ -42,7 +42,7 @@ suppressPackageStartupMessages({
 # matrix in memory and saves it to speech_prob_matrix.rds for use by H1a's
 # proper sentence-level bootstrap. ~432 MB at 6M sentences. Default FALSE;
 # H1a falls back to jsd_permutation.rds when this is FALSE.
-BUILD_BUCKET_MATRIX <- FALSE
+BUILD_BUCKET_MATRIX <- TRUE
 
 # ---- Lookup tables ---------------------------------------------------------
 # Manifesto party_label (from pull_marpor_align.R) -> PARTIES_KEEP
@@ -432,7 +432,7 @@ if (BUILD_BUCKET_MATRIX) {
   bucket_mat <- do.call(rbind, bucket_mat_chunks)
   cell_meta  <- do.call(rbind, cell_meta_chunks)
   cell_meta$.row <- seq_len(nrow(cell_meta))
-  saveRDS(list(bucket_mat = bucket_mat, cell_meta = cell_meta),
+  saveRDS(list(prob_mat = bucket_mat, cells = cell_meta),
           file.path(PATHS$cache_dir, "speech_prob_matrix.rds"))
   message(sprintf("[03] Saved speech_prob_matrix.rds (%s rows)",
                   format(nrow(bucket_mat), big.mark = ",")))

@@ -1,0 +1,6 @@
+Klasse,Maß,original,remap_305_000,Delta
+Nicht zuordenbar (000),Recall,0,0.542,0.542
+Nicht zuordenbar (000),F1,,0.519,
+Democracy & Political System,Precision,0.312,0.484,0.172
+Democracy & Political System,Recall,0.848,0.507,-0.341
+Democracy & Political System,F1,0.456,0.495,0.039

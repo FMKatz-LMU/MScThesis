@@ -1,0 +1,501 @@
+rank,count,normalized_form,typology,example
+1,37151,liebe kolleginnen und kollegen,anrede,Liebe Kolleginnen und Kollegen!
+2,34144,herr <name>,anrede,Herr Präsident!
+3,33384,frau <name>,anrede,Frau Präsidentin!
+4,28819,vielen dank,dank_schluss,Vielen Dank.
+5,21752,meine damen und herren,anrede,Meine Damen und Herren!
+6,13026,sehr geehrte frau <name>,anrede,Sehr geehrte Frau Präsidentin!
+7,12950,herzlichen dank,dank_schluss,Herzlichen Dank.
+8,11470,sehr geehrter herr <name>,anrede,Sehr geehrter Herr Rexrodt!
+9,10248,meine sehr verehrten damen und herren,anrede,Meine sehr verehrten Damen und Herren!
+10,9124,zweitens,gliederung,Zweitens.
+11,7984,danke schön,dank_schluss,Danke schön.
+12,6951,meine sehr geehrten damen und herren,anrede,Meine sehr geehrten Damen und Herren!
+13,5307,drittens,gliederung,Drittens.
+14,5166,sehr geehrte damen und herren,anrede,Sehr geehrte Damen und Herren!
+15,4423,erstens,gliederung,Erstens.
+16,4051,danke,dank_schluss,Danke.
+17,3508,ich danke ihnen,dank_schluss,Ich danke Ihnen.
+18,2994,ja,interjektion,Ja.
+19,2960,verehrte kolleginnen und kollegen,anrede,Verehrte Kolleginnen und Kollegen!
+20,2705,liebe kollegen,anrede,Liebe Kollegen!
+21,2417,sehr geehrte kolleginnen und kollegen,anrede,Sehr geehrte Kolleginnen und Kollegen!
+22,2297,liebe kolleginnen,anrede,Liebe Kolleginnen!
+23,2152,vielen dank für ihre aufmerksamkeit,dank_schluss,Vielen Dank für Ihre Aufmerksamkeit.
+24,2127,meine lieben kolleginnen und kollegen,anrede,Meine lieben Kolleginnen und Kollegen!
+25,2064,viertens,gliederung,Viertens.
+26,1992,werte kolleginnen und kollegen,anrede,Werte Kolleginnen und Kollegen!
+27,1875,"vielen dank, frau <name>",dank_schluss,"Vielen Dank, Frau Präsidentin."
+28,1870,nein,interjektion,Nein.
+29,1822,"vielen dank, herr <name>",dank_schluss,"Vielen Dank, Herr Präsident!"
+30,1562,ich komme zum schluss,dank_schluss,Ich komme zum Schluss.
+31,1487,warum,BEHALTEN,Warum?
+32,1451,schönen dank,dank_schluss,Schönen Dank.
+33,1301,kolleginnen und kollegen,anrede,Kolleginnen und Kollegen!
+34,1157,vielen dank für die aufmerksamkeit,dank_schluss,Vielen Dank für die Aufmerksamkeit.
+35,1116,meine sehr verehrten kolleginnen und kollegen,anrede,Meine sehr verehrten Kolleginnen und Kollegen!
+36,1074,herzlichen dank für ihre aufmerksamkeit,dank_schluss,Herzlichen Dank für Ihre Aufmerksamkeit.
+37,921,fünftens,gliederung,Fünftens.
+38,918,herzlichen dank für die aufmerksamkeit,dank_schluss,Herzlichen Dank für die Aufmerksamkeit.
+39,894,das ist die wahrheit,BEHALTEN,Das ist die Wahrheit.
+40,847,vielen herzlichen dank,dank_schluss,Vielen herzlichen Dank.
+41,845,gerne,prozedural,Gerne.
+42,799,ich bedanke mich,dank_schluss,Ich bedanke mich..
+43,739,das ist richtig,BEHALTEN,Das ist richtig.
+44,694,ich danke ihnen für ihre aufmerksamkeit,dank_schluss,Ich danke Ihnen für Ihre Aufmerksamkeit.
+45,684,ich danke für ihre aufmerksamkeit,dank_schluss,Ich danke für Ihre Aufmerksamkeit.
+46,638,verehrte frau <name>,anrede,Verehrte Frau Präsidentin Vollmer!
+47,636,"ja, bitte",prozedural,"Ja, bitte."
+48,632,bitte,prozedural,Bitte.
+49,606,bitte schön,prozedural,— Bitte schön.
+50,606,meine herren,anrede,Meine Herren!
+51,585,"ja, gerne",prozedural,"Ja, gerne."
+52,585,sehr verehrte frau <name>,anrede,Sehr verehrte Frau Präsidentin!
+53,545,danke sehr,dank_schluss,Danke sehr.
+54,517,liebe gäste,anrede,Liebe Gäste!
+55,510,ich bedanke mich für ihre aufmerksamkeit,dank_schluss,Ich bedanke mich für Ihre Aufmerksamkeit.
+56,473,das wollen wir nicht,BEHALTEN,Das wollen wir nicht.
+57,470,darum geht es,BEHALTEN,Darum geht es.
+58,451,meine sehr geehrten kolleginnen und kollegen,anrede,Meine sehr geehrten Kolleginnen und Kollegen!
+59,451,liebe frau <name>,anrede,Liebe Frau Beer!
+60,435,ich danke ihnen für die aufmerksamkeit,dank_schluss,Ich danke Ihnen für die Aufmerksamkeit.
+61,434,zweiter punkt,gliederung,Zweiter Punkt.
+62,433,das ist die realität,BEHALTEN,Das ist die Realität!
+63,425,das geht nicht,BEHALTEN,Das geht nicht.
+64,413,sechstens,gliederung,Sechstens.
+65,413,selbstverständlich,interjektion,Selbstverständlich!
+66,408,das ist gut so,BEHALTEN,Das ist gut so.
+67,408,ich danke für die aufmerksamkeit,dank_schluss,Ich danke für die Aufmerksamkeit.
+68,408,sehr verehrte damen und herren,anrede,Sehr verehrte Damen und Herren!
+69,405,werte kollegen,anrede,Werte Kollegen!
+70,401,das gegenteil ist der fall,BEHALTEN,Das Gegenteil ist der Fall.
+71,381,sehr geehrte präsidentin,anrede,Sehr geehrte Präsidentin!
+72,375,das ist das problem,BEHALTEN,Das ist das Problem.
+73,369,sehr geehrte kollegen,anrede,Sehr geehrte Kollegen!
+74,361,nichts,interjektion,Nichts!
+75,361,meine kolleginnen und kollegen,anrede,Meine Kolleginnen und Kollegen!
+76,358,ich bedanke mich für die aufmerksamkeit,dank_schluss,Ich bedanke mich für die Aufmerksamkeit.
+77,358,"danke, herr <name>",dank_schluss,"Danke, Herr Präsident Hirsch."
+78,356,das ist falsch,BEHALTEN,Das ist falsch.
+79,348,fehlanzeige,BEHALTEN,Fehlanzeige!
+80,336,liebe kollegen und kolleginnen,anrede,Liebe Kollegen und Kolleginnen!
+81,331,meine verehrten kolleginnen und kollegen,anrede,Meine verehrten Kolleginnen und Kollegen!
+82,327,"so weit, so gut",BEHALTEN,"So weit, so gut."
+83,321,meine damen,anrede,Meine Damen!
+84,316,worum geht es,BEHALTEN,Worum geht es?
+85,313,sehr verehrte kolleginnen und kollegen,anrede,Sehr verehrte Kolleginnen und Kollegen!
+86,307,ganz herzlichen dank,dank_schluss,Ganz herzlichen Dank.
+87,305,das ist der richtige weg,BEHALTEN,Das ist der richtige Weg.
+88,302,geschätzte kolleginnen und kollegen,anrede,Geschätzte Kolleginnen und Kollegen!
+89,296,bitte sehr,prozedural,Bitte sehr.
+90,296,"danke, frau <name>",dank_schluss,"Danke, Frau Präsidentin."
+91,290,verehrter herr <name>,anrede,Verehrter Herr Präsident!
+92,290,das ist gut,BEHALTEN,Das ist gut.
+93,285,danke für die aufmerksamkeit,dank_schluss,Danke für die Aufmerksamkeit.
+94,280,gut,interjektion,Gut.
+95,278,das ist der entscheidende punkt,BEHALTEN,Das ist der entscheidende Punkt.
+96,277,sehr gerne,prozedural,Sehr gerne.
+97,276,meine damen und herren kollegen,anrede,Meine Damen und Herren Kollegen!
+98,273,sehr verehrter herr <name>,anrede,Sehr verehrter Herr Präsident!
+99,269,genau,interjektion,-- Genau.
+100,268,besten dank,dank_schluss,Besten Dank.
+101,268,verehrte damen und herren,anrede,Verehrte Damen und Herren!
+102,264,das ist der punkt,BEHALTEN,Das ist der Punkt.
+103,257,das stimmt,BEHALTEN,Das stimmt.
+104,254,herzlichen dank dafür,dank_schluss,Herzlichen Dank dafür!
+105,253,das ist der unterschied,BEHALTEN,Das ist der Unterschied.
+106,248,das darf nicht sein,BEHALTEN,Das darf nicht sein.
+107,243,das ist wichtig,BEHALTEN,Das ist wichtig.
+108,241,das ist so,BEHALTEN,— Das ist so.
+109,240,"vielen dank, meine damen und herren",dank_schluss,"Vielen Dank, meine Damen und Herren."
+110,239,was heißt das,BEHALTEN,Was heißt das?
+111,239,glück auf,dank_schluss,Glück auf!
+112,237,meine sehr verehrten damen,anrede,Meine sehr verehrten Damen!
+113,235,ich danke,dank_schluss,Ich danke.
+114,233,dritter punkt,gliederung,Dritter Punkt.
+115,227,das ist auch gut so,BEHALTEN,Das ist auch gut so.
+116,213,das ist nicht der fall,BEHALTEN,Das ist nicht der Fall.
+117,212,natürlich,interjektion,— Natürlich.
+118,212,das ist nicht in ordnung,BEHALTEN,Das ist nicht in Ordnung.
+119,210,der zweite punkt,gliederung,Der zweite Punkt.
+120,210,warum ist das so,BEHALTEN,Warum ist das so?
+121,209,das kann nicht sein,BEHALTEN,Das kann nicht sein.
+122,202,erster punkt,gliederung,Erster Punkt.
+123,200,danke für ihre aufmerksamkeit,dank_schluss,Danke für Ihre Aufmerksamkeit.
+124,197,ich komme zum ende,dank_schluss,Ich komme zum Ende.
+125,197,ein weiterer punkt,gliederung,Ein weiterer Punkt.
+126,197,das ist der falsche weg,BEHALTEN,Das ist der falsche Weg.
+127,196,richtig,interjektion,Richtig!
+128,196,gern,prozedural,Gern.
+129,195,"ja, natürlich",interjektion,"Ja, natürlich."
+130,195,vielen dank dafür,dank_schluss,Vielen Dank dafür!
+131,194,das ist ein skandal,BEHALTEN,Das ist ein Skandal.
+132,193,zum zweiten,gliederung,Zum zweiten.
+133,192,letzter punkt,gliederung,Letzter Punkt.
+134,190,liebe zuhörerinnen und zuhörer,anrede,Liebe Zuhörerinnen und Zuhörer!
+135,187,siebtens,gliederung,Siebtens.
+136,187,zum schluss,dank_schluss,Zum Schluss.
+137,186,das muss sich ändern,BEHALTEN,Das muss sich ändern.
+138,185,"ja, selbstverständlich",interjektion,"Ja, selbstverständlich."
+139,184,lieber herr <name>,anrede,Lieber Herr Kollege Pinger!
+140,183,das ist unser ziel,BEHALTEN,Das ist unser Ziel.
+141,180,so einfach ist das,BEHALTEN,So einfach ist das.
+142,178,okay,interjektion,— Okay.
+143,174,doch,interjektion,— Doch.
+144,172,ich komme zum schluß,dank_schluss,Ich komme zum Schluß.
+145,171,aber gerne,prozedural,Aber gerne.
+146,171,liebe bürgerinnen und bürger,anrede,Liebe Bürgerinnen und Bürger!
+147,170,das ist das entscheidende,BEHALTEN,Das ist das Entscheidende.
+148,169,"herzlichen dank, herr <name>",dank_schluss,"Herzlichen Dank, Herr Präsident."
+149,163,das lehnen wir ab,BEHALTEN,Das lehnen wir ab.
+150,160,so geht es nicht,BEHALTEN,So geht es nicht.
+151,159,vielen dank. - herr <name>,dank_schluss,Vielen Dank. - Herr Präsident!
+152,157,herzlichen glückwunsch,dank_schluss,Herzlichen Glückwunsch.
+153,156,das ist die situation,BEHALTEN,Das ist die Situation.
+154,156,"danke schön, herr <name>",dank_schluss,"Danke schön, Herr Präsident."
+155,155,das ist unverantwortlich,BEHALTEN,Das ist unverantwortlich.
+156,154,das ist unsere aufgabe,BEHALTEN,Das ist unsere Aufgabe.
+157,154,was bedeutet das,BEHALTEN,Was bedeutet das?
+158,153,das stimmt nicht,BEHALTEN,Das stimmt nicht.
+159,152,liebe zuschauerinnen und zuschauer,anrede,Liebe Zuschauerinnen und Zuschauer!
+160,152,liebe zuschauer,anrede,Liebe Zuschauer!
+161,151,das machen wir nicht mit,BEHALTEN,Das machen wir nicht mit.
+162,151,was machen sie,BEHALTEN,Was machen Sie?
+163,150,das müssen wir ändern,BEHALTEN,Das müssen wir ändern.
+164,149,das ist das eine,BEHALTEN,— Das ist das eine.
+165,149,recht hat er,BEHALTEN,Recht hat er.
+166,147,"herzlichen dank, frau <name>",dank_schluss,"Herzlichen Dank, Frau Kollegin."
+167,146,das ist der erste punkt,BEHALTEN,— Das ist der erste Punkt.
+168,145,"nein, danke",dank_schluss,"Nein, danke."
+169,145,das passt nicht zusammen,BEHALTEN,Das passt nicht zusammen.
+170,145,liebe kolleginnen und kolle gen,anrede,Liebe Kolleginnen und Kolle gen!
+171,144,das geht so nicht,BEHALTEN,Das geht so nicht.
+172,144,verehrte kollegen,anrede,Verehrte Kollegen!
+173,142,das ist wahr,BEHALTEN,Das ist wahr.
+174,141,sehr geehrte damen und herren abgeordnete,anrede,Sehr geehrte Damen und Herren Abgeordnete!
+175,140,das ist gar keine frage,BEHALTEN,Das ist gar keine Frage.
+176,140,aber selbstverständlich,interjektion,Aber selbstverständlich.
+177,140,ein letzter punkt,gliederung,Ein letzter Punkt.
+178,140,werte frau <name>,anrede,Werte Frau Präsidentin!
+179,139,meine sehr geehrten herren und damen,anrede,Meine sehr geehrten Herren und Damen!
+180,138,so ist es,interjektion,So ist es.
+181,136,das ist überhaupt keine frage,BEHALTEN,Das ist überhaupt keine Frage.
+182,136,"guten morgen, herr <name>",anrede,"Guten Morgen, Herr Präsident!"
+183,135,das ist völlig klar,BEHALTEN,Das ist völlig klar.
+184,134,entschuldigung,prozedural,Entschuldigung!
+185,134,was ist passiert,BEHALTEN,Was ist passiert?
+186,133,das ist ganz wichtig,BEHALTEN,Das ist ganz wichtig.
+187,130,das wissen sie,BEHALTEN,Das wissen Sie.
+188,130,recht herzlichen dank,dank_schluss,Recht herzlichen Dank.
+189,130,punkt,interjektion,Punkt!
+190,130,sehr geehrte gäste,anrede,Sehr geehrte Gäste!
+191,128,vielen dank. - frau <name>,dank_schluss,Vielen Dank. - Frau Präsidentin!
+192,127,das wissen wir,BEHALTEN,Das wissen wir.
+193,127,sehr geehrter präsident,anrede,Sehr geehrter Präsident!
+194,127,das ist ihre politik,BEHALTEN,Das ist Ihre Politik.
+195,127,woran liegt das,BEHALTEN,Woran liegt das?
+196,125,das ist doch absurd,BEHALTEN,Das ist doch absurd.
+197,125,sehr verehrte kolleginnen,anrede,Sehr verehrte Kolleginnen!
+198,123,"ich komme zum schluss, herr <name>",dank_schluss,"Ich komme zum Schluss, Herr Präsident."
+199,122,dem ist nichts hinzuzufügen,BEHALTEN,Dem ist nichts hinzuzufügen.
+200,121,und warum,BEHALTEN,Und warum?
+201,121,das ist klar,BEHALTEN,Das ist klar.
+202,121,das ist doch die wahrheit,BEHALTEN,Das ist doch die Wahrheit!
+203,120,"liebe kolleginnen, liebe kollegen",anrede,"Liebe Kolleginnen, liebe Kollegen!"
+204,120,das sind die fakten,BEHALTEN,Das sind die Fakten.
+205,118,meine sehr verehrten damen und herren kollegen,anrede,Meine sehr verehrten Damen und Herren Kollegen!
+206,117,schade,BEHALTEN,— Schade!
+207,117,warum sage ich das,BEHALTEN,Warum sage ich das?
+208,117,das ist nicht hinnehmbar,BEHALTEN,Das ist nicht hinnehmbar.
+209,116,jawohl,BEHALTEN,Jawohl.
+210,116,"meine damen und herren, ich komme zum schluss",dank_schluss,"Meine Damen und Herren, ich komme zum Schluss."
+211,116,liebe gäste auf den tribünen,anrede,Liebe Gäste auf den Tribünen!
+212,115,das dürfen wir nicht zulassen,BEHALTEN,Das dürfen wir nicht zulassen!
+213,115,letzter satz,gliederung,Letzter Satz.
+214,114,"ja, bitte schön",prozedural,"Ja, bitte schön."
+215,114,darauf können wir stolz sein,BEHALTEN,Darauf können wir stolz sein.
+216,114,"danke schön, frau <name>",dank_schluss,"Danke schön, Frau Präsidentin!"
+217,114,"ich komme zum schluss, frau <name>",dank_schluss,"Ich komme zum Schluss, Frau Präsidentin."
+218,113,das ist nicht akzeptabel,BEHALTEN,Das ist nicht akzeptabel.
+219,113,das ist zu wenig,BEHALTEN,Das ist zu wenig.
+220,113,dafür herzlichen dank,dank_schluss,Dafür herzlichen Dank!
+221,112,im gegenteil,BEHALTEN,Im Gegenteil.
+222,112,das ist mit uns nicht zu machen,BEHALTEN,Das ist mit uns nicht zu machen.
+223,111,warum nicht,BEHALTEN,Warum nicht?
+224,111,daran arbeiten wir,BEHALTEN,Daran arbeiten wir.
+225,111,das wollen wir ändern,BEHALTEN,Das wollen wir ändern.
+226,110,liebe kolleginnen und liebe kollegen,anrede,Liebe Kolleginnen und liebe Kollegen!
+227,109,darauf können sie sich verlassen,BEHALTEN,Darauf können Sie sich verlassen.
+228,109,das ist fakt,BEHALTEN,Das ist Fakt.
+229,109,genau darum geht es,BEHALTEN,Genau darum geht es.
+230,109,das funktioniert nicht,BEHALTEN,Das funktioniert nicht!
+231,108,"ja, gern",prozedural,"Ja, gern."
+232,108,das ist in ordnung,BEHALTEN,Das ist in Ordnung.
+233,108,damit muss schluss sein,BEHALTEN,Damit muss Schluss sein!
+234,108,geschätzte frau <name>,anrede,Geschätzte Frau Präsidentin!
+235,107,achtens,gliederung,Achtens.
+236,106,das tun wir,BEHALTEN,Das tun wir.
+237,105,werter herr <name>,anrede,Werter Herr Präsident!
+238,105,das ist ein wichtiger punkt,BEHALTEN,Das ist ein wichtiger Punkt.
+239,105,geehrte kolleginnen und kollegen,anrede,Geehrte Kolleginnen und Kollegen!
+240,104,das wissen sie ganz genau,BEHALTEN,Das wissen Sie ganz genau.
+241,103,ich bitte sie,BEHALTEN,Ich bitte Sie.
+242,103,liebe landsleute,anrede,Liebe Landsleute!
+243,102,punkt zwei,gliederung,Punkt zwei.
+244,102,das ist absurd,BEHALTEN,Das ist absurd!
+245,101,herzlichen dank fürs zuhören,dank_schluss,Herzlichen Dank fürs Zuhören.
+246,100,zweites beispiel,gliederung,Zweites Beispiel.
+247,100,das ist notwendig,BEHALTEN,Das ist notwendig.
+248,100,sehr geehrte abgeordnete,anrede,Sehr geehrte Abgeordnete!
+249,100,zitat ende,BEHALTEN,Zitat Ende.
+250,99,"bitte schön, herr <name>",anrede,"Bitte schön, Herr Kirschner."
+251,99,darauf kommt es an,BEHALTEN,Darauf kommt es an.
+252,99,darauf sind wir stolz,BEHALTEN,Darauf sind wir stolz.
+253,97,das ist völlig richtig,BEHALTEN,Das ist völlig richtig.
+254,97,"herr <name>, vielen dank",dank_schluss,"Herr Präsident, vielen Dank."
+255,97,das ist auch richtig so,BEHALTEN,-- Das ist auch richtig so.
+256,96,das ist keine frage,BEHALTEN,Das ist keine Frage.
+257,96,das ist ein ganz wichtiger punkt,BEHALTEN,Das ist ein ganz wichtiger Punkt.
+258,96,letzte bemerkung,BEHALTEN,Letzte Bemerkung.
+259,96,wunderbar,BEHALTEN,-- Wunderbar.
+260,96,das lassen wir ihnen nicht durchgehen,BEHALTEN,Das lassen wir Ihnen nicht durchgehen.
+261,95,ich freue mich darauf,BEHALTEN,Ich freue mich darauf.
+262,92,so geht das nicht,BEHALTEN,So geht das nicht.
+263,92,"frau <name>, ich komme zum schluss",dank_schluss,"Frau Präsidentin, ich komme zum Schluss."
+264,92,liebe bürger,anrede,Liebe Bürger!
+265,91,vielen dank fürs zuhören,dank_schluss,Vielen Dank fürs Zuhören.
+266,90,was ist zu tun,BEHALTEN,Was ist zu tun?
+267,89,das wissen sie auch,BEHALTEN,Das wissen Sie auch.
+268,88,das ist ganz klar,BEHALTEN,Das ist ganz klar.
+269,87,das wird nicht funktionieren,BEHALTEN,Das wird nicht funktionieren.
+270,87,das zweite,BEHALTEN,Das zweite.
+271,87,werte gäste,anrede,Werte Gäste!
+272,86,das haben wir getan,BEHALTEN,Das haben wir getan.
+273,86,das ist nicht richtig,BEHALTEN,Das ist nicht richtig.
+274,86,das kann es nicht sein,BEHALTEN,Das kann es nicht sein!
+275,86,auch das gehört zur wahrheit,BEHALTEN,Auch das gehört zur Wahrheit.
+276,85,"nein, herr <name>",prozedural,"— Nein, Herr Präsident."
+277,84,das gegenteil ist richtig,BEHALTEN,Das Gegenteil ist richtig.
+278,84,das wissen wir alle,BEHALTEN,Das wissen wir alle.
+279,84,stimmen sie unserem antrag zu,BEHALTEN,Stimmen Sie unserem Antrag zu!
+280,84,dafür setzen wir uns ein,BEHALTEN,Dafür setzen wir uns ein.
+281,84,nächster punkt,gliederung,Nächster Punkt.
+282,84,das ist aber nicht der fall,BEHALTEN,Das ist aber nicht der Fall.
+283,84,darin sind wir uns einig,BEHALTEN,Darin sind wir uns einig.
+284,84,das ist ihr problem,BEHALTEN,Das ist Ihr Problem.
+285,84,aber was machen sie,BEHALTEN,Aber was machen Sie?
+286,83,alles gute,BEHALTEN,Alles Gute.
+287,82,"bitte, herr <name>",anrede,"Bitte, Herr Dreßen."
+288,82,das finde ich gut,BEHALTEN,Das finde ich gut.
+289,82,das ist eine tatsache,BEHALTEN,Das ist eine Tatsache.
+290,82,sehr geehrte herren und damen,anrede,Sehr geehrte Herren und Damen!
+291,82,geschätzter herr <name>,anrede,Geschätzter Herr Präsident!
+292,81,wir sind dazu bereit,BEHALTEN,Wir sind dazu bereit.
+293,81,ich weiß es nicht,BEHALTEN,Ich weiß es nicht.
+294,81,wir sind auf einem guten weg,BEHALTEN,Wir sind auf einem guten Weg.
+295,81,"herr <name>, ich komme zum schluss",dank_schluss,"Herr Präsident, ich komme zum Schluss."
+296,80,ich bin sofort fertig,dank_schluss,Ich bin sofort fertig.
+297,80,das werden wir tun,BEHALTEN,Das werden wir tun.
+298,80,beides gehört zusammen,BEHALTEN,Beides gehört zusammen.
+299,80,und das ist gut so,BEHALTEN,Und das ist gut so.
+300,80,das haben sie nicht getan,BEHALTEN,Das haben Sie nicht getan.
+301,80,wissen sie was,BEHALTEN,Wissen Sie was?
+302,79,so ist das,interjektion,— So ist das.
+303,79,packen wir es an,BEHALTEN,Packen wir es an!
+304,79,gut so,BEHALTEN,Gut so!
+305,79,verehrtes präsidium,anrede,Verehrtes Präsidium!
+306,78,das tun wir auch,BEHALTEN,Das tun wir auch.
+307,78,hört,BEHALTEN,Hört!
+308,78,vielen dank für die frage,dank_schluss,Vielen Dank für die Frage!
+309,77,und was machen sie,BEHALTEN,Und was machen Sie?
+310,77,das kann doch nicht wahr sein,BEHALTEN,Das kann doch nicht wahr sein.
+311,77,sehr gern,prozedural,Sehr gern.
+312,77,das muss man sich einmal vorstellen,BEHALTEN,Das muss man sich einmal vorstellen.
+313,76,das ist das ergebnis ihrer politik,BEHALTEN,Das ist das Ergebnis Ihrer Politik!
+314,76,ganz im gegenteil,BEHALTEN,Ganz im Gegenteil.
+315,76,das begrüßen wir,BEHALTEN,Das begrüßen wir.
+316,76,das ist gut und richtig,BEHALTEN,Das ist gut und richtig.
+317,76,"ja, sehr gerne",prozedural,"Ja, sehr gerne."
+318,76,das wäre der richtige weg,BEHALTEN,Das wäre der richtige Weg.
+319,75,es tut mir leid,interjektion,— Es tut mir leid.
+320,75,warum eigentlich,BEHALTEN,Warum eigentlich?
+321,75,was haben sie gemacht,BEHALTEN,Was haben Sie gemacht?
+322,75,meine verehrten damen und herren,anrede,Meine verehrten Damen und Herren!
+323,75,das ist schade,BEHALTEN,Das ist schade.
+324,75,lassen sie mich zum schluss kommen,dank_schluss,Lassen Sie mich zum Schluss kommen.
+325,74,das ist ein problem,BEHALTEN,Das ist ein Problem.
+326,74,wir wollen das nicht,BEHALTEN,Wir wollen das nicht.
+327,74,das ist ein erfolg,BEHALTEN,Das ist ein Erfolg.
+328,74,das ist ein großer erfolg,BEHALTEN,Das ist ein großer Erfolg!
+329,74,das ist ungerecht,BEHALTEN,Das ist ungerecht.
+330,73,wir sind auf dem richtigen weg,BEHALTEN,Wir sind auf dem richtigen Weg.
+331,73,da machen wir nicht mit,BEHALTEN,Da machen wir nicht mit.
+332,73,daran müssen wir arbeiten,BEHALTEN,Daran müssen wir arbeiten.
+333,73,das kann doch wohl nicht wahr sein,BEHALTEN,Das kann doch wohl nicht wahr sein!
+334,73,ich danke ihnen fürs zuhören,dank_schluss,Ich danke Ihnen fürs Zuhören.
+335,73,"frau <name>, vielen dank",dank_schluss,"Frau Präsidentin, vielen Dank!"
+336,73,damit muss endlich schluss sein,BEHALTEN,Damit muss endlich Schluss sein.
+337,72,dazu stehen wir,BEHALTEN,Dazu stehen wir.
+338,72,das ist doch der punkt,BEHALTEN,Das ist doch der Punkt.
+339,72,ein letztes,gliederung,Ein Letztes.
+340,72,das unterstützen wir,BEHALTEN,Das unterstützen wir.
+341,72,ich freue mich auf die beratungen,BEHALTEN,Ich freue mich auf die Beratungen.
+342,71,das ist doch das problem,BEHALTEN,Das ist doch das Problem.
+343,70,"herzlichen dank, meine damen und herren",dank_schluss,"Herzlichen Dank, meine Damen und Herren."
+344,70,die zeit drängt,BEHALTEN,Die Zeit drängt.
+345,69,das kann nicht funktionieren,BEHALTEN,Das kann nicht funktionieren.
+346,69,hören sie zu,BEHALTEN,— Hören Sie zu!
+347,69,ein zweiter punkt,gliederung,Ein zweiter Punkt.
+348,68,das darf nicht passieren,BEHALTEN,Das darf nicht passieren.
+349,68,ich fasse zusammen,BEHALTEN,Ich fasse zusammen.
+350,68,das kann doch nicht sein,BEHALTEN,Das kann doch nicht sein.
+351,68,das ist dringend notwendig,BEHALTEN,Das ist dringend notwendig.
+352,68,meine damen und her ren,anrede,Meine Damen und Her ren!
+353,67,"ja, ja",interjektion,"— Ja, ja."
+354,67,dafür stehen wir,BEHALTEN,Dafür stehen wir.
+355,67,da haben sie recht,BEHALTEN,Da haben Sie recht.
+356,67,genau das wollen wir nicht,BEHALTEN,Genau das wollen wir nicht.
+357,67,das kann doch nicht ihr ernst sein,BEHALTEN,Das kann doch nicht Ihr Ernst sein.
+358,67,"ja, genau",interjektion,"-- Ja, genau."
+359,67,"ja, klar",interjektion,"Ja, klar."
+360,67,liebe gäste auf der tribüne,anrede,Liebe Gäste auf der Tribüne!
+361,66,aber gern,prozedural,Aber gern.
+362,66,zum ersten,gliederung,Zum ersten.
+363,66,das werden wir nicht mitmachen,BEHALTEN,Das werden wir nicht mitmachen.
+364,66,das ist das eigentliche problem,BEHALTEN,Das ist das eigentliche Problem.
+365,66,gar nichts,BEHALTEN,Gar nichts!
+366,66,das muss geändert werden,BEHALTEN,Das muss geändert werden.
+367,65,liebe zuhörer,anrede,Liebe Zuhörer!
+368,64,sehr geehrte kollegen und kolleginnen,anrede,Sehr geehrte Kollegen und Kolleginnen!
+369,64,dem ist nicht so,BEHALTEN,Dem ist nicht so.
+370,64,herzlichen dank und glück auf,dank_schluss,Herzlichen Dank und Glück auf!
+371,63,das ist die wirklichkeit,BEHALTEN,Das ist die Wirklichkeit.
+372,63,das ist das ziel,BEHALTEN,Das ist das Ziel.
+373,63,ich glaube das nicht,BEHALTEN,Ich glaube das nicht.
+374,63,"vielen dank, herr <name>, dass sie die zwischenfrage zulassen",dank_schluss,"Vielen Dank, Herr Kollege, dass Sie die Zwischenfrage zulassen."
+375,62,zweite bemerkung,BEHALTEN,Zweite Bemerkung.
+376,62,aha,interjektion,— Aha.
+377,62,und drittens,gliederung,Und drittens.
+378,62,verehrte präsidentin,anrede,Verehrte Präsidentin!
+379,62,das ist richtig so,BEHALTEN,Das ist richtig so.
+380,61,aber natürlich,BEHALTEN,— Aber natürlich.
+381,61,das ist die eine seite,BEHALTEN,Das ist die eine Seite.
+382,61,vierter punkt,gliederung,Vierter Punkt.
+383,61,das ist der entscheidende unterschied,BEHALTEN,Das ist der entscheidende Unterschied.
+384,61,das reicht nicht,BEHALTEN,Das reicht nicht!
+385,61,genau das tun wir,BEHALTEN,-- Genau das tun wir.
+386,60,verehrte damen,anrede,Verehrte Damen!
+387,60,einverstanden,BEHALTEN,Einverstanden.
+388,60,dabei bleibt es,BEHALTEN,Dabei bleibt es.
+389,60,das werden wir nicht zulassen,BEHALTEN,Das werden wir nicht zulassen.
+390,60,das ist eine schande,BEHALTEN,Das ist eine Schande.
+391,60,punkt eins,gliederung,-- Punkt eins.
+392,60,eine letzte bemerkung,BEHALTEN,Eine letzte Bemerkung.
+393,60,das kann so nicht weitergehen,BEHALTEN,Das kann so nicht weitergehen.
+394,60,danke fürs zuhören,dank_schluss,Danke fürs Zuhören.
+395,60,verehrte gäste,anrede,Verehrte Gäste!
+396,59,darum geht es doch,BEHALTEN,Darum geht es doch.
+397,59,"ich will ihnen auch sagen, warum",BEHALTEN,"Ich will Ihnen auch sagen, warum."
+398,59,ich bin gleich fertig,dank_schluss,Ich bin gleich fertig.
+399,59,das ist das erste,BEHALTEN,Das ist das erste.
+400,59,davon bin ich überzeugt,BEHALTEN,Davon bin ich überzeugt.
+401,59,das verstehe ich nicht,BEHALTEN,Das verstehe ich nicht.
+402,59,der dritte punkt,gliederung,Der dritte Punkt.
+403,59,das ist inakzeptabel,BEHALTEN,Das ist inakzeptabel.
+404,59,das ist eine gute nachricht,BEHALTEN,Das ist eine gute Nachricht.
+405,59,das machen wir,BEHALTEN,Das machen wir.
+406,59,das tun sie aber nicht,BEHALTEN,Das tun Sie aber nicht.
+407,59,das muss aufhören,BEHALTEN,Das muss aufhören.
+408,59,liebe besucherinnen und besucher,anrede,Liebe Besucherinnen und Besucher!
+409,58,"ja, herr <name>",prozedural,"— Ja, Herr Geis."
+410,58,das ist nun einmal so,BEHALTEN,Das ist nun einmal so.
+411,58,das kann nicht richtig sein,BEHALTEN,Das kann nicht richtig sein.
+412,58,das wollen wir,BEHALTEN,Das wollen wir.
+413,58,deshalb lehnen wir ihren antrag ab,BEHALTEN,Deshalb lehnen wir Ihren Antrag ab.
+414,58,das ist unglaublich,BEHALTEN,Das ist unglaublich.
+415,58,meine sehr geehrten damen und herren abgeordnete,anrede,Meine sehr geehrten Damen und Herren Abgeordnete!
+416,57,"nein, nein",interjektion,"— Nein, nein."
+417,57,da sind wir uns einig,BEHALTEN,Da sind wir uns einig.
+418,57,das ist unerträglich,BEHALTEN,Das ist unerträglich.
+419,57,das ist unbestritten,BEHALTEN,Das ist unbestritten.
+420,56,sehr gut,interjektion,Sehr gut!
+421,56,ich bitte um ihre zustimmung,prozedural,Ich bitte um Ihre Zustimmung.
+422,56,das haben wir gemacht,BEHALTEN,Das haben wir gemacht.
+423,56,das werden wir auch tun,BEHALTEN,Das werden wir auch tun.
+424,56,liebe damen und herren,anrede,Liebe Damen und Herren!
+425,55,"ich glaube, das ist der richtige weg",BEHALTEN,"Ich glaube, das ist der richtige Weg."
+426,55,ein letzter satz,gliederung,Ein letzter Satz.
+427,55,das tun sie nicht,BEHALTEN,Das tun Sie nicht.
+428,55,nichts ist passiert,BEHALTEN,Nichts ist passiert.
+429,55,"ja, das ist richtig",BEHALTEN,"Ja, das ist richtig."
+430,55,das ist entscheidend,BEHALTEN,Das ist entscheidend.
+431,55,verehrte kolleginnen,anrede,Verehrte Kolleginnen!
+432,55,"vielen dank, liebe kolleginnen und kollegen",dank_schluss,"Vielen Dank, liebe Kolleginnen und Kollegen."
+433,54,neuntens,gliederung,Neuntens.
+434,54,das ist auch richtig,BEHALTEN,Das ist auch richtig.
+435,54,das halten wir für falsch,BEHALTEN,Das halten wir für falsch.
+436,54,was heißt das konkret,BEHALTEN,Was heißt das konkret?
+437,54,natürlich nicht,BEHALTEN,Natürlich nicht.
+438,54,das ist bedauerlich,BEHALTEN,Das ist bedauerlich.
+439,54,daran führt kein weg vorbei,BEHALTEN,Daran führt kein Weg vorbei.
+440,54,das ist der eine punkt,BEHALTEN,Das ist der eine Punkt.
+441,54,so sieht es aus,BEHALTEN,So sieht es aus.
+442,54,was tun sie,BEHALTEN,Was tun Sie?
+443,54,das ist sehr wichtig,BEHALTEN,Das ist sehr wichtig.
+444,54,liebe kolleginnen und kol legen,anrede,Liebe Kolleginnen und Kol legen!
+445,54,genau so ist es,BEHALTEN,Genau so ist es.
+446,54,das muss unser ziel sein,BEHALTEN,Das muss unser Ziel sein.
+447,54,liebe zuhörerinnen und zuhörer auf den tribünen,anrede,Liebe Zuhörerinnen und Zuhörer auf den Tribünen!
+448,54,"ja, vielen dank",dank_schluss,"Ja, vielen Dank."
+449,53,aber bitte,prozedural,Aber bitte.
+450,53,so,BEHALTEN,So!
+451,53,was können wir tun,BEHALTEN,Was können wir tun?
+452,53,was ist daraus geworden,BEHALTEN,Was ist daraus geworden?
+453,53,das ist ihr gutes recht,BEHALTEN,Das ist ihr gutes Recht.
+454,53,das ist verantwortungslos,BEHALTEN,Das ist verantwortungslos.
+455,53,schämen sie sich,BEHALTEN,Schämen Sie sich!
+456,52,ich halte das für richtig,BEHALTEN,Ich halte das für richtig.
+457,52,ich verstehe das nicht,BEHALTEN,Ich verstehe das nicht.
+458,52,und heute,BEHALTEN,Und heute?
+459,52,schönen dank für die aufmerksamkeit,dank_schluss,Schönen Dank für die Aufmerksamkeit.
+460,52,das ist die entscheidende frage,BEHALTEN,Das ist die entscheidende Frage.
+461,52,auch das ist richtig,BEHALTEN,Auch das ist richtig.
+462,52,das kann so nicht bleiben,BEHALTEN,Das kann so nicht bleiben.
+463,52,"ich glaube, nicht",BEHALTEN,"Ich glaube, nicht."
+464,52,"ja, ich komme zum schluss",dank_schluss,"Ja, ich komme zum Schluss."
+465,52,das muss ein ende haben,BEHALTEN,Das muss ein Ende haben.
+466,52,liebe kolleginnen und kollegen der demokratischen fraktionen,anrede,Liebe Kolleginnen und Kollegen der demokratischen Fraktionen!
+467,51,das ist alles richtig,BEHALTEN,Das ist alles richtig.
+468,51,zum dritten,gliederung,Zum dritten.
+469,51,mitnichten,BEHALTEN,Mitnichten.
+470,51,darum geht es nicht,BEHALTEN,Darum geht es nicht.
+471,51,das wissen auch sie,BEHALTEN,Das wissen auch Sie.
+472,51,das ist selbstverständlich,BEHALTEN,Das ist selbstverständlich.
+473,51,das ist eine gute sache,BEHALTEN,Das ist eine gute Sache.
+474,51,erstes beispiel,gliederung,Erstes Beispiel.
+475,51,das haben sie nicht gemacht,BEHALTEN,Das haben Sie nicht gemacht.
+476,51,"ich sage ihnen auch, warum",BEHALTEN,"Ich sage Ihnen auch, warum."
+477,51,handeln sie endlich,BEHALTEN,Handeln Sie endlich!
+478,51,wohl kaum,BEHALTEN,-- Wohl kaum.
+479,51,"ja, das stimmt",BEHALTEN,"-- Ja, das stimmt."
+480,51,hier müssen wir ansetzen,BEHALTEN,Hier müssen wir ansetzen.
+481,51,"liebe kolleginnen und kollegen, ich komme zum schluss",dank_schluss,"Liebe Kolleginnen und Kollegen, ich komme zum Schluss."
+482,50,das ist wohl wahr,BEHALTEN,Das ist wohl wahr.
+483,50,das freut mich,BEHALTEN,Das freut mich..
+484,50,das ist nicht so,BEHALTEN,Das ist nicht so.
+485,50,darüber müssen wir reden,BEHALTEN,Darüber müssen wir reden.
+486,50,weit gefehlt,BEHALTEN,Weit gefehlt!
+487,50,das ist zu begrüßen,BEHALTEN,Das ist zu begrüßen.
+488,50,"gerne, herr <name>",prozedural,"Gerne, Herr Präsident."
+489,50,das ist schön,BEHALTEN,Das ist schön.
+490,50,das stimmt einfach nicht,BEHALTEN,Das stimmt einfach nicht.
+491,50,"vielen dank, herr <name>. - liebe kolleginnen und kollegen",dank_schluss,"Vielen Dank, Herr Präsident. - Liebe Kolleginnen und Kollegen!"
+492,50,genau das gegenteil ist der fall,BEHALTEN,Genau das Gegenteil ist der Fall.
+493,50,das können wir nicht hinnehmen,BEHALTEN,Das können wir nicht hinnehmen.
+494,50,zum ersten punkt,gliederung,Zum ersten Punkt.
+495,50,"das ist die wahrheit, meine damen und herren",BEHALTEN,"Das ist die Wahrheit, meine Damen und Herren."
+496,50,so viel dazu,BEHALTEN,So viel dazu.
+497,49,"ich weiß, wovon ich rede",BEHALTEN,"— Ich weiß, wovon ich rede."
+498,49,das ist die aufgabe,BEHALTEN,Das ist die Aufgabe.
+499,49,"ich meine, nein",BEHALTEN,"Ich meine, nein."
+500,49,das ist sehr bedauerlich,BEHALTEN,Das ist sehr bedauerlich.

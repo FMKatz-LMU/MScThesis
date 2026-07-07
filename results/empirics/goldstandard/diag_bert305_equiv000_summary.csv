@@ -1,0 +1,9 @@
+kennzahl,wert,anteil
+BERT-305 gesamt,27,NA
+  davon HUMAN-000 (Recovery),14,0.519
+  davon CLAUDE-000,14,0.519
+  davon HUMAN-Democracy (Kollateral -> faelschlich 000),10,0.37
+HUMAN-000 gesamt,23,NA
+  davon von BERT als 305 kodiert (-> Recovery),14,0.609
+CLAUDE-000 gesamt,37,NA
+  davon von BERT als 305 kodiert,14,0.378

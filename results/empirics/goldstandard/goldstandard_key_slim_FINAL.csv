@@ -1,0 +1,260 @@
+gs_id,speech_id,sentence_nr,party,lp,date,pred_label,pred_code,pred_score,bucket_A,domain_B,bucket_B,stratum
+GS0001,Gregor Gysi__1,20,Linke,17,2012-06-29,301 - Federalism,301,0.645932734012604,Democracy & Political System,,,Democracy & Political System
+GS0003,Erwin Marschewski__3,24,CDU/CSU,14,2000-04-13,601 - National Way of Life: Positive,601,0.224129125475883,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0004,Gesine Lötzsch__2,74,Linke,19,2018-11-23,503 - Equality: Positive,503,0.543518304824829,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0005,Michael Meister__1,35,CDU/CSU,18,2016-01-15,108 - European Community/Union: Positive,108,0.503019988536835,European Integration,Europe,Pro-EU,Pro-EU
+GS0006,Gottfried Curio__1,7,AfD,19,2020-02-13,608 - Multiculturalism: Negative,608,0.876417100429535,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0007,Albert H. Weiler__1,8,CDU/CSU,19,2021-08-25,608 - Multiculturalism: Negative,608,0.311845034360886,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0009,Rainer Arnold__1,104,SPD,18,2014-04-09,104 - Military: Positive,104,0.730389177799225,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0010,Kirsten Tackmann__1,16,Linke,19,2020-03-06,415 - Marxist Analysis: Positive,415,0.499405443668366,Economy,,,Economy (sonstige)
+GS0011,Wolfgang Schäuble__1,18,CDU/CSU,14,1999-03-25,201 - Freedom and Human Rights,201,0.463054805994034,Democracy & Political System,,,Democracy & Political System
+GS0012,Tino Sorge__2,6,CDU/CSU,20,2022-01-13,403 - Market Regulation,403,0.314325571060181,Economy,Economy,Staatsintervention,Staatsintervention
+GS0013,Patrick Meinhardt__1,57,FDP,16,2009-01-30,204 - Constitutionalism: Negative,204,0.782583653926849,Democracy & Political System,,,Democracy & Political System
+GS0014,Hannelore Rönsch__2,15,CDU/CSU,14,1999-11-11,706 - Non-economic Demographic Groups,706,0.955028355121613,Social Groups,,,Social Groups
+GS0015,Joachim Pfeiffer__1,45,CDU/CSU,17,2011-03-24,501 - Environmental Protection: Positive,501,0.421402990818024,Environment,,,Environment
+GS0016,Volker Ullrich__1,37,CDU/CSU,18,2015-03-19,305 - Political Authority,305,0.964918553829193,Democracy & Political System,,,Democracy & Political System
+GS0017,Stephan Pilsinger__1,22,CDU/CSU,19,2019-09-27,504 - Welfare State Expansion,504,0.759538948535919,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0018,Sören Bartol__1,9,SPD,18,2014-02-13,305 - Political Authority,305,0.978279054164886,Democracy & Political System,,,Democracy & Political System
+GS0019,Peter Tauber__1,56,CDU/CSU,17,2012-11-29,705 - Underprivileged Minority Groups,705,0.434875518083572,Social Groups,,,Social Groups
+GS0020,Kerstin Tack__2,5,SPD,19,2019-09-13,505 - Welfare State Limitation,505,0.790824711322784,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0021,Angelika Glöckner__1,11,SPD,19,2018-06-27,110 - European Community/Union: Negative,110,0.540317535400391,European Integration,Europe,Contra-EU,Contra-EU
+GS0022,Monika Grütters__1,22,CDU/CSU,16,2008-02-21,303 - Governmental and Administrative Efficiency,303,0.673248469829559,Democracy & Political System,,,Democracy & Political System
+GS0023,Katja Suding__1,29,FDP,19,2021-01-29,505 - Welfare State Limitation,505,0.230018675327301,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0024,Dorothea Steiner__2,4,Grüne,17,2013-04-18,501 - Environmental Protection: Positive,501,0.492801308631897,Environment,,,Environment
+GS0025,Wolfgang Kubicki__1,32,FDP,19,2021-09-07,201 - Freedom and Human Rights,201,0.288433015346527,Democracy & Political System,,,Democracy & Political System
+GS0026,Gerald Thalheim__1,115,SPD,14,2000-01-19,703 - Agriculture and Farmers: Positive,703,0.360380858182907,Social Groups,,,Social Groups
+GS0027,Axel Troost__2,6,Linke,17,2011-06-30,108 - European Community/Union: Positive,108,0.771988809108734,European Integration,Europe,Pro-EU,Pro-EU
+GS0028,Kersten Wetzel__1,26,CDU/CSU,13,1996-02-28,415 - Marxist Analysis: Positive,415,0.413303673267365,Economy,,,Economy (sonstige)
+GS0029,Kerstin Griese__1,32,SPD,19,2021-03-26,503 - Equality: Positive,503,0.505159974098206,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0030,Tankred Schipanski__1,5,CDU/CSU,17,2013-06-07,506 - Education Expansion,506,0.354835033416748,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0031,Guido Westerwelle__1,140,FDP,17,2012-05-11,107 - Internationalism: Positive,107,0.78683340549469,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0032,Lale Akgün__1,11,SPD,15,2003-06-05,110 - European Community/Union: Negative,110,0.350097566843033,European Integration,Europe,Contra-EU,Contra-EU
+GS0033,Helmut Heiderich__1,60,CDU/CSU,15,2003-04-10,703 - Agriculture and Farmers: Positive,703,0.491053730249405,Social Groups,,,Social Groups
+GS0035,Klaus Ernst__1,4,Linke,20,2022-04-28,305 - Political Authority,305,0.845292031764984,Democracy & Political System,,,Democracy & Political System
+GS0036,Hans Eichel__1,83,SPD,14,2000-11-28,414 - Economic Orthodoxy,414,0.754896819591522,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0037,Friedhelm Ost__1,38,CDU/CSU,14,2000-03-23,414 - Economic Orthodoxy,414,0.38548669219017,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0039,Alexander Graf Lambsdorff__1,12,FDP,19,2018-07-04,601 - National Way of Life: Positive,601,0.955162882804871,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0040,Bodo Ramelow__1,138,Linke,16,2006-03-10,303 - Governmental and Administrative Efficiency,303,0.684805512428284,Democracy & Political System,,,Democracy & Political System
+GS0041,Oliver Krischer__1,23,Grüne,18,2015-06-18,110 - European Community/Union: Negative,110,0.337611049413681,European Integration,Europe,Contra-EU,Contra-EU
+GS0042,Christel Happach-Kasan__1,58,FDP,15,2005-03-18,403 - Market Regulation,403,0.433661162853241,Economy,Economy,Staatsintervention,Staatsintervention
+GS0043,Alexander Throm__1,21,CDU/CSU,20,2023-04-27,601 - National Way of Life: Positive,601,0.344589442014694,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0046,Klaus Ernst__3,30,Linke,18,2015-03-05,702 - Labour Groups: Negative,702,0.91950660943985,Social Groups,,,Social Groups
+GS0047,Gunther Krichbaum__1,83,CDU/CSU,17,2010-01-20,414 - Economic Orthodoxy,414,0.487853974103928,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0048,Ruppert Stüwe__1,14,SPD,20,2023-03-02,411 - Technology and Infrastructure,411,0.862833440303803,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0049,Helmut Haussmann__1,11,FDP,13,1995-11-23,201 - Freedom and Human Rights,201,0.740537822246552,Democracy & Political System,,,Democracy & Political System
+GS0050,Winfried Nachtwei__1,44,Grüne,15,2004-09-08,607 - Multiculturalism: Positive,607,0.856728494167328,Migration,Migration,Migration liberal,Migration liberal
+GS0051,Franz Obermeier__1,51,CDU/CSU,16,2006-02-09,303 - Governmental and Administrative Efficiency,303,0.394578725099564,Democracy & Political System,,,Democracy & Political System
+GS0052,Jens Koeppen__1,51,CDU/CSU,17,2013-04-18,202 - Democracy,202,0.472822457551956,Democracy & Political System,,,Democracy & Political System
+GS0053,Frank Schäffler__1,26,FDP,19,2021-05-06,415 - Marxist Analysis: Positive,415,0.359013885259628,Economy,,,Economy (sonstige)
+GS0054,Ole Schröder__1,13,CDU/CSU,17,2009-11-25,202 - Democracy,202,0.776743113994598,Democracy & Political System,,,Democracy & Political System
+GS0055,Kai Gehring__1,14,Grüne,17,2010-07-08,503 - Equality: Positive,503,0.83826094865799,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0056,Siegmar Mosdorf__1,24,SPD,13,1997-04-18,502 - Culture: Positive,502,0.34779679775238,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0057,Hans-Peter Repnik__1,23,CDU/CSU,14,1999-11-04,303 - Governmental and Administrative Efficiency,303,0.429806441068649,Democracy & Political System,,,Democracy & Political System
+GS0058,Franziska Brantner__1,11,Grüne,19,2018-02-23,107 - Internationalism: Positive,107,0.604058086872101,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0059,Katja Dörner__1,5,Grüne,19,2019-02-21,504 - Welfare State Expansion,504,0.825896441936493,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0060,Steffen Kotré__2,30,AfD,19,2019-01-31,413 - Nationalisation,413,0.338111400604248,Economy,Economy,Staatsintervention,Staatsintervention
+GS0061,Volker Kauder__1,23,CDU/CSU,18,2017-06-30,603 - Traditional Morality: Positive,603,0.516800999641419,Law & Order and National Identity,,,Law & Order and National Identity
+GS0062,Joseph Fischer__1,46,Grüne,13,1998-05-06,108 - European Community/Union: Positive,108,0.520396649837494,European Integration,Europe,Pro-EU,Pro-EU
+GS0064,Hans Eichel__1,21,SPD,15,2005-04-22,414 - Economic Orthodoxy,414,0.302926778793335,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0065,Guido Westerwelle__1,29,FDP,15,2004-04-30,202 - Democracy,202,0.850541949272156,Democracy & Political System,,,Democracy & Political System
+GS0067,Volker Ullrich__1,21,CDU/CSU,18,2014-10-09,204 - Constitutionalism: Negative,204,0.329655110836029,Democracy & Political System,,,Democracy & Political System
+GS0068,Roland Claus__2,9,Linke,16,2008-09-18,411 - Technology and Infrastructure,411,0.820437967777252,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0069,Renate Künast__1,5,Grüne,20,2022-03-16,501 - Environmental Protection: Positive,501,0.289304435253143,Environment,,,Environment
+GS0070,Christian Leye__1,42,Linke,20,2022-10-21,406 - Protectionism: Positive,406,0.357352137565613,Economy,,,Economy (sonstige)
+GS0071,Antje Tillmann__1,40,CDU/CSU,18,2015-04-23,403 - Market Regulation,403,0.970521330833435,Economy,Economy,Staatsintervention,Staatsintervention
+GS0072,Stefan Ruppert__2,15,FDP,19,2018-05-17,305 - Political Authority,305,0.306089282035828,Democracy & Political System,,,Democracy & Political System
+GS0073,Marcus Weinberg__1,6,CDU/CSU,18,2014-11-27,414 - Economic Orthodoxy,414,0.88592267036438,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0074,Uwe Küster__1,28,SPD,14,2001-06-28,202 - Democracy,202,0.927887499332428,Democracy & Political System,,,Democracy & Political System
+GS0075,Petra Merkel__1,43,SPD,16,2006-03-31,607 - Multiculturalism: Positive,607,0.526806354522705,Migration,Migration,Migration liberal,Migration liberal
+GS0076,Hans-Joachim Fuchtel__1,53,CDU/CSU,18,2017-06-28,406 - Protectionism: Positive,406,0.3680040538311,Economy,,,Economy (sonstige)
+GS0077,Halina Wawzyniak__2,24,Linke,17,2010-11-11,605 - Law and Order: Positive,605,0.555719971656799,Law & Order and National Identity,,,Law & Order and National Identity
+GS0078,Harald Weinberg__1,16,Linke,18,2014-02-21,504 - Welfare State Expansion,504,0.77781081199646,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0079,Matthias Gastel__1,34,Grüne,18,2017-06-22,411 - Technology and Infrastructure,411,0.960627675056458,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0080,Joseph Fischer__1,56,Grüne,15,2003-05-09,104 - Military: Positive,104,0.535876274108887,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0081,Gerhard Schröder__1,41,SPD,14,2001-06-21,108 - European Community/Union: Positive,108,0.42595785856247,European Integration,Europe,Pro-EU,Pro-EU
+GS0082,Reinhard Schultz__1,36,SPD,13,1997-04-17,110 - European Community/Union: Negative,110,0.302681893110275,European Integration,Europe,Contra-EU,Contra-EU
+GS0083,Wolfgang Hellmich__1,27,SPD,17,2013-06-27,107 - Internationalism: Positive,107,0.669398486614227,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0084,Sören Bartol__1,51,SPD,18,2014-10-16,201 - Freedom and Human Rights,201,0.578582644462585,Democracy & Political System,,,Democracy & Political System
+GS0085,Erich Riedl__2,2,CDU/CSU,13,1996-11-27,303 - Governmental and Administrative Efficiency,303,0.483568072319031,Democracy & Political System,,,Democracy & Political System
+GS0086,Thomas Jarzombek__1,31,CDU/CSU,20,2023-03-02,303 - Governmental and Administrative Efficiency,303,0.702883124351502,Democracy & Political System,,,Democracy & Political System
+GS0089,Lisa Peters__1,63,FDP,13,1998-05-07,506 - Education Expansion,506,0.33202999830246,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0090,Gitta Connemann__1,38,CDU/CSU,19,2019-06-06,502 - Culture: Positive,502,0.786102414131165,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0091,Rolf Kutzmutz__1,53,Linke,13,1996-09-12,305 - Political Authority,305,0.480031162500382,Democracy & Political System,,,Democracy & Political System
+GS0092,Roman Müller-Böhm__1,26,FDP,19,2021-05-20,402 - Incentives,402,0.580394327640533,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0093,Elisabeth Motschmann__1,42,CDU/CSU,18,2016-12-15,606 - Civic Mindedness: Positive,606,0.289141654968262,Law & Order and National Identity,,,Law & Order and National Identity
+GS0094,Frank Schwabe__1,36,SPD,19,2021-02-10,108 - European Community/Union: Positive,108,0.470713824033737,European Integration,Europe,Pro-EU,Pro-EU
+GS0095,Wolfgang Lohmann__1,99,CDU/CSU,14,2001-05-17,504 - Welfare State Expansion,504,0.555652737617493,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0097,Dirk Niebel__1,34,FDP,16,2008-01-25,505 - Welfare State Limitation,505,0.482006281614304,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0098,Philipp Mißfelder__2,9,CDU/CSU,18,2015-01-15,107 - Internationalism: Positive,107,0.707097172737122,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0100,Harald Petzold__1,39,Linke,18,2014-09-10,502 - Culture: Positive,502,0.466266244649887,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0101,Annette Faße__1,3,SPD,13,1997-12-10,408 - Economic Goals,408,0.211201354861259,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0102,Sonja Amalie Steffen__1,39,SPD,19,2021-06-25,305 - Political Authority,305,0.765390574932098,Democracy & Political System,,,Democracy & Political System
+GS0103,Alice Weidel__1,36,AfD,20,2022-03-17,505 - Welfare State Limitation,505,0.389614403247833,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0104,Kurt Bodewig__1,37,SPD,16,2008-12-19,110 - European Community/Union: Negative,110,0.811325371265411,European Integration,Europe,Contra-EU,Contra-EU
+GS0105,Angela Merkel__1,37,CDU/CSU,19,2019-10-17,108 - European Community/Union: Positive,108,0.72720205783844,European Integration,Europe,Pro-EU,Pro-EU
+GS0106,Kerstin Müller__1,6,Grüne,17,2010-09-15,108 - European Community/Union: Positive,108,0.785781919956207,European Integration,Europe,Pro-EU,Pro-EU
+GS0107,Priska Hinz__1,35,Grüne,17,2010-09-15,303 - Governmental and Administrative Efficiency,303,0.567189335823059,Democracy & Political System,,,Democracy & Political System
+GS0108,Axel Schäfer__1,38,SPD,15,2004-05-28,108 - European Community/Union: Positive,108,0.45016023516655,European Integration,Europe,Pro-EU,Pro-EU
+GS0109,Michael Groß__3,13,SPD,17,2012-10-18,501 - Environmental Protection: Positive,501,0.480745226144791,Environment,,,Environment
+GS0110,Gerald Weiß__1,51,CDU/CSU,14,2001-04-05,701 - Labour Groups: Positive,701,0.488266170024872,Social Groups,,,Social Groups
+GS0111,Manfred Carstens__1,140,CDU/CSU,13,1996-10-09,411 - Technology and Infrastructure,411,0.931957364082336,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0112,Philipp Mißfelder__1,36,CDU/CSU,17,2012-03-01,104 - Military: Positive,104,0.372540682554245,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0113,Annelie Buntenbach__1,16,Grüne,14,2000-04-05,602 - National Way of Life: Negative,602,0.273332893848419,Migration,Migration,Migration liberal,Migration liberal
+GS0114,Winfried Hermann__2,4,Grüne,17,2010-05-20,502 - Culture: Positive,502,0.421426653862,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0115,Emmi Zeulner__2,10,CDU/CSU,20,2023-03-03,602 - National Way of Life: Negative,602,0.758697688579559,Migration,Migration,Migration liberal,Migration liberal
+GS0116,Halina Wawzyniak__2,18,Linke,18,2015-07-02,505 - Welfare State Limitation,505,0.471747219562531,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0117,Stephan Hilsberg__1,104,SPD,15,2005-06-30,502 - Culture: Positive,502,0.785970628261566,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0118,Peer Steinbrück__1,96,SPD,17,2013-09-03,701 - Labour Groups: Positive,701,0.708651423454285,Social Groups,,,Social Groups
+GS0119,Gernot Erler__2,23,SPD,13,1995-05-18,105 - Military: Negative,105,0.930063247680664,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0120,Corinna Rüffer__1,8,Grüne,18,2014-05-08,305 - Political Authority,305,0.754327952861786,Democracy & Political System,,,Democracy & Political System
+GS0121,Thilo Hoppe__1,7,Grüne,17,2013-01-17,110 - European Community/Union: Negative,110,0.520071148872376,European Integration,Europe,Contra-EU,Contra-EU
+GS0123,Carsten Müller__1,49,CDU/CSU,19,2021-03-25,406 - Protectionism: Positive,406,0.317308992147446,Economy,,,Economy (sonstige)
+GS0124,Michael Bürsch__1,41,SPD,16,2007-11-29,607 - Multiculturalism: Positive,607,0.4406778216362,Migration,Migration,Migration liberal,Migration liberal
+GS0125,Andreas G. Lämmel__1,38,CDU/CSU,17,2011-04-15,416 - Anti-Growth Economy: Positive,416,0.37892410159111,Environment,,,Environment
+GS0126,Olaf Scholz__1,60,SPD,19,2021-09-07,706 - Non-economic Demographic Groups,706,0.363138556480408,Social Groups,,,Social Groups
+GS0127,Hansjörg Durz__1,13,CDU/CSU,19,2020-12-08,414 - Economic Orthodoxy,414,0.785855352878571,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0128,Volker Beck__1,5,Grüne,13,1996-11-27,602 - National Way of Life: Negative,602,0.323093563318253,Migration,Migration,Migration liberal,Migration liberal
+GS0129,Gerhard Schröder__1,172,SPD,15,2004-09-08,606 - Civic Mindedness: Positive,606,0.856044352054596,Law & Order and National Identity,,,Law & Order and National Identity
+GS0130,Gisela Piltz__1,89,FDP,17,2010-03-26,302 - Centralisation,302,0.498761504888535,Democracy & Political System,,,Democracy & Political System
+GS0131,Eduard Lintner__1,86,CDU/CSU,13,1996-09-25,502 - Culture: Positive,502,0.361607879400253,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0132,Mathias Middelberg__1,6,CDU/CSU,19,2019-01-18,605 - Law and Order: Positive,605,0.645172238349915,Law & Order and National Identity,,,Law & Order and National Identity
+GS0133,Guido Westerwelle__1,34,FDP,13,1996-11-14,607 - Multiculturalism: Positive,607,0.424491882324219,Migration,Migration,Migration liberal,Migration liberal
+GS0134,Klaus-Jürgen Hedrich__1,3,CDU/CSU,13,1996-05-24,305 - Political Authority,305,0.553447842597961,Democracy & Political System,,,Democracy & Political System
+GS0135,Ina Latendorf__1,17,Linke,20,2022-09-29,305 - Political Authority,305,0.682148635387421,Democracy & Political System,,,Democracy & Political System
+GS0136,Hermann E. Ott__1,5,Grüne,17,2011-04-07,501 - Environmental Protection: Positive,501,0.477903723716736,Environment,,,Environment
+GS0137,Theodor Waigel__1,19,CDU/CSU,13,1996-04-26,402 - Incentives,402,0.32770511507988,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0138,Gert Weisskirchen__1,40,SPD,13,1995-01-19,305 - Political Authority,305,0.380354374647141,Democracy & Political System,,,Democracy & Political System
+GS0139,Franziska Eichstädt-Bohlig__1,26,Grüne,15,2005-04-14,501 - Environmental Protection: Positive,501,0.444331109523773,Environment,,,Environment
+GS0140,Gottfried Curio__1,5,AfD,19,2020-09-16,602 - National Way of Life: Negative,602,0.249914109706879,Migration,Migration,Migration liberal,Migration liberal
+GS0141,Rainer Brüderle__1,98,FDP,17,2011-09-07,410 - Economic Growth: Positive,410,0.628965795040131,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0142,Astrid Mannes__1,20,CDU/CSU,19,2020-11-05,411 - Technology and Infrastructure,411,0.540377497673035,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0143,Klaus Riegert__1,4,CDU/CSU,15,2005-02-18,502 - Culture: Positive,502,0.803771913051605,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0144,Gabriele Fograscher__1,7,SPD,18,2016-06-09,608 - Multiculturalism: Negative,608,0.587213933467865,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0145,Stefan Ruppert__1,19,FDP,17,2013-06-27,608 - Multiculturalism: Negative,608,0.419954597949982,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0146,Kordula Kovac__1,52,CDU/CSU,18,2016-02-25,403 - Market Regulation,403,0.450912028551102,Economy,Economy,Staatsintervention,Staatsintervention
+GS0147,Wolfgang Schäuble__1,63,CDU/CSU,16,2007-10-12,607 - Multiculturalism: Positive,607,0.235491380095482,Migration,Migration,Migration liberal,Migration liberal
+GS0149,Rainer Eppelmann__1,33,CDU/CSU,13,1995-10-27,415 - Marxist Analysis: Positive,415,0.208390131592751,Economy,,,Economy (sonstige)
+GS0150,Wolfgang Gehrcke__1,65,Linke,16,2008-12-05,201 - Freedom and Human Rights,201,0.919807732105255,Democracy & Political System,,,Democracy & Political System
+GS0151,Renate Künast__1,5,Grüne,16,2006-03-17,110 - European Community/Union: Negative,110,0.776632010936737,European Integration,Europe,Contra-EU,Contra-EU
+GS0152,Katharina Landgraf__1,48,CDU/CSU,17,2011-10-27,601 - National Way of Life: Positive,601,0.587953984737396,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0154,Jörg Schneider__2,35,AfD,19,2018-11-08,505 - Welfare State Limitation,505,0.616368770599365,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0155,Wolfgang Wieland__1,47,Grüne,16,2009-06-18,201 - Freedom and Human Rights,201,0.765532314777374,Democracy & Political System,,,Democracy & Political System
+GS0156,Gisela Schröter__1,73,SPD,14,2002-02-01,502 - Culture: Positive,502,0.937125325202942,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0157,Johannes Fechner__1,10,SPD,19,2021-04-16,301 - Federalism,301,0.441683441400528,Democracy & Political System,,,Democracy & Political System
+GS0158,Wolfgang Spanier__1,45,SPD,14,2002-06-13,403 - Market Regulation,403,0.316151022911072,Economy,Economy,Staatsintervention,Staatsintervention
+GS0159,Uwe Schulz__1,14,AfD,19,2019-12-20,305 - Political Authority,305,0.530414998531342,Democracy & Political System,,,Democracy & Political System
+GS0160,Ralph Lenkert__1,15,Linke,20,2023-05-11,406 - Protectionism: Positive,406,0.559752643108368,Economy,,,Economy (sonstige)
+GS0161,Jan-Marco Luczak__1,27,CDU/CSU,17,2010-04-22,605 - Law and Order: Positive,605,0.365369290113449,Law & Order and National Identity,,,Law & Order and National Identity
+GS0162,Falko Mohrs__1,21,SPD,19,2018-04-19,406 - Protectionism: Positive,406,0.291617035865784,Economy,,,Economy (sonstige)
+GS0164,Lothar Mark__1,11,SPD,14,2002-03-21,507 - Education Limitation,507,0.725143432617188,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0165,Niema Movassat__1,42,Linke,19,2018-04-20,605 - Law and Order: Positive,605,0.718024492263794,Law & Order and National Identity,,,Law & Order and National Identity
+GS0166,Kai Wegner__1,47,CDU/CSU,18,2016-10-20,403 - Market Regulation,403,0.286693036556244,Economy,Economy,Staatsintervention,Staatsintervention
+GS0167,Hans Eichel__1,199,SPD,14,2002-06-13,303 - Governmental and Administrative Efficiency,303,0.451868176460266,Democracy & Political System,,,Democracy & Political System
+GS0169,Horst Seehofer__1,18,CDU/CSU,13,1998-02-12,303 - Governmental and Administrative Efficiency,303,0.290346264839172,Democracy & Political System,,,Democracy & Political System
+GS0171,Jochen Borchert__1,42,CDU/CSU,13,1995-05-18,110 - European Community/Union: Negative,110,0.772021949291229,European Integration,Europe,Contra-EU,Contra-EU
+GS0173,Mechthild Heil__1,1,CDU/CSU,17,2012-11-08,502 - Culture: Positive,502,0.434642821550369,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0174,Kerstin Müller__1,78,Grüne,13,1997-08-05,305 - Political Authority,305,0.830205082893372,Democracy & Political System,,,Democracy & Political System
+GS0175,Swen Schulz__1,26,SPD,17,2011-01-27,507 - Education Limitation,507,0.37212273478508,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0176,Marlene Mortler__1,6,CDU/CSU,17,2011-01-20,305 - Political Authority,305,0.902052581310272,Democracy & Political System,,,Democracy & Political System
+GS0177,Manfred Stolpe__1,32,SPD,15,2004-04-30,501 - Environmental Protection: Positive,501,0.758580684661865,Environment,,,Environment
+GS0178,Albert Stegemann__1,59,CDU/CSU,18,2015-05-21,701 - Labour Groups: Positive,701,0.682414174079895,Social Groups,,,Social Groups
+GS0179,Erwin Marschewski__1,32,CDU/CSU,14,1999-11-23,601 - National Way of Life: Positive,601,0.764058828353882,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0180,Carsten Müller__2,14,CDU/CSU,19,2021-01-28,411 - Technology and Infrastructure,411,0.746603429317474,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0181,Anja Weisgerber__1,1,CDU/CSU,20,2022-09-06,305 - Political Authority,305,0.865939795970917,Democracy & Political System,,,Democracy & Political System
+GS0182,Thomas Erndl__1,11,CDU/CSU,20,2023-06-14,105 - Military: Negative,105,0.367615252733231,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0183,Barbara Woltmann__1,60,CDU/CSU,18,2016-02-18,605 - Law and Order: Positive,605,0.497542887926102,Law & Order and National Identity,,,Law & Order and National Identity
+GS0184,Petra Pau__1,19,Linke,16,2008-09-16,201 - Freedom and Human Rights,201,0.973301827907562,Democracy & Political System,,,Democracy & Political System
+GS0185,Horst Seehofer__1,94,CDU/CSU,19,2019-09-12,601 - National Way of Life: Positive,601,0.406590014696121,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0186,Kirsten Lühmann__1,33,SPD,19,2020-12-10,411 - Technology and Infrastructure,411,0.739401400089264,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0187,Jochen-Konrad Fromme__1,21,CDU/CSU,15,2005-02-16,414 - Economic Orthodoxy,414,0.840360701084137,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0189,Sven-Christian Kindler__1,69,Grüne,19,2018-05-15,305 - Political Authority,305,0.974586009979248,Democracy & Political System,,,Democracy & Political System
+GS0191,Kerstin Griese__1,20,SPD,16,2008-06-05,604 - Traditional Morality: Negative,604,0.235352203249931,Law & Order and National Identity,,,Law & Order and National Identity
+GS0192,Ludwig Stiegler__2,74,SPD,14,2002-09-13,505 - Welfare State Limitation,505,0.369987159967423,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0193,Norbert Müller__1,33,Linke,18,2016-04-28,607 - Multiculturalism: Positive,607,0.385657668113709,Migration,Migration,Migration liberal,Migration liberal
+GS0194,Joachim Stünker__1,13,SPD,16,2007-09-11,605 - Law and Order: Positive,605,0.929983973503113,Law & Order and National Identity,,,Law & Order and National Identity
+GS0195,Fabio De Masi__1,4,Linke,19,2021-04-13,403 - Market Regulation,403,0.926737189292908,Economy,Economy,Staatsintervention,Staatsintervention
+GS0196,Reinhard Weis__1,1,SPD,15,2004-09-09,305 - Political Authority,305,0.682992935180664,Democracy & Political System,,,Democracy & Political System
+GS0197,Annette Schavan__1,53,CDU/CSU,17,2009-11-26,305 - Political Authority,305,0.74917334318161,Democracy & Political System,,,Democracy & Political System
+GS0198,Johann David Wadephul__1,14,CDU/CSU,20,2023-01-19,104 - Military: Positive,104,0.926831245422363,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0199,Hans Büttner__4,7,SPD,13,1997-03-19,415 - Marxist Analysis: Positive,415,0.677636206150055,Economy,,,Economy (sonstige)
+GS0200,Bartholomäus Kalb__1,36,CDU/CSU,15,2003-04-11,305 - Political Authority,305,0.695930540561676,Democracy & Political System,,,Democracy & Political System
+GS0201,Ulla Jelpke__1,33,Linke,13,1998-06-24,305 - Political Authority,305,0.598352909088135,Democracy & Political System,,,Democracy & Political System
+GS0202,Hermann E. Ott__1,4,Grüne,17,2011-05-11,501 - Environmental Protection: Positive,501,0.573342680931091,Environment,,,Environment
+GS0203,Markus Meckel__1,36,SPD,15,2002-12-19,601 - National Way of Life: Positive,601,0.320429414510727,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0204,Anita Schäfer__1,47,CDU/CSU,17,2010-05-06,701 - Labour Groups: Positive,701,0.439902156591415,Social Groups,,,Social Groups
+GS0205,Hellmut Königshaus__1,25,FDP,16,2008-11-26,601 - National Way of Life: Positive,601,0.631477117538452,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0206,Axel Knoerig__1,26,CDU/CSU,18,2015-05-20,407 - Protectionism: Negative,407,0.812411844730377,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0207,Volker Wissing__2,18,FDP,16,2009-03-19,414 - Economic Orthodoxy,414,0.81271243095398,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0208,Barbara Hendricks__1,78,SPD,18,2016-11-22,305 - Political Authority,305,0.28088590502739,Democracy & Political System,,,Democracy & Political System
+GS0209,Matthias Miersch__1,7,SPD,16,2007-03-09,108 - European Community/Union: Positive,108,0.480130016803742,European Integration,Europe,Pro-EU,Pro-EU
+GS0210,Karsten Möring__1,17,CDU/CSU,19,2019-03-14,406 - Protectionism: Positive,406,0.36022886633873,Economy,,,Economy (sonstige)
+GS0211,Karl Lamers__1,67,CDU/CSU,13,1997-06-27,305 - Political Authority,305,0.487494975328445,Democracy & Political System,,,Democracy & Political System
+GS0212,Anton Hofreiter__1,53,Grüne,18,2015-12-16,108 - European Community/Union: Positive,108,0.851353764533997,European Integration,Europe,Pro-EU,Pro-EU
+GS0213,Lars Klingbeil__1,58,SPD,17,2011-10-27,305 - Political Authority,305,0.783260822296143,Democracy & Political System,,,Democracy & Political System
+GS0214,Stephan Brandner__1,23,AfD,19,2018-03-02,601 - National Way of Life: Positive,601,0.797841846942902,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0215,Georg Nüßlein__1,10,CDU/CSU,17,2013-06-27,411 - Technology and Infrastructure,411,0.9000683426857,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0216,Jörg van Essen__1,33,FDP,14,1999-09-09,601 - National Way of Life: Positive,601,0.672395765781403,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0217,Sabine Leutheusser-Schnarrenberger__1,14,FDP,14,2000-02-17,108 - European Community/Union: Positive,108,0.45388725399971,European Integration,Europe,Pro-EU,Pro-EU
+GS0218,Kai Gehring__1,39,Grüne,18,2015-07-02,603 - Traditional Morality: Positive,603,0.256058037281036,Law & Order and National Identity,,,Law & Order and National Identity
+GS0219,Burkhard Lischka__1,2,SPD,17,2011-06-30,202 - Democracy,202,0.516112148761749,Democracy & Political System,,,Democracy & Political System
+GS0220,Agnes Krumwiede__1,30,Grüne,17,2012-09-28,502 - Culture: Positive,502,0.73154217004776,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0221,Omid Nouripour__1,45,Grüne,17,2012-09-27,705 - Underprivileged Minority Groups,705,0.167999893426895,Social Groups,,,Social Groups
+GS0222,Norbert Blüm__2,4,CDU/CSU,14,2000-11-16,701 - Labour Groups: Positive,701,0.516849219799042,Social Groups,,,Social Groups
+GS0223,Katja Kipping__2,17,Linke,17,2011-02-24,503 - Equality: Positive,503,0.9534832239151,Welfare & Social Policy,Welfare,Sozialstaat Ausbau,Sozialstaat Ausbau
+GS0224,Michael Meister__1,117,CDU/CSU,17,2010-09-14,501 - Environmental Protection: Positive,501,0.839955747127533,Environment,,,Environment
+GS0225,Gabriela Heinrich__1,16,SPD,18,2017-05-31,604 - Traditional Morality: Negative,604,0.481714397668839,Law & Order and National Identity,,,Law & Order and National Identity
+GS0226,Jürgen Klimke__1,5,CDU/CSU,17,2012-01-19,102 - Foreign Special Relationships: Negative,102,0.283866882324219,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0227,Ulla Schmidt__1,9,SPD,17,2012-11-09,201 - Freedom and Human Rights,201,0.516136825084686,Democracy & Political System,,,Democracy & Political System
+GS0228,Enrico Komning__1,26,AfD,19,2021-06-10,305 - Political Authority,305,0.579924404621124,Democracy & Political System,,,Democracy & Political System
+GS0229,Michael Naumann__1,8,SPD,14,1999-12-16,502 - Culture: Positive,502,0.870918452739716,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0230,Catarina dos Santos Firnhaber__1,15,CDU/CSU,20,2023-03-30,110 - European Community/Union: Negative,110,0.416277021169663,European Integration,Europe,Contra-EU,Contra-EU
+GS0231,Klaus-Peter Willsch__1,24,CDU/CSU,19,2019-04-05,104 - Military: Positive,104,0.378045380115509,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0232,Norbert Blüm__1,25,CDU/CSU,13,1996-09-26,701 - Labour Groups: Positive,701,0.84822279214859,Social Groups,,,Social Groups
+GS0233,Alexander Radwan__1,15,CDU/CSU,19,2018-02-22,109 - Internationalism: Negative,109,0.1949502825737,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0234,André Hahn__1,19,Linke,19,2018-11-08,502 - Culture: Positive,502,0.205437779426575,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0235,Gregor Gysi__1,26,Linke,17,2010-12-17,414 - Economic Orthodoxy,414,0.39015457034111,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0236,Klaus Hofbauer__1,18,CDU/CSU,15,2005-06-01,402 - Incentives,402,0.252773463726044,Economy,Economy,Marktliberalismus,Marktliberalismus
+GS0237,Brigitte Zypries__1,30,SPD,15,2003-09-25,403 - Market Regulation,403,0.680877506732941,Economy,Economy,Staatsintervention,Staatsintervention
+GS0238,Michael Kuffer__1,13,CDU/CSU,19,2018-11-29,601 - National Way of Life: Positive,601,0.396640241146088,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0239,Michael Roth__1,14,SPD,17,2010-06-10,108 - European Community/Union: Positive,108,0.948818325996399,European Integration,Europe,Pro-EU,Pro-EU
+GS0240,Edelgard Bulmahn__1,52,SPD,18,2017-06-21,411 - Technology and Infrastructure,411,0.29572468996048,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0241,Alexander Ulrich__1,19,Linke,16,2009-05-28,305 - Political Authority,305,0.915432333946228,Democracy & Political System,,,Democracy & Political System
+GS0242,Wolfgang Gerhardt__1,46,FDP,13,1996-04-26,505 - Welfare State Limitation,505,0.857246339321137,Welfare & Social Policy,Welfare,Sozialstaat Begrenzung,Sozialstaat Begrenzung
+GS0243,Markus Töns__1,15,SPD,20,2022-12-01,108 - European Community/Union: Positive,108,0.854222774505615,European Integration,Europe,Pro-EU,Pro-EU
+GS0244,Alfred Hartenbach__2,29,SPD,16,2008-11-13,502 - Culture: Positive,502,0.334681630134583,Welfare & Social Policy,,,Welfare & Social Policy (sonstige)
+GS0245,Gisela Piltz__1,37,FDP,17,2011-09-22,201 - Freedom and Human Rights,201,0.800545334815979,Democracy & Political System,,,Democracy & Political System
+GS0246,Frank Steffel__1,4,CDU/CSU,19,2021-04-22,202 - Democracy,202,0.894818425178528,Democracy & Political System,,,Democracy & Political System
+GS0250,Heribert Hirte__1,38,CDU/CSU,18,2016-02-18,305 - Political Authority,305,0.85320645570755,Democracy & Political System,,,Democracy & Political System
+GS0251,Gökay Akbulut__1,10,Linke,20,2023-02-08,607 - Multiculturalism: Positive,607,0.942296266555786,Migration,Migration,Migration liberal,Migration liberal
+GS0252,Gregor Gysi__2,54,Linke,13,1998-06-18,305 - Political Authority,305,0.773676037788391,Democracy & Political System,,,Democracy & Political System
+GS0253,Angelica Schwall-Düren__1,80,SPD,16,2006-03-29,601 - National Way of Life: Positive,601,0.43797767162323,Migration,Migration,Migration restriktiv,Migration restriktiv
+GS0254,Brigitte Zypries__1,25,SPD,17,2013-06-13,411 - Technology and Infrastructure,411,0.921625137329102,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein
+GS0255,Peter Aumer__1,21,CDU/CSU,17,2010-04-21,305 - Political Authority,305,0.873356282711029,Democracy & Political System,,,Democracy & Political System
+GS0256,Volker Ullrich__1,25,CDU/CSU,20,2022-11-09,602 - National Way of Life: Negative,602,0.382520884275436,Migration,Migration,Migration liberal,Migration liberal
+GS0257,Stefan Heck__1,20,CDU/CSU,18,2016-02-18,403 - Market Regulation,403,0.806857883930206,Economy,Economy,Staatsintervention,Staatsintervention
+GS0258,Joseph Fischer__1,129,Grüne,14,2001-12-12,110 - European Community/Union: Negative,110,0.841642260551453,European Integration,Europe,Contra-EU,Contra-EU
+GS0401,Franz Obermeier__1,59,CDU/CSU,17,2011-03-24,501 - Environmental Protection: Positive,501,0.455259889364243,Environment,,,Environment
+GS0402,Albert Deß__1,23,CDU/CSU,14,2000-06-29,501 - Environmental Protection: Positive,501,0.736455082893372,Environment,,,Environment
+GS0403,Bernd Schattner__1,13,AfD,20,2023-02-08,501 - Environmental Protection: Positive,501,0.160363301634789,Environment,,,Environment
+GS0404,Margot von Renesse__1,54,SPD,14,2001-06-21,501 - Environmental Protection: Positive,501,0.886336445808411,Environment,,,Environment
+GS0405,Kees de Vries__1,10,CDU/CSU,18,2016-11-10,501 - Environmental Protection: Positive,501,0.814476609230042,Environment,,,Environment
+GS0406,Ernst Hinsken__2,33,CDU/CSU,14,2001-11-08,501 - Environmental Protection: Positive,501,0.19203382730484,Environment,,,Environment
+GS0407,Michael Stübgen__1,27,CDU/CSU,19,2018-06-27,501 - Environmental Protection: Positive,501,0.850855767726898,Environment,,,Environment
+GS0408,Horst Meierhofer__1,63,FDP,17,2012-05-24,501 - Environmental Protection: Positive,501,0.622370421886444,Environment,,,Environment
+GS0409,Sabine Weiss__1,15,CDU/CSU,18,2016-09-22,106 - Peace,106,0.425525546073914,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0410,Hildebrecht Braun__1,19,FDP,14,1999-10-29,105 - Military: Negative,105,0.906664848327637,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0411,Nils Gründer__1,6,FDP,20,2022-11-23,104 - Military: Positive,104,0.968619346618652,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0412,Gernot Erler__1,14,SPD,17,2010-07-09,107 - Internationalism: Positive,107,0.455271005630493,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0413,Angela Merkel__1,15,CDU/CSU,18,2014-11-26,107 - Internationalism: Positive,107,0.427712142467499,Foreign Policy & Defence,,,Foreign Policy & Defence
+GS0414,Rüdiger Kruse__1,54,CDU/CSU,18,2017-03-30,605 - Law and Order: Positive,605,0.301925212144852,Law & Order and National Identity,,,Law & Order and National Identity
+GS0415,Jörg van Essen__1,16,FDP,14,2002-06-07,605 - Law and Order: Positive,605,0.957961678504944,Law & Order and National Identity,,,Law & Order and National Identity
+GS0416,Linda Teuteberg__1,14,FDP,20,2022-11-09,605 - Law and Order: Positive,605,0.93223512172699,Law & Order and National Identity,,,Law & Order and National Identity
+GS0417,Volker Beck__1,26,Grüne,14,2000-03-23,604 - Traditional Morality: Negative,604,0.794924974441528,Law & Order and National Identity,,,Law & Order and National Identity
+GS0418,Angela Merkel__1,162,CDU/CSU,19,2019-11-27,605 - Law and Order: Positive,605,0.781789124011993,Law & Order and National Identity,,,Law & Order and National Identity
+GS0419,Kirsten Tackmann__1,47,Linke,16,2009-04-22,604 - Traditional Morality: Negative,604,0.323676764965057,Law & Order and National Identity,,,Law & Order and National Identity
+GS0420,Christoph Ploß__1,42,CDU/CSU,19,2019-11-14,701 - Labour Groups: Positive,701,0.394467115402222,Social Groups,,,Social Groups
+GS0421,Karl-Josef Laumann__1,53,CDU/CSU,14,2001-11-29,701 - Labour Groups: Positive,701,0.330513626337051,Social Groups,,,Social Groups
+GS0422,Ralph Lenkert__1,8,Linke,18,2014-06-06,701 - Labour Groups: Positive,701,0.288031339645386,Social Groups,,,Social Groups
+GS0423,Mathias Schubert__1,16,SPD,14,1999-03-04,701 - Labour Groups: Positive,701,0.777616739273071,Social Groups,,,Social Groups
+GS0424,Wolfgang Schäuble__1,119,CDU/CSU,13,1996-06-14,701 - Labour Groups: Positive,701,0.871204137802124,Social Groups,,,Social Groups
+GS0425,Gerda Hasselfeldt__1,46,CDU/CSU,15,2004-04-01,703 - Agriculture and Farmers: Positive,703,0.974614143371582,Social Groups,,,Social Groups

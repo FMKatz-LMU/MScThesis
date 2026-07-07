@@ -1,0 +1,22 @@
+{
+  "pr_auc": 0.8446843902263543,
+  "roc_auc": 0.9309854258338667,
+  "precision_at_0.5": 0.8014202383971595,
+  "recall_at_0.5": 0.7159039420027187,
+  "f1_at_0.5": 0.7562522436280962,
+  "thr_recall90": 0.0012065897462889552,
+  "precision_at_recall90": 0.5578784902483513,
+  "recall_at_recall90": 0.9007702763932941,
+  "democracy_deflation": {
+    "unfiltered": 0.4001311740073659,
+    "oracle": 0.3171285779191277,
+    "model_0.5": 0.32157702481420836,
+    "model_recall90": 0.2772963604852686
+  },
+  "model": "deepset/gbert-large",
+  "eval_scheme": "cv",
+  "fehltrennung_as": "drop",
+  "use_context": true,
+  "n_eval": 19821,
+  "n_pos": 4414
+}

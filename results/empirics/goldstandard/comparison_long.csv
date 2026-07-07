@@ -1,0 +1,260 @@
+gs_id,party,lp,human_A,bert_A,claude_A,human_B_raw,human_B,bert_B,claude_B,bert_code,claude_code,bert_score,claude_conf,claude_fehlt,claude_flag,human_flag,agree_A_bert_human,agree_A_claude_human,agree_A_bert_claude
+GS0001,Linke,17,Welfare & Social Policy,Democracy & Political System,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,NA,Sozialstaat Ausbau,301,504,0.6459327340126038,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0003,CDU/CSU,14,Migration,Migration,Nicht zuordenbar (000),Migration restriktiv,Migration restriktiv,Migration restriktiv,NA,601,000,0.22412912547588348,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0004,Linke,19,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,503,503,0.5435183048248291,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0005,CDU/CSU,18,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.5030199885368347,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0006,AfD,19,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,608,608,0.8764171004295349,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0007,CDU/CSU,19,Social Groups,Migration,Welfare & Social Policy,Andere,NA,Migration restriktiv,Sozialstaat Begrenzung,608,507,0.3118450343608856,medium,FALSE,TRUE,NA,FALSE,FALSE,FALSE
+GS0009,SPD,18,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,104,0.7303891777992249,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0010,Linke,19,Economy,Economy,Environment,keine klare Richtung,keine klare Richtung,keine klare Richtung,NA,415,416,0.4994054436683655,medium,FALSE,TRUE,NA,TRUE,FALSE,FALSE
+GS0011,CDU/CSU,14,Foreign Policy & Defence,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,201,201,0.4630548059940338,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0012,CDU/CSU,20,Economy,Economy,Nicht zuordenbar (000),Staatsintervention,Staatsintervention,Staatsintervention,NA,403,000,0.31432557106018066,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0013,FDP,16,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,204,204,0.7825836539268494,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0014,CDU/CSU,14,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,706,706,0.9550283551216125,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0015,CDU/CSU,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.4214029908180237,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0016,CDU/CSU,18,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.9649185538291931,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0017,CDU/CSU,19,Democracy & Political System,Welfare & Social Policy,Welfare & Social Policy,Andere,NA,Sozialstaat Ausbau,Sozialstaat Ausbau,504,504,0.7595389485359192,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0018,SPD,18,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.9782790541648865,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0019,CDU/CSU,17,Migration,Social Groups,Migration,Migration liberal,Migration liberal,NA,Migration liberal,705,607,0.4348755180835724,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0020,SPD,19,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Begrenzung,Sozialstaat Ausbau,505,504,0.7908247113227844,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0021,SPD,19,Migration,European Integration,Migration,Migration liberal,Migration liberal,Contra-EU,Migration liberal,110,607,0.5403175354003906,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0022,CDU/CSU,16,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,303,000,0.6732484698295593,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0023,FDP,19,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,505,505,0.23001867532730103,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0024,Grüne,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.492801308631897,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0025,FDP,19,Democracy & Political System,Democracy & Political System,Economy,Andere,NA,NA,Marktliberalismus,201,401,0.2884330153465271,medium,FALSE,TRUE,NA,TRUE,FALSE,FALSE
+GS0026,SPD,14,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,703,701,0.3603808581829071,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0027,Linke,17,European Integration,European Integration,European Integration,Staatsintervention,Staatsintervention,Pro-EU,Pro-EU,108,108,0.7719888091087341,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0028,CDU/CSU,13,Democracy & Political System,Economy,Democracy & Political System,Andere,NA,keine klare Richtung,NA,415,202,0.4133036732673645,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0029,SPD,19,Social Groups,Welfare & Social Policy,Welfare & Social Policy,Andere,NA,Sozialstaat Ausbau,Sozialstaat Ausbau,503,503,0.5051599740982056,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0030,CDU/CSU,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,506,506,0.35483503341674805,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0031,FDP,17,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,107,0.7868334054946899,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0032,SPD,15,European Integration,European Integration,European Integration,Contra-EU,Contra-EU,Contra-EU,Contra-EU,110,110,0.35009756684303284,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0033,CDU/CSU,15,Economy,Social Groups,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,Staatsintervention,703,403,0.4910537302494049,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0035,Linke,20,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.8452920317649841,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0036,SPD,14,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Marktliberalismus,Marktliberalismus,414,414,0.7548968195915222,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0037,CDU/CSU,14,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Marktliberalismus,Marktliberalismus,414,401,0.3854866921901703,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0039,FDP,19,European Integration,Migration,Foreign Policy & Defence,Pro-EU,Pro-EU,Migration restriktiv,NA,601,107,0.9551628828048706,medium,FALSE,TRUE,NA,FALSE,FALSE,FALSE
+GS0040,Linke,16,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,303,303,0.6848055124282837,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0041,Grüne,18,Democracy & Political System,European Integration,Democracy & Political System,Andere,NA,Contra-EU,NA,110,202,0.33761104941368103,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0042,FDP,15,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Staatsintervention,Marktliberalismus,403,401,0.43366116285324097,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0043,CDU/CSU,20,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,601,608,0.3445894420146942,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0046,Linke,18,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,702,702,0.9195066094398499,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0047,CDU/CSU,17,European Integration,Economy,European Integration,Pro-EU,Pro-EU,Marktliberalismus,Pro-EU,414,108,0.4878539741039276,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0048,SPD,20,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.8628334403038025,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0049,FDP,13,Foreign Policy & Defence,Democracy & Political System,Foreign Policy & Defence,Andere,NA,NA,NA,201,101,0.7405378222465515,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0050,Grüne,15,Foreign Policy & Defence,Migration,Migration,Andere,NA,Migration liberal,Migration liberal,607,607,0.8567284941673279,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0051,CDU/CSU,16,Economy,Democracy & Political System,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,Wirtschaft Allgemein,303,408,0.3945787250995636,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0052,CDU/CSU,17,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,202,000,0.4728224575519562,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0053,FDP,19,Economy,Economy,Welfare & Social Policy,Wirtschaft Allgemein,Wirtschaft Allgemein,keine klare Richtung,Sozialstaat Ausbau,415,504,0.3590138852596283,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0054,CDU/CSU,17,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,202,202,0.7767431139945984,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0055,Grüne,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,503,506,0.8382609486579895,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0056,SPD,13,Economy,Welfare & Social Policy,Economy,Marktliberalismus,Marktliberalismus,keine klare Richtung,Marktliberalismus,502,401,0.34779679775238037,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0057,CDU/CSU,14,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,303,000,0.4298064410686493,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0058,Grüne,19,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,106,0.6040580868721008,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0059,Grüne,19,Democracy & Political System,Welfare & Social Policy,Welfare & Social Policy,Andere,NA,Sozialstaat Ausbau,Sozialstaat Ausbau,504,504,0.8258964419364929,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0060,AfD,19,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,413,413,0.33811140060424805,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0061,CDU/CSU,18,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,603,603,0.5168009996414185,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0062,Grüne,13,Democracy & Political System,European Integration,European Integration,Andere,NA,Pro-EU,Pro-EU,108,108,0.5203966498374939,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0064,SPD,15,Democracy & Political System,Economy,Economy,Andere,NA,Marktliberalismus,Marktliberalismus,414,402,0.30292677879333496,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0065,FDP,15,European Integration,Democracy & Political System,Democracy & Political System,Pro-EU,Pro-EU,NA,NA,202,202,0.8505419492721558,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0067,CDU/CSU,18,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,204,203,0.32965511083602905,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0068,Linke,16,Democracy & Political System,Economy,Economy,Andere,NA,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.8204379677772522,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0069,Grüne,20,Economy,Environment,Environment,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,NA,501,416,0.2893044352531433,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0070,Linke,20,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,keine klare Richtung,Wirtschaft Allgemein,406,411,0.3573521375656128,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0071,CDU/CSU,18,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,403,403,0.9705213308334351,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0072,FDP,19,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,202,0.30608928203582764,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0073,CDU/CSU,18,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Marktliberalismus,Marktliberalismus,414,414,0.8859226703643799,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0074,SPD,14,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,202,202,0.927887499332428,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0075,SPD,16,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,607,607,0.5268063545227051,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0076,CDU/CSU,18,Economy,Economy,Economy,keine klare Richtung,keine klare Richtung,keine klare Richtung,Marktliberalismus,406,407,0.36800405383110046,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0077,Linke,17,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.5557199716567993,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0078,Linke,18,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,504,504,0.77781081199646,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0079,Grüne,18,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.9606276750564575,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0080,Grüne,15,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,104,0.5358762741088867,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0081,SPD,14,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.4259578585624695,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0082,SPD,13,Foreign Policy & Defence,European Integration,Foreign Policy & Defence,Andere,NA,Contra-EU,NA,110,109,0.30268189311027527,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0083,SPD,17,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,107,0.6693984866142273,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0084,SPD,18,Law & Order and National Identity,Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,201,000,0.5785826444625854,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0085,CDU/CSU,13,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,303,202,0.48356807231903076,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0086,CDU/CSU,20,Democracy & Political System,Democracy & Political System,European Integration,Andere,NA,NA,Pro-EU,303,108,0.7028831243515015,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0089,FDP,13,Nicht zuordenbar (000),Welfare & Social Policy,Welfare & Social Policy,Andere,NA,Sozialstaat Ausbau,keine klare Richtung,506,502,0.3320299983024597,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0090,CDU/CSU,19,Law & Order and National Identity,Welfare & Social Policy,Migration,Andere,NA,keine klare Richtung,Migration restriktiv,502,601,0.7861024141311646,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0091,Linke,13,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,305,0.48003116250038147,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0092,FDP,19,Nicht zuordenbar (000),Economy,Nicht zuordenbar (000),Andere,NA,Marktliberalismus,NA,402,000,0.5803943276405334,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0093,CDU/CSU,18,Law & Order and National Identity,Law & Order and National Identity,Foreign Policy & Defence,Andere,NA,NA,NA,606,107,0.2891416549682617,medium,FALSE,TRUE,NA,TRUE,FALSE,FALSE
+GS0094,SPD,19,Foreign Policy & Defence,European Integration,Foreign Policy & Defence,Andere,NA,Pro-EU,NA,108,101,0.4707138240337372,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0095,CDU/CSU,14,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,504,504,0.5556527376174927,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0097,FDP,16,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,505,505,0.4820062816143036,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0098,CDU/CSU,18,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,104,0.7070971727371216,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0100,Linke,18,Democracy & Political System,Welfare & Social Policy,Democracy & Political System,Andere,NA,keine klare Richtung,NA,502,303,0.4662662446498871,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0101,SPD,13,Law & Order and National Identity,Economy,Economy,Andere,NA,Wirtschaft Allgemein,Marktliberalismus,408,402,0.21120135486125946,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0102,SPD,19,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.7653905749320984,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0103,AfD,20,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,505,505,0.38961440324783325,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0104,SPD,16,European Integration,European Integration,European Integration,Contra-EU,Contra-EU,Contra-EU,Contra-EU,110,110,0.8113253712654114,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0105,CDU/CSU,19,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.7272020578384399,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0106,Grüne,17,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.7857819199562073,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0107,Grüne,17,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,303,303,0.5671893358230591,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0108,SPD,15,Democracy & Political System,European Integration,Democracy & Political System,Andere,NA,Pro-EU,NA,108,303,0.4501602351665497,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0109,SPD,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.48074522614479065,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0110,CDU/CSU,14,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,701,701,0.4882661700248718,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0111,CDU/CSU,13,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.9319573640823364,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0112,CDU/CSU,17,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,106,0.372540682554245,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0113,Grüne,14,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,602,607,0.2733328938484192,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0114,Grüne,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,keine klare Richtung,keine klare Richtung,keine klare Richtung,keine klare Richtung,502,502,0.4214266538619995,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0115,CDU/CSU,20,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,602,607,0.7586976885795593,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0116,Linke,18,Democracy & Political System,Welfare & Social Policy,Nicht zuordenbar (000),Andere,NA,Sozialstaat Begrenzung,NA,505,000,0.4717472195625305,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0117,SPD,15,Democracy & Political System,Welfare & Social Policy,Nicht zuordenbar (000),Andere,NA,keine klare Richtung,NA,502,000,0.7859706282615662,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0118,SPD,17,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,701,701,0.7086514234542847,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0119,SPD,13,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,105,105,0.9300632476806641,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0120,Grüne,18,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.7543279528617859,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0121,Grüne,17,Foreign Policy & Defence,European Integration,Foreign Policy & Defence,Andere,NA,Contra-EU,NA,110,107,0.5200711488723755,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0123,CDU/CSU,19,Economy,Economy,Nicht zuordenbar (000),Staatsintervention,Staatsintervention,keine klare Richtung,NA,406,000,0.3173089921474457,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0124,SPD,16,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration liberal,Migration restriktiv,607,608,0.44067782163619995,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0125,CDU/CSU,17,Environment,Environment,Environment,Andere,NA,NA,NA,416,501,0.37892410159111023,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0126,SPD,19,Social Groups,Social Groups,Welfare & Social Policy,Andere,NA,NA,Sozialstaat Ausbau,706,506,0.3631385564804077,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0127,CDU/CSU,19,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Marktliberalismus,Marktliberalismus,414,414,0.7858553528785706,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0128,Grüne,13,Law & Order and National Identity,Migration,Democracy & Political System,Andere,NA,Migration liberal,NA,602,202,0.32309356331825256,medium,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0129,SPD,15,Welfare & Social Policy,Law & Order and National Identity,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,NA,Sozialstaat Ausbau,606,504,0.856044352054596,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0130,FDP,17,Law & Order and National Identity,Democracy & Political System,Law & Order and National Identity,Andere,NA,NA,NA,302,605,0.49876150488853455,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0131,CDU/CSU,13,Economy,Welfare & Social Policy,Nicht zuordenbar (000),Staatsintervention,Staatsintervention,keine klare Richtung,NA,502,000,0.3616078794002533,medium,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0132,CDU/CSU,19,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.6451722383499146,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0133,FDP,13,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,607,607,0.42449188232421875,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0134,CDU/CSU,13,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.5534478425979614,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0135,Linke,20,Democracy & Political System,Democracy & Political System,Environment,Andere,NA,NA,NA,305,501,0.6821486353874207,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0136,Grüne,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.47790372371673584,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0137,CDU/CSU,13,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Marktliberalismus,Marktliberalismus,402,401,0.32770511507987976,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0138,SPD,13,Foreign Policy & Defence,Democracy & Political System,Foreign Policy & Defence,Andere,NA,NA,NA,305,101,0.3803543746471405,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0139,Grüne,15,Economy,Environment,Environment,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,NA,501,501,0.4443311095237732,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0140,AfD,19,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration liberal,Migration liberal,602,607,0.24991410970687866,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0141,FDP,17,Economy,Economy,Nicht zuordenbar (000),Marktliberalismus,Marktliberalismus,Wirtschaft Allgemein,NA,410,000,0.6289657950401306,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0142,CDU/CSU,19,Economy,Economy,Welfare & Social Policy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Sozialstaat Ausbau,411,506,0.5403774976730347,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0143,CDU/CSU,15,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,keine klare Richtung,keine klare Richtung,keine klare Richtung,Sozialstaat Ausbau,502,504,0.8037719130516052,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0144,SPD,18,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,608,608,0.587213933467865,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0145,FDP,17,Democracy & Political System,Migration,Democracy & Political System,Andere,NA,Migration restriktiv,NA,608,203,0.4199545979499817,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0146,CDU/CSU,18,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,403,403,0.4509120285511017,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0147,CDU/CSU,16,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,607,607,0.23549138009548187,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0149,CDU/CSU,13,Foreign Policy & Defence,Economy,Migration,Andere,NA,keine klare Richtung,Migration restriktiv,415,601,0.20839013159275055,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0150,Linke,16,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,201,201,0.9198077321052551,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0151,Grüne,16,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Contra-EU,Pro-EU,110,108,0.7766320109367371,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0152,CDU/CSU,17,Nicht zuordenbar (000),Migration,Nicht zuordenbar (000),Andere,NA,Migration restriktiv,NA,601,000,0.5879539847373962,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0154,AfD,19,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Begrenzung,Sozialstaat Ausbau,505,504,0.6163687705993652,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0155,Grüne,16,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,201,201,0.7655323147773743,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0156,SPD,14,Democracy & Political System,Welfare & Social Policy,Welfare & Social Policy,Andere,NA,keine klare Richtung,keine klare Richtung,502,502,0.9371253252029419,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0157,SPD,19,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,301,302,0.44168344140052795,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0158,SPD,14,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Staatsintervention,Wirtschaft Allgemein,403,408,0.3161510229110718,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0159,AfD,19,Democracy & Political System,Democracy & Political System,Economy,Andere,NA,NA,Wirtschaft Allgemein,305,411,0.5304149985313416,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0160,Linke,20,Economy,Economy,Economy,keine klare Richtung,keine klare Richtung,keine klare Richtung,keine klare Richtung,406,406,0.5597526431083679,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0161,CDU/CSU,17,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.3653692901134491,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0162,SPD,19,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,keine klare Richtung,Staatsintervention,406,403,0.2916170358657837,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0164,SPD,14,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,507,507,0.7251434326171875,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0165,Linke,19,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.718024492263794,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0166,CDU/CSU,18,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,403,403,0.2866930365562439,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0167,SPD,14,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,303,202,0.4518681764602661,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0169,CDU/CSU,13,Welfare & Social Policy,Democracy & Political System,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,NA,Sozialstaat Ausbau,303,504,0.29034626483917236,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0171,CDU/CSU,13,European Integration,European Integration,European Integration,Contra-EU,Contra-EU,Contra-EU,Contra-EU,110,110,0.7720219492912292,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0173,CDU/CSU,17,Nicht zuordenbar (000),Welfare & Social Policy,Nicht zuordenbar (000),Andere,NA,keine klare Richtung,NA,502,000,0.43464282155036926,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0174,Grüne,13,Democracy & Political System,Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.8302050828933716,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0175,SPD,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,507,507,0.37212273478507996,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0176,CDU/CSU,17,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.9020525813102722,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0177,SPD,15,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.7585806846618652,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0178,CDU/CSU,18,Nicht zuordenbar (000),Social Groups,Nicht zuordenbar (000),Andere,NA,NA,NA,701,000,0.682414174079895,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0179,CDU/CSU,14,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,601,608,0.7640588283538818,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0180,CDU/CSU,19,Democracy & Political System,Economy,Democracy & Political System,Andere,NA,Wirtschaft Allgemein,NA,411,202,0.7466034293174744,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0181,CDU/CSU,20,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.8659397959709167,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0182,CDU/CSU,20,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,105,102,0.3676152527332306,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0183,CDU/CSU,18,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.4975428879261017,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0184,Linke,16,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,201,201,0.9733018279075623,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0185,CDU/CSU,19,Democracy & Political System,Migration,Nicht zuordenbar (000),Andere,NA,Migration restriktiv,NA,601,000,0.4065900146961212,medium,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0186,SPD,19,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.7394014000892639,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0187,CDU/CSU,15,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Marktliberalismus,Marktliberalismus,414,414,0.840360701084137,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0189,Grüne,19,Nicht zuordenbar (000),Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,305,0.974586009979248,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0191,SPD,16,Social Groups,Law & Order and National Identity,Social Groups,Andere,NA,NA,NA,604,706,0.23535220324993134,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0192,SPD,14,Welfare & Social Policy,Welfare & Social Policy,Nicht zuordenbar (000),Sozialstaat Begrenzung,Sozialstaat Begrenzung,Sozialstaat Begrenzung,NA,505,000,0.3699871599674225,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0193,Linke,18,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,607,607,0.3856576681137085,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0194,SPD,16,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.9299839735031128,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0195,Linke,19,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,403,403,0.9267371892929077,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0196,SPD,15,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.6829929351806641,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0197,CDU/CSU,17,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.7491733431816101,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0198,CDU/CSU,20,Law & Order and National Identity,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,104,0.9268312454223633,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0199,SPD,13,Welfare & Social Policy,Economy,Social Groups,Sozialstaat Begrenzung,Sozialstaat Begrenzung,keine klare Richtung,NA,415,701,0.6776362061500549,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0200,CDU/CSU,15,Democracy & Political System,Democracy & Political System,Economy,Andere,NA,NA,Wirtschaft Allgemein,305,408,0.695930540561676,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0201,Linke,13,Nicht zuordenbar (000),Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,305,0.5983529090881348,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0202,Grüne,17,Democracy & Political System,Environment,Environment,Andere,NA,NA,NA,501,501,0.5733426809310913,medium,FALSE,TRUE,NA,FALSE,FALSE,TRUE
+GS0203,SPD,15,Foreign Policy & Defence,Migration,Foreign Policy & Defence,Andere,NA,Migration restriktiv,NA,601,101,0.32042941451072693,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0204,CDU/CSU,17,Social Groups,Social Groups,Foreign Policy & Defence,Andere,NA,NA,NA,701,104,0.4399021565914154,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0205,FDP,16,Law & Order and National Identity,Migration,Law & Order and National Identity,Andere,NA,Migration restriktiv,NA,601,606,0.6314771175384521,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0206,CDU/CSU,18,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Marktliberalismus,Marktliberalismus,407,407,0.8124118447303772,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0207,FDP,16,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Marktliberalismus,Marktliberalismus,414,414,0.8127124309539795,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0208,SPD,18,Democracy & Political System,Democracy & Political System,Foreign Policy & Defence,Andere,NA,NA,NA,305,107,0.2808859050273895,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0209,SPD,16,Environment,European Integration,European Integration,Andere,NA,Pro-EU,Pro-EU,108,108,0.48013001680374146,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0210,CDU/CSU,19,Economy,Economy,Foreign Policy & Defence,Staatsintervention,Staatsintervention,keine klare Richtung,NA,406,105,0.36022886633872986,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0211,CDU/CSU,13,Foreign Policy & Defence,Democracy & Political System,Foreign Policy & Defence,Andere,NA,NA,NA,305,101,0.48749497532844543,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0212,Grüne,18,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.8513537645339966,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0213,SPD,17,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,202,0.7832608222961426,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0214,AfD,19,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,601,608,0.7978418469429016,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0215,CDU/CSU,17,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.9000683426856995,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0216,FDP,14,Migration,Migration,Migration,Migration restriktiv,Migration restriktiv,Migration restriktiv,Migration restriktiv,601,608,0.6723957657814026,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0217,FDP,14,Democracy & Political System,European Integration,European Integration,Andere,NA,Pro-EU,Pro-EU,108,108,0.4538872539997101,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0218,Grüne,18,Law & Order and National Identity,Law & Order and National Identity,Democracy & Political System,Andere,NA,NA,NA,603,201,0.2560580372810364,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0219,SPD,17,Foreign Policy & Defence,Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,202,000,0.5161121487617493,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0220,Grüne,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,keine klare Richtung,keine klare Richtung,502,502,0.73154217004776,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0221,Grüne,17,Migration,Social Groups,Migration,Migration liberal,Migration liberal,NA,Migration liberal,705,607,0.16799989342689514,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0222,CDU/CSU,14,Social Groups,Social Groups,Welfare & Social Policy,Andere,NA,NA,Sozialstaat Ausbau,701,504,0.5168492197990417,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0223,Linke,17,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Ausbau,503,503,0.9534832239151001,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0224,CDU/CSU,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.839955747127533,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0225,SPD,18,Law & Order and National Identity,Law & Order and National Identity,Democracy & Political System,Andere,NA,NA,NA,604,201,0.4817143976688385,medium,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0226,CDU/CSU,17,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,102,109,0.28386688232421875,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0227,SPD,17,Social Groups,Democracy & Political System,Welfare & Social Policy,Andere,NA,NA,Sozialstaat Ausbau,201,503,0.5161368250846863,medium,FALSE,TRUE,NA,FALSE,FALSE,FALSE
+GS0228,AfD,19,Economy,Democracy & Political System,Economy,Marktliberalismus,Marktliberalismus,NA,Marktliberalismus,305,401,0.5799244046211243,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0229,SPD,14,Welfare & Social Policy,Welfare & Social Policy,Welfare & Social Policy,keine klare Richtung,keine klare Richtung,keine klare Richtung,keine klare Richtung,502,502,0.8709184527397156,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0230,CDU/CSU,20,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Contra-EU,Pro-EU,110,108,0.4162770211696625,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0231,CDU/CSU,19,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,101,0.37804538011550903,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0232,CDU/CSU,13,Economy,Social Groups,Social Groups,Marktliberalismus,Marktliberalismus,NA,NA,701,701,0.8482227921485901,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0233,CDU/CSU,19,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,109,101,0.19495028257369995,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0234,Linke,19,Social Groups,Welfare & Social Policy,Social Groups,Andere,NA,keine klare Richtung,NA,502,705,0.2054377794265747,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0235,Linke,17,Economy,Economy,Nicht zuordenbar (000),Wirtschaft Allgemein,Wirtschaft Allgemein,Marktliberalismus,NA,414,000,0.39015457034111023,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0236,CDU/CSU,15,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Marktliberalismus,keine klare Richtung,402,406,0.2527734637260437,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0237,SPD,15,Economy,Economy,Economy,Marktliberalismus,Marktliberalismus,Staatsintervention,Marktliberalismus,403,401,0.6808775067329407,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0238,CDU/CSU,19,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration restriktiv,Migration liberal,601,607,0.39664024114608765,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0239,SPD,17,European Integration,European Integration,European Integration,Pro-EU,Pro-EU,Pro-EU,Pro-EU,108,108,0.9488183259963989,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0240,SPD,18,Law & Order and National Identity,Economy,Law & Order and National Identity,Andere,NA,Wirtschaft Allgemein,NA,411,605,0.29572468996047974,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0241,Linke,16,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.915432333946228,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0242,FDP,13,Welfare & Social Policy,Welfare & Social Policy,Economy,Sozialstaat Ausbau,Sozialstaat Ausbau,Sozialstaat Begrenzung,Marktliberalismus,505,402,0.8572463393211365,medium,FALSE,TRUE,NA,TRUE,FALSE,FALSE
+GS0243,SPD,20,Democracy & Political System,European Integration,Nicht zuordenbar (000),Andere,NA,Pro-EU,NA,108,000,0.8542227745056152,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0244,SPD,16,Democracy & Political System,Welfare & Social Policy,Welfare & Social Policy,Andere,NA,keine klare Richtung,Sozialstaat Ausbau,502,506,0.3346816301345825,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0245,FDP,17,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,201,201,0.800545334815979,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0246,CDU/CSU,19,Foreign Policy & Defence,Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,202,000,0.8948184251785278,medium,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0250,CDU/CSU,18,Nicht zuordenbar (000),Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.85320645570755,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0251,Linke,20,Migration,Migration,Migration,Migration liberal,Migration liberal,Migration liberal,Migration liberal,607,607,0.9422962665557861,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0252,Linke,13,Democracy & Political System,Democracy & Political System,Nicht zuordenbar (000),Andere,NA,NA,NA,305,000,0.7736760377883911,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0253,SPD,16,Economy,Migration,Social Groups,Staatsintervention,Staatsintervention,Migration restriktiv,NA,601,701,0.43797767162323,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0254,SPD,17,Economy,Economy,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,Wirtschaft Allgemein,411,411,0.9216251373291016,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0255,CDU/CSU,17,Democracy & Political System,Democracy & Political System,Democracy & Political System,Andere,NA,NA,NA,305,305,0.873356282711029,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0256,CDU/CSU,20,Law & Order and National Identity,Migration,Law & Order and National Identity,Andere,NA,Migration liberal,NA,602,605,0.3825208842754364,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0257,CDU/CSU,18,Economy,Economy,Economy,Staatsintervention,Staatsintervention,Staatsintervention,Staatsintervention,403,403,0.8068578839302063,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0258,Grüne,14,European Integration,European Integration,Nicht zuordenbar (000),Pro-EU,Pro-EU,Contra-EU,NA,110,000,0.8416422605514526,high,TRUE,FALSE,NA,TRUE,FALSE,FALSE
+GS0401,CDU/CSU,17,Democracy & Political System,Environment,Environment,Andere,NA,NA,NA,501,501,0.45525988936424255,medium,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0402,CDU/CSU,14,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.7364550828933716,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0403,AfD,20,Economy,Environment,Social Groups,Staatsintervention,Staatsintervention,NA,NA,501,703,0.1603633016347885,high,FALSE,FALSE,NA,FALSE,FALSE,FALSE
+GS0404,SPD,14,Nicht zuordenbar (000),Environment,Nicht zuordenbar (000),Andere,NA,NA,NA,501,000,0.8863364458084106,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0405,CDU/CSU,18,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.8144766092300415,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0406,CDU/CSU,14,Economy,Environment,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,Marktliberalismus,501,414,0.1920338273048401,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0407,CDU/CSU,19,Environment,Environment,European Integration,Andere,NA,NA,Pro-EU,501,108,0.8508557677268982,medium,FALSE,TRUE,NA,TRUE,FALSE,FALSE
+GS0408,FDP,17,Environment,Environment,Environment,Andere,NA,NA,NA,501,501,0.6223704218864441,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0409,CDU/CSU,18,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,106,102,0.4255255460739136,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0410,FDP,14,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,105,105,0.9066648483276367,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0411,FDP,20,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,104,104,0.9686193466186523,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0412,SPD,17,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,106,0.45527100563049316,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0413,CDU/CSU,18,Foreign Policy & Defence,Foreign Policy & Defence,Foreign Policy & Defence,Andere,NA,NA,NA,107,107,0.4277121424674988,medium,FALSE,TRUE,NA,TRUE,TRUE,TRUE
+GS0414,CDU/CSU,18,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.3019252121448517,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0415,FDP,14,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.9579616785049438,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0416,FDP,20,Law & Order and National Identity,Law & Order and National Identity,Law & Order and National Identity,Andere,NA,NA,NA,605,605,0.9322351217269897,high,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0417,Grüne,14,Law & Order and National Identity,Law & Order and National Identity,Democracy & Political System,Andere,NA,NA,NA,604,201,0.7949249744415283,high,FALSE,FALSE,NA,TRUE,FALSE,FALSE
+GS0418,CDU/CSU,19,Migration,Law & Order and National Identity,Law & Order and National Identity,Migration restriktiv,Migration restriktiv,NA,NA,605,605,0.7817891240119934,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE
+GS0419,Linke,16,Democracy & Political System,Law & Order and National Identity,Democracy & Political System,Andere,NA,NA,NA,604,202,0.3236767649650574,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0420,CDU/CSU,19,Economy,Social Groups,Economy,Marktliberalismus,Marktliberalismus,NA,Wirtschaft Allgemein,701,410,0.3944671154022217,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0421,CDU/CSU,14,Social Groups,Social Groups,Social Groups,Andere,NA,NA,NA,701,701,0.3305136263370514,medium,FALSE,FALSE,NA,TRUE,TRUE,TRUE
+GS0422,Linke,18,Welfare & Social Policy,Social Groups,Welfare & Social Policy,Sozialstaat Ausbau,Sozialstaat Ausbau,NA,Sozialstaat Ausbau,701,506,0.28803133964538574,high,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0423,SPD,14,Economy,Social Groups,Economy,Staatsintervention,Staatsintervention,NA,Marktliberalismus,701,402,0.7776167392730713,medium,FALSE,TRUE,NA,FALSE,TRUE,FALSE
+GS0424,CDU/CSU,13,Economy,Social Groups,Economy,Wirtschaft Allgemein,Wirtschaft Allgemein,NA,Wirtschaft Allgemein,701,408,0.871204137802124,medium,FALSE,FALSE,NA,FALSE,TRUE,FALSE
+GS0425,CDU/CSU,15,Democracy & Political System,Social Groups,Social Groups,Andere,NA,NA,NA,703,703,0.974614143371582,high,FALSE,FALSE,NA,FALSE,FALSE,TRUE

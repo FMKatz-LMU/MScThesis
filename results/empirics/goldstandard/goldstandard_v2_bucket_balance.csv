@@ -1,0 +1,10 @@
+bucket,n_codeable,recall,short_by
+Environment,12,0.917,0
+Social Groups,13,0.692,0
+European Integration,14,0.786,0
+Migration,20,0.8,0
+Law & Order and National Identity,22,0.636,0
+Welfare & Social Policy,23,0.783,0
+Foreign Policy & Defence,29,0.586,0
+Democracy & Political System,46,0.522,0
+Economy,47,0.702,0

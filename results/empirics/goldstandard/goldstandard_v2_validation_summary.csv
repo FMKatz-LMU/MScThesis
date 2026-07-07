@@ -1,0 +1,6 @@
+metric,n,value
+kappa_A_raw_incl_notassignable,249,0.562
+kappa_A_codeable_only,226,0.63
+kappa_B_within_domain_EXPLORATORY,98,0.456
+soft_agreement_mass_on_human_bucket,226,0.58
+gold305_precision_filtered,23,0.435

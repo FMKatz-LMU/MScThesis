@@ -1,0 +1,122 @@
+human,bert,n
+(keine Richtung),(keine Richtung),0
+Contra-EU,(keine Richtung),0
+keine klare Richtung,(keine Richtung),0
+Marktliberalismus,(keine Richtung),3
+Migration liberal,(keine Richtung),2
+Migration restriktiv,(keine Richtung),1
+Pro-EU,(keine Richtung),1
+Sozialstaat Ausbau,(keine Richtung),4
+Sozialstaat Begrenzung,(keine Richtung),0
+Staatsintervention,(keine Richtung),2
+Wirtschaft Allgemein,(keine Richtung),6
+(keine Richtung),Contra-EU,0
+Contra-EU,Contra-EU,3
+keine klare Richtung,Contra-EU,0
+Marktliberalismus,Contra-EU,0
+Migration liberal,Contra-EU,1
+Migration restriktiv,Contra-EU,0
+Pro-EU,Contra-EU,3
+Sozialstaat Ausbau,Contra-EU,0
+Sozialstaat Begrenzung,Contra-EU,0
+Staatsintervention,Contra-EU,0
+Wirtschaft Allgemein,Contra-EU,0
+(keine Richtung),keine klare Richtung,0
+Contra-EU,keine klare Richtung,0
+keine klare Richtung,keine klare Richtung,6
+Marktliberalismus,keine klare Richtung,1
+Migration liberal,keine klare Richtung,0
+Migration restriktiv,keine klare Richtung,0
+Pro-EU,keine klare Richtung,0
+Sozialstaat Ausbau,keine klare Richtung,1
+Sozialstaat Begrenzung,keine klare Richtung,1
+Staatsintervention,keine klare Richtung,3
+Wirtschaft Allgemein,keine klare Richtung,3
+(keine Richtung),Marktliberalismus,0
+Contra-EU,Marktliberalismus,0
+keine klare Richtung,Marktliberalismus,0
+Marktliberalismus,Marktliberalismus,5
+Migration liberal,Marktliberalismus,0
+Migration restriktiv,Marktliberalismus,0
+Pro-EU,Marktliberalismus,1
+Sozialstaat Ausbau,Marktliberalismus,0
+Sozialstaat Begrenzung,Marktliberalismus,0
+Staatsintervention,Marktliberalismus,2
+Wirtschaft Allgemein,Marktliberalismus,3
+(keine Richtung),Migration liberal,0
+Contra-EU,Migration liberal,0
+keine klare Richtung,Migration liberal,0
+Marktliberalismus,Migration liberal,0
+Migration liberal,Migration liberal,7
+Migration restriktiv,Migration liberal,2
+Pro-EU,Migration liberal,0
+Sozialstaat Ausbau,Migration liberal,0
+Sozialstaat Begrenzung,Migration liberal,0
+Staatsintervention,Migration liberal,0
+Wirtschaft Allgemein,Migration liberal,0
+(keine Richtung),Migration restriktiv,0
+Contra-EU,Migration restriktiv,0
+keine klare Richtung,Migration restriktiv,0
+Marktliberalismus,Migration restriktiv,0
+Migration liberal,Migration restriktiv,1
+Migration restriktiv,Migration restriktiv,7
+Pro-EU,Migration restriktiv,1
+Sozialstaat Ausbau,Migration restriktiv,0
+Sozialstaat Begrenzung,Migration restriktiv,0
+Staatsintervention,Migration restriktiv,1
+Wirtschaft Allgemein,Migration restriktiv,0
+(keine Richtung),Pro-EU,0
+Contra-EU,Pro-EU,0
+keine klare Richtung,Pro-EU,0
+Marktliberalismus,Pro-EU,0
+Migration liberal,Pro-EU,0
+Migration restriktiv,Pro-EU,0
+Pro-EU,Pro-EU,6
+Sozialstaat Ausbau,Pro-EU,0
+Sozialstaat Begrenzung,Pro-EU,0
+Staatsintervention,Pro-EU,1
+Wirtschaft Allgemein,Pro-EU,0
+(keine Richtung),Sozialstaat Ausbau,0
+Contra-EU,Sozialstaat Ausbau,0
+keine klare Richtung,Sozialstaat Ausbau,0
+Marktliberalismus,Sozialstaat Ausbau,0
+Migration liberal,Sozialstaat Ausbau,0
+Migration restriktiv,Sozialstaat Ausbau,0
+Pro-EU,Sozialstaat Ausbau,0
+Sozialstaat Ausbau,Sozialstaat Ausbau,6
+Sozialstaat Begrenzung,Sozialstaat Ausbau,0
+Staatsintervention,Sozialstaat Ausbau,0
+Wirtschaft Allgemein,Sozialstaat Ausbau,0
+(keine Richtung),Sozialstaat Begrenzung,0
+Contra-EU,Sozialstaat Begrenzung,0
+keine klare Richtung,Sozialstaat Begrenzung,0
+Marktliberalismus,Sozialstaat Begrenzung,0
+Migration liberal,Sozialstaat Begrenzung,0
+Migration restriktiv,Sozialstaat Begrenzung,0
+Pro-EU,Sozialstaat Begrenzung,0
+Sozialstaat Ausbau,Sozialstaat Begrenzung,3
+Sozialstaat Begrenzung,Sozialstaat Begrenzung,6
+Staatsintervention,Sozialstaat Begrenzung,0
+Wirtschaft Allgemein,Sozialstaat Begrenzung,0
+(keine Richtung),Staatsintervention,0
+Contra-EU,Staatsintervention,0
+keine klare Richtung,Staatsintervention,0
+Marktliberalismus,Staatsintervention,2
+Migration liberal,Staatsintervention,0
+Migration restriktiv,Staatsintervention,0
+Pro-EU,Staatsintervention,0
+Sozialstaat Ausbau,Staatsintervention,0
+Sozialstaat Begrenzung,Staatsintervention,0
+Staatsintervention,Staatsintervention,7
+Wirtschaft Allgemein,Staatsintervention,1
+(keine Richtung),Wirtschaft Allgemein,0
+Contra-EU,Wirtschaft Allgemein,0
+keine klare Richtung,Wirtschaft Allgemein,0
+Marktliberalismus,Wirtschaft Allgemein,2
+Migration liberal,Wirtschaft Allgemein,0
+Migration restriktiv,Wirtschaft Allgemein,0
+Pro-EU,Wirtschaft Allgemein,0
+Sozialstaat Ausbau,Wirtschaft Allgemein,0
+Sozialstaat Begrenzung,Wirtschaft Allgemein,0
+Staatsintervention,Wirtschaft Allgemein,0
+Wirtschaft Allgemein,Wirtschaft Allgemein,6

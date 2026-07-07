@@ -1,0 +1,11 @@
+class,support,precision,recall,f1
+Sozialstaat Ausbau,999,0.903,0.8,0.848
+Wirtschaft Allgemein,451,0.73,0.82,0.772
+Marktliberalismus,345,0.676,0.73,0.702
+Staatsintervention,342,0.759,0.681,0.718
+Pro-EU,151,0.851,0.755,0.8
+keine klare Richtung,88,0.77,0.761,0.766
+Migration restriktiv,73,0.466,0.753,0.576
+Migration liberal,54,0.589,0.611,0.6
+Contra-EU,40,0.525,0.8,0.634
+Sozialstaat Begrenzung,33,0.125,0.182,0.148

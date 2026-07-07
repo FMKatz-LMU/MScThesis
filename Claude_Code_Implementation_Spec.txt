@@ -1,0 +1,486 @@
+﻿Claude Code Implementation Spec
+Pipeline alignment with Methodological Implementation v2
+Manifesto–Speech Agenda Consistency, Bundestag LP 13–20
+0. Purpose & how to read this document
+This document specifies every change Claude Code needs to make to bring the existing R pipeline into alignment with Methodological_Implementation_Hypotheses_v2.docx (the methodological reference, hereafter “MIv2”). It also specifies the new scripts that need to be built for the hypotheses not yet implemented.
+Layout:
+Section 1 — Inventory of current scripts and what they do.
+Section 2 — Authoritative reference: hypothesis structure as locked in MIv2.
+Section 3 — Per-script change list (existing scripts).
+Section 4 — New scripts to create (H3a/H3b, H4 rename, robustness scripts).
+Section 5 — Updated run_all.R driver and final file layout.
+Section 6 — Acceptance checklist Claude Code should run through before declaring done.
+Project root used in PATHS: ~/masterarbeit. All R scripts live in ~/masterarbeit/R/. Outputs go to ~/masterarbeit/results/empirics/ with figures under …/figures/ and the cache under …/cache/.
+Decisions Flo has already taken (do not reopen):
+• Robustness checks scope: implement ALL three (temperature sweep τ∈{0.5, 1.0, 2.0}; threshold-and-residual at thresholds 0.4 and 0.5; tighter R-side pre-filter on already-classified sentences for H2a).
+• Renaming: 06_H6.R → 07_H4.R. H3 takes file slot 06.
+• H3 organization: file structure decided by Claude Code based on whatever is cleanest; this spec recommends a single 06_H3.R with two clearly-labelled sections.
+• Temperature sweep wiring: 03_load_and_aggregate.R caches all three τ distributions upfront so robustness scripts can simply read from the cache.
+• Tighter pre-filter is implemented as an R-side filter on already-classified sentences (no Python re-run needed).
+
+1. Current pipeline inventory
+Existing R/ scripts that are part of the analysis pipeline (as opposed to the data-prep / probe scripts):
+Script
+Purpose
+Status vs MIv2
+00_config.R
+Paths, MARPOR code → bucket lookups for Aggregations A and B, party colours, ggplot theme.
+OK. Minor: relocate REACTIVE_BUCKETS out of 05_H2.R; add OWNERSHIP_PRIORS lookup tables here.
+01_probe_data.R
+Diagnostic-only inspection of speech and manifesto RDS files.
+OK; no changes needed.
+02_helpers.R
+normalize_party, soft_aggregate, aggregate_manifesto_row, jsd, bootstrap_jsd, temper, LP_ELECTION map.
+OK. Add a hard_aggregate helper for the threshold robustness check; promote polarization_score and dalton_polarization out of script files into helpers.
+03_load_and_aggregate.R
+Builds and caches cell-level distributions for both schemes; cell diagnostics.
+Needs extension: cache all three τ values; cache hard-aggregated distributions for thresholds 0.4 and 0.5; cache a tightened-prefilter variant.
+04_H1.R
+H1a salience baseline JSD with bootstrap; H1b directional composition bars.
+OK substantively. Minor: read native-τ cache key by name; add panel-header JSD annotation in H1b plot.
+05_H2.R
+H2a per-bucket JSD; H2b directional moderation; H2c inter-party SD.
+Bug: H2c uses unweighted sd() but MIv2 requires Dalton weighting. Reframe: H2a should drop the Reactive/Programmatic colouring and instead annotate the procedural-language interpretation (Democracy & Political System).
+06_H6.R
+System polarization over time (Dalton-weighted).
+Rename to 07_H4.R; relabel H6 → H4 throughout; refactor: import helpers rather than re-implement position_score; consolidate VOTE_SHARES / SEAT_SHARES into 00_config.R.
+run_all.R
+Driver script: sources 03 → 04 → 05 → 06.
+Update to source new files: 03 → 04 → 05 → 06_H3 → 07_H4 → 08_robustness_temperature → 09_robustness_threshold → 10_robustness_prefilter.
+Scripts currently in the project root that are NOT part of the analysis pipeline (legacy data-prep, manifesto API pulls, diagnostics) are out of scope for this spec. Specifically, Claude Code should leave these alone:
+apply_aggregation_AB.R (legacy speech-side aggregation; superseded by 03_load_and_aggregate.R)
+compute_jsd.R (legacy)
+Data_Check_after_ManifestoBERTa.R (data validation)
+diagnose_marpor.R, diagnose_marpor_v3.R, diagnose_rowsum.R (diagnostics)
+pull_marpor_align.R, script_dataprep_after_ai_and_marpor_pull.R, Script_Speechrefinement.R (data prep)
+quick_signed.R, reload_session.R (helper scratch files)
+
+2. Authoritative hypothesis structure (MIv2 §6)
+All scripts must align to this. The crucial change since the empirical findings report is that H6 has been renamed to H4 (system polarization over time) and the migration-shock and gov-vs-opposition standalone hypotheses have been folded into H4 and H1a respectively (no separate test).
+Hypothesis
+Aggregation
+Primary deliverable
+Implementation status
+H1a
+A
+Per-cell JSD with 95% bootstrap intervals; per-party panel dotplot.
+Implemented in 04_H1.R; OK substantively.
+H1b
+B
+Per-party paneled stacked bars (M vs S within each B-domain).
+Implemented in 04_H1.R; minor polish required.
+H2a
+A
+Horizontal bar chart of mean per-bucket JSD contribution; dots = individual cells; Democracy & Political System bar annotated as procedural-language artefact.
+Implemented in 05_H2.R; needs reframing (drop Reactive/Programmatic).
+H2b
+B
+Speech-vs-manifesto polarization scatter, paneled by domain; 45° + per-panel OLS line.
+Implemented; OK.
+H2c
+B
+Per-domain line chart of inter-party Dalton-weighted SD over LPs (manifesto, speech, speech excl. AfD).
+BUG: currently unweighted sd(); needs Dalton weighting (MIv2 §6.6).
+H3a
+A
+Heatmap parties × A-buckets of per-bucket JSD; ownership cells outlined.
+NOT YET IMPLEMENTED. New script.
+H3b
+B
+Heatmap parties × B-domains of per-domain JSD; ownership cells outlined.
+NOT YET IMPLEMENTED. New script.
+H4
+A + B
+Per-(domain × channel) line plots of Dalton-weighted polarization across LPs 13–20; 2017 reference line; OLS slopes table.
+Implemented as H6 in 06_H6.R; rename and renumber.
+Aggregation A — exact partition of the 56 MARPOR Handbook 4 codes into 9 buckets: Foreign Policy & Defence, European Integration, Democracy & Political System, Economy, Welfare & Social Policy, Environment, Law & Order and National Identity, Migration, Social Groups. (Already locked in 00_config.R; do not alter.)
+Aggregation B — directional sub-labels in four key domains (Economy: Marktliberalismus / Staatsintervention / Wirtschaft Allgemein; Welfare: Sozialstaat Ausbau / Sozialstaat Begrenzung; Migration: restriktiv / liberal; Europe: Pro-EU / Contra-EU) plus an Andere residual that catches every code outside the four domains. (Already locked in 00_config.R; do not alter.)
+
+3. Per-script change list (existing scripts)
+3.1 00_config.R — additions only, no breaking changes
+Add the following constants. Do not change existing constants; downstream scripts depend on their exact values.
+3.1.1 Temperature sweep constants
+# Temperature sweep for the speech-side softmax (MIv2 §3.3).
+# tau < 1 sharpens, tau > 1 flattens. tau = 1 is the model's native output.
+TEMPERATURES <- c(sharp = 0.5, native = 1.0, flat = 2.0)
+TAU_PRIMARY  <- 1.0   # name of the primary specification used in main figures
+3.1.2 Threshold-and-residual robustness constants
+# Argmax-with-threshold robustness (MIv2 §3.5). Sentences whose top-1
+# probability is below CONF_THRESHOLD are routed to a residual 'Andere'
+# bucket; otherwise the argmax bucket gets the unit mass.
+CONF_THRESHOLDS <- c(low = 0.4, high = 0.5)
+3.1.3 Tightened pre-filter constants
+# Tightened pre-filter robustness for H2a (MIv2 §6.4). Defaults below
+# are sensible starting points; Flo can tune in code review.
+TIGHT_FILTER <- list(
+  min_words_per_sentence = 8L,           # primary (lax) is 5
+  drop_speakers_role     = c("presidium", "vice-president", "president"),
+  drop_short_speeches    = TRUE,         # speeches with < 50 words removed
+  min_speech_words       = 50L
+)
+Note: the speech RDS already contains the metadata columns speaker_role, n_words, or equivalent — Claude Code should probe with 01_probe_data.R and use whatever columns actually exist. If the columns are not available, fall back to filtering on sentence length only (n_tokens / number of words in the sentence text) and document the limitation in a code comment.
+3.1.4 Ownership priors (for H3a and H3b)
+These encode the directly stated ownership predictions in MIv2 §6.7 and §6.8. Note that H3a uses Aggregation-A buckets and H3b uses Aggregation-B domains; the two maps differ.
+# H3a — Salience-side issue ownership (Aggregation A buckets).
+# Multiple ownership claims per party are allowed (e.g. AfD owns both
+# Migration AND Law & Order and National Identity).
+OWNERSHIP_A <- tribble(
+  ~party,     ~bucket_A,
+  "Grüne",   "Environment",
+  "Linke",   "Welfare & Social Policy",
+  "FDP",     "Economy",
+  "AfD",     "Migration",
+  "AfD",     "Law & Order and National Identity",
+  "CDU/CSU", "Economy",
+  "CDU/CSU", "Law & Order and National Identity",
+  "SPD",     "Welfare & Social Policy"
+)
+
+# H3b — Directional-side issue ownership (Aggregation B domains).
+# Europe is intentionally excluded — no party owns the EU domain in
+# the German party system over LP 13–20 (MIv2 §6.8).
+OWNERSHIP_B <- tribble(
+  ~party,     ~domain_B,
+  "FDP",     "Economy",
+  "Linke",   "Welfare",
+  "AfD",     "Migration",
+  "CDU/CSU", "Economy",
+  "SPD",     "Welfare"
+)
+3.1.5 Move VOTE_SHARES and SEAT_SHARES from 06_H6.R into 00_config.R
+Both H3 (potentially) and H4 use these. Take the existing tribbles verbatim from the current 06_H6.R; do NOT alter any numeric values. Re-run the existing sanity checks (totals ≤ 100.5%) at the bottom of 00_config.R after the tribbles are loaded.
+3.2 02_helpers.R — promote shared logic, add hard_aggregate
+3.2.1 Promote polarization_score from 05_H2.R into 02_helpers.R
+Both 05_H2.R and 06_H6.R currently have their own near-identical implementation. Move it to helpers. Single canonical signature:
+# polarization_score(df_long, party_, scope_val, scope_col)
+# Returns a tibble with one row and four numeric columns
+# (Economy, Welfare, Migration, Europe), each in [-1, +1] or NA.
+# Conventions (signs):
+#   Economy   = (Marktlib   - Staatsint)  / (Marktlib + Staatsint)
+#               (Wirtschaft Allgemein excluded from the denominator)
+#   Welfare   = (Begrenzung - Ausbau)     / (Begrenzung + Ausbau)
+#   Migration = (restriktiv - liberal)    / (restriktiv + liberal)
+#   Europe    = (Contra-EU  - Pro-EU)     / (Contra-EU  + Pro-EU)
+# Returns NA for a domain when the in-domain mass is zero.
+Once promoted, both 05_H2.R and 07_H4.R must call helpers and not re-define.
+3.2.2 Add hard_aggregate (for threshold robustness)
+This is the standard argmax-with-threshold rule used in the comparison run of MIv2 §3.5. Each sentence's full unit mass is routed to its argmax bucket if max-prob ≥ threshold, otherwise to a residual Andere bucket.
+# Hard aggregation on the speech side (argmax + threshold rule).
+# Returns a named numeric vector summing to 1 over
+#   c(all_buckets, "Andere")
+# Inputs:
+#   prob_mat       — n_sentences x 56 softmax probability matrix
+#                    (columns in MARPOR_CODES_56 order)
+#   lookup         — data frame with `code` and a bucket column
+#   bucket_col     — name of the bucket column in lookup
+#   all_buckets    — full ordered vector of bucket names (without Andere)
+#   threshold      — minimum top-1 probability to accept the argmax label
+# Logic:
+#   1. For each row, find argmax code and max probability.
+#   2. If max probability >= threshold and the argmax code is mapped in
+#      lookup, the row casts a vote of 1 for that bucket.
+#   3. Otherwise the row casts a vote of 1 for 'Andere'.
+#   4. Cell distribution = column means of the n x (k+1) indicator matrix.
+# Returns the named vector of length length(all_buckets)+1.
+hard_aggregate <- function(prob_mat, lookup, bucket_col, all_buckets, threshold) {
+  # Implementation TBD by Claude Code; signature must match above.
+}
+Edge cases: rows where the argmax probability is exactly equal to the threshold should be accepted (use >=). Rows whose argmax code is in MARPOR_CODES_56 but is not mapped to any all_buckets entry (relevant only for Aggregation B) go to Andere.
+3.2.3 Add dalton_polarization helper (move from 06_H6.R)
+# Dalton-style weighted dispersion of position scores.
+# Inputs: positions (numeric vector), weights (numeric vector, same length).
+# Returns a tibble(mean_pos, polarization, n_parties).
+#   weights are renormalized to sum to 1 after dropping NAs.
+#   polarization = sqrt( sum_i w_i * (p_i - mu)^2 )  where mu = sum_i w_i * p_i
+#   Returns NA polarization if fewer than 2 valid (positions, weights).
+3.3 03_load_and_aggregate.R — extend caching
+The current script caches one specification only (native τ, primary pre-filter, soft aggregation). MIv2 requires three additional cached variants. The schema below makes downstream code identical for any (τ, threshold/soft, prefilter) combination.
+3.3.1 Cache schema after the change
+Replace single-key RDS files with named lists keyed by specification. Concretely:
+# results/empirics/cache/speech_dists.rds
+#   list of long tibbles, one per (specification, scheme) combination.
+#   Names follow the convention 'spec__scheme', e.g.
+#     'soft_tau1.0__A'        — primary
+#     'soft_tau0.5__A'        — sharp temperature, Aggregation A
+#     'soft_tau2.0__A'        — flat temperature, Aggregation A
+#     'soft_tau1.0__B'        — primary, Aggregation B
+#     'soft_tau0.5__B', 'soft_tau2.0__B'
+#     'hard_thr0.4__A', 'hard_thr0.4__B', 'hard_thr0.5__A', 'hard_thr0.5__B'
+#     'tightprefilter__A', 'tightprefilter__B'
+#
+# Each long tibble: (party, lp, bucket, share, n_sent)
+#
+# results/empirics/cache/manifesto_dists.rds  (UNCHANGED schema:
+#   list with $A, $B; manifesto side does not vary across τ or threshold.)
+#
+# results/empirics/cache/speech_prob_matrix.rds  (UNCHANGED:
+#   list(prob_mat, cells); primary native-τ probability matrix.
+#   This is what 04_H1.R uses for the bootstrap.)
+#
+# results/empirics/cache/cell_diag.rds  (UNCHANGED.)
+Backward compatibility shim: at the end of 03_load_and_aggregate.R, also save a top-level speech_dists.rds with old keys $A and $B pointing at the primary soft_tau1.0__A / soft_tau1.0__B tibbles, so 04_H1.R / 05_H2.R / 07_H4.R continue to work without code changes during the transition. Then update those scripts (Section 3.4–3.6) to read by explicit key.
+3.3.2 Implementation outline
+Load speech RDS once; build the master probability matrix prob_mat (n_sent × 56) exactly as today.
+For each τ ∈ TEMPERATURES:
+Build prob_mat_tau via temper(prob_mat, τ) (helper already exists).
+Run the existing per-cell soft-aggregation loop on prob_mat_tau for both Aggregation A and Aggregation B; store results under speech_dists[[paste0('soft_tau', τ, '__A')]] and …__B.
+For each threshold ∈ CONF_THRESHOLDS: run hard_aggregate on the native-τ prob_mat for both schemes; store under hard_thr0.4__A, hard_thr0.4__B, hard_thr0.5__A, hard_thr0.5__B.
+For the tightened pre-filter variant: build a logical mask on the speech rows (using the columns specified in TIGHT_FILTER), subset prob_mat to the surviving rows, then re-run the native-τ soft-aggregation on that subset for both schemes; store under tightprefilter__A and tightprefilter__B. Save the per-cell sentence count n_sent so 10_robustness_prefilter.R can report drop rates.
+Save the primary (native, soft) probability matrix and cells index to speech_prob_matrix.rds exactly as today. The bootstrap in H1a uses these.
+Memory note: prob_mat for the full corpus may be large (a few GB if ~10M sentences). The temperature loop is O(n_sent × 56 × 3 + per-cell aggregation × 3). Doing it in one process is fine on the RTX 5070 laptop; if memory is tight, free prob_mat_tau between iterations explicitly with rm() and gc().
+3.3.3 New cache outputs
+Total cache files at the end of 03_load_and_aggregate.R:
+speech_dists.rds — list, 16 named entries (3 τ × 2 schemes + 2 thresholds × 2 schemes + 1 tight × 2 schemes + 2 backwards-compat) plus the legacy $A and $B.
+manifesto_dists.rds — list with $A, $B (unchanged).
+speech_prob_matrix.rds — list(prob_mat, cells) (unchanged).
+cell_diag.rds — per-cell mean argmax probability and entropy (unchanged).
+3.4 04_H1.R — minor updates
+At the top, after the cache load, change the assignments to use the new cache keys:
+speech_A    <- sd_list[["soft_tau1.0__A"]]   # was sd_list$A
+speech_B    <- sd_list[["soft_tau1.0__B"]]   # was sd_list$B
+(Or rely on the backward-compat shim sd_list$A / sd_list$B — but explicit keys are clearer.)
+In the H1b plot, add the panel-header overall JSD on B as MIv2 §6.2 specifies ("per-party overall JSD printed in the panel header"). The h1b_overall_jsd tibble already exists; compute its per-party mean across LPs, attach to a labeller for facet_grid(rows = vars(party)), and render it in the strip text. Specifically: build a named vector of strip labels of the form "CDU/CSU (mean JSD = 0.035)" and pass via labeller = labeller(party = strip_labels).
+Plot caption: extend with the additional explanation "thin vertical separators divide topic groups within each panel" — implementation: add geom_vline() at x = 1.5, 2.5, 3.5 with light grey colour at the panel-grid layer. (This realizes the "thin vertical separators" element from MIv2 §6.2.)
+No change to H1a logic. Bootstrap intervals are correct. Confirm the script compiles after the cache schema change, then commit.
+3.5 05_H2.R — H2a reframing and H2c bug fix
+3.5.1 H2a — drop Reactive vs Programmatic, reframe to procedural-language artefact
+MIv2 §6.3 explicitly retires the Reactive/Programmatic framing because the empirical pattern did not support it. Replace as follows.
+Delete the REACTIVE_BUCKETS definition and all references to bucket_type in the H2a section.
+Build h2a_summary without the bucket_type column.
+In the plot, drop scale_fill_manual() on bucket_type. Use a single neutral fill colour (e.g. "#264653") for all bars, and add a per-bar highlight: the "Democracy & Political System" bar gets a contrasting fill (e.g. "#E76F51") to single it out as the procedural-language artefact.
+Replace the plot subtitle with: "Mean per-bucket contribution to JSD across cells; dots = individual (party, LP) cells. Procedural and institutional language inflates Democracy & Political System on the speech side relative to manifestos (genre artefact, see MIv2 §6.3)."
+Replace the plot caption with: "The Democracy & Political System bar reflects parliamentary procedural-rhetorical phrasing absent from manifestos rather than substantive divergence on democratic-political topics. See MIv2 §6.4 for a tightened pre-filter robustness check."
+Add an annotation directly on the highlighted bar: geom_text(aes(label = "procedural-language\nartefact"), …) only on that one bucket.
+3.5.2 H2b — keep as-is, minor
+The H2b implementation matches MIv2 §6.5. Verify the regression spec is speech_pol ~ manifesto_pol within each domain panel. No code changes required apart from re-keying the cache load (Section 3.4 step 1).
+3.5.3 H2c — replace unweighted SD with Dalton-weighted dispersion (BUG FIX)
+Current code in 05_H2.R uses base R sd() which is the unweighted sample SD. MIv2 §6.6 explicitly specifies "weighted standard deviation of party position scores, Dalton-style". Use the same weights as H4: vote shares for the manifesto channel, seat shares for the speech channel.
+Concretely, replace the four blocks computing disp_speech_all / disp_speech_noafd / disp_manifesto / disp_manifesto_noafd with calls to the dalton_polarization helper. Schema after change:
+# Per (lp, domain), join positions to weights, then run dalton_polarization
+# weights:  speech channel  -> SEAT_SHARES  on (party, lp)
+#           manifesto channel -> VOTE_SHARES on (party, election_date), then attach lp via m1_map
+
+h2c_speech_all <- speech_pol %>%
+  inner_join(SEAT_SHARES, by = c("party", "lp")) %>%
+  group_by(lp, domain) %>%
+  summarise(out = list(dalton_polarization(speech_pol, seat_share)),
+            .groups = "drop") %>%
+  unnest(out) %>%
+  transmute(lp, domain, sd_speech_all = polarization)
+
+# Same pattern for h2c_speech_noafd (filter party != 'AfD' before the join),
+# h2c_manifesto (use VOTE_SHARES + m1_map), h2c_manifesto_noafd.
+Acceptance check: print h2c_speech_all before and after the change; the magnitudes should differ (because they are now weighted) and the cross-LP ordering should still be similar.
+3.6 06_H6.R — rename to 07_H4.R, refactor
+Rename the file. Inside the file, rename every H6 → H4. Substantive logic does not change. Refactoring tasks:
+Delete the local VOTE_SHARES / SEAT_SHARES tribbles and the local position_score function definition. Source them from 00_config.R (the shares) and 02_helpers.R (polarization_score). Replace internal calls accordingly. Note: the existing position_score in 06_H6.R differs slightly from polarization_score in 05_H2.R — they compute the same thing but with different data layouts. Make the helpers version handle both call sites; verify the H4 numbers are unchanged from the empirical findings report before committing.
+Rename all output filenames H6_* → H4_*:
+results/empirics/H4_system_polarization.csv
+results/empirics/H4_mean_positions.csv
+results/empirics/H4_trend_fits.csv
+results/empirics/H4_pre_post_2017.csv
+results/empirics/figures/H4_polarization_lines.pdf  (.png)
+results/empirics/figures/H4_polarization_lines_robust.pdf
+results/empirics/figures/H4_mean_positions.pdf  (.png)
+Plot title: "H4 — System-level polarization over time". Plot subtitle: keep the Dalton-weighted explanation. Caption: keep the AfD-enters annotation but verify the wording of the caption against MIv2 §6.9 ("per-domain decomposition shows the post-2017 shift is concentrated in Europe and Migration with distinct channel signatures").
+Update the cache load to use the new keys:
+speech_B    <- sd_list[["soft_tau1.0__B"]]
+manifesto_B <- md_list$B
+Acceptance: H4 numerical outputs should match the H6 outputs in the empirical findings report exactly (up to floating-point), since the substantive computation has not changed.
+
+4. New scripts to create
+4.1 06_H3.R — Hypotheses 3a (salience ownership) and 3b (directional ownership)
+Single file, two clearly-labelled sections. Reads the same caches as 04_H1.R and 05_H2.R. Adds nothing to the pipeline beyond reading from caches and producing the heatmaps and ownership-vs-non-ownership tables.
+4.1.1 H3a — salience-side ownership heatmap
+Inputs:
+sd_list[["soft_tau1.0__A"]] — speech distributions on Aggregation A.
+md_list$A + LP_ELECTION — manifesto distributions on A, joined to LP via M1.
+OWNERSHIP_A — from 00_config.R.
+Computation:
+For each (party, LP) cell, compute the per-bucket JSD contribution exactly as in 05_H2.R H2a (the per_bucket_jsd function). Reuse that function — promote it to 02_helpers.R if not already there, or keep it inline.
+Average across LPs within each (party, bucket) to get a per-cell mean contribution. Output table: party × bucket → mean_jsd_contrib.
+Build a long tibble joined with OWNERSHIP_A so each (party, bucket) row has an is_owned boolean. Save to results/empirics/H3a_per_bucket_table.csv.
+Statistical summary: for each party, mean JSD contribution on owned buckets vs non-owned buckets. Report the difference and a paired Wilcoxon signed-rank test across the 8 LPs (one observation per LP per party-bucket, then averaged). Save as H3a_ownership_test.csv.
+Plot: heatmap, parties (rows) × A-buckets (columns).
+Use geom_tile() with fill = mean_jsd_contrib, scale scale_fill_viridis_c(direction = -1) so that lighter = lower divergence (matches MIv2 "outlined cells systematically lighter").
+Outline ownership cells: add a second layer geom_tile(data = ownership_subset, fill = NA, colour = 'red', linewidth = 0.8).
+Order rows: PARTIES_KEEP. Order columns: BUCKETS_A in a sensible order — recommended ordering is the order in 00_config.R, which goes from foreign affairs through migration and social groups.
+Save to figures/H3a_ownership_heatmap.pdf and .png.
+4.1.2 H3b — directional-side ownership heatmap
+Inputs:
+sd_list[["soft_tau1.0__B"]] — speech distributions on B.
+md_list$B — manifesto distributions on B.
+OWNERSHIP_B — from 00_config.R.
+Computation:
+For each (party, LP, domain) cell, compute the JSD between the manifesto and speech within-domain directional sub-distributions. The within-domain renormalization is already implemented in 04_H1.R (the speech_B_dir / manifesto_B_dir pipeline). Reuse that logic — extract it into 02_helpers.R if it makes the H3b implementation cleaner; otherwise inline.
+Per (party, domain), average JSD across LPs.
+Save to results/empirics/H3b_per_domain_table.csv with columns party, domain, mean_jsd_within_domain, n_lps_used.
+Ownership test analogous to H3a (Wilcoxon paired). Note the ownership map is sparser — Europe is excluded from ownership. Save H3b_ownership_test.csv.
+Plot: heatmap, parties (rows) × DOMAINS_B (4 columns).
+Same colour treatment as H3a (viridis reversed).
+Outline ownership cells from OWNERSHIP_B with a coloured border. Note Europe column will have no outlined cells across any party — that's correct.
+Save to figures/H3b_ownership_heatmap.pdf and .png.
+4.1.3 Console summary
+Print: per-party mean JSD on owned vs non-owned buckets/domains, Wilcoxon p-values, total cells used. Also identify any clear non-conformers (e.g. AfD on Migration is expected to show low JSD; if the data show high JSD, flag it for the writeup).
+4.2 08_robustness_temperature.R — temperature sweep on H1a and H1b
+Reads from cache (no re-aggregation). Reports H1a and H1b under τ ∈ {0.5, 1.0, 2.0} side-by-side.
+4.2.1 H1a temperature sweep
+For each τ in {0.5, 1.0, 2.0}: load sd_list[[paste0('soft_tau', τ, '__A')]] and recompute the per-cell JSD against the M1 manifesto vector. 
+Bootstrap intervals: required only for τ = 1.0 (the primary specification, already done in 04_H1.R). For τ = 0.5 and τ = 2.0, point estimates are sufficient.
+Plot: per-cell JSD across LPs, faceted by party, with three colour-coded series for the three τ values. Solid line is τ = 1.0. Dashed lines for the other two. 
+Save: results/empirics/H1a_temperature_sweep.csv and figures/H1a_temperature_sweep.pdf (+ .png).
+4.2.2 H1b temperature sweep
+Same logic for the directional side: per (party, LP) overall JSD on B (Andere excluded, within-domain mass renormalized), reported under three τ values.
+Save: results/empirics/H1b_temperature_sweep.csv and figures/H1b_temperature_sweep.pdf.
+4.2.3 Acceptance criterion
+Per MIv2 §3.3: the cross-cell ordering of JSD values should be preserved across the three τ values (rank correlation ≥ 0.9). Print the rank correlations to console as a sanity check, and include them in the CSV output.
+4.3 09_robustness_threshold.R — argmax + threshold robustness on H1a and H1b
+Reads from cache. Reports H1a and H1b under hard aggregation at thresholds 0.4 and 0.5.
+4.3.1 H1a threshold sweep
+For each threshold in {0.4, 0.5}: load sd_list[[paste0('hard_thr', threshold, '__A')]] and compute per-cell JSD against the M1 manifesto on Aggregation A. The hard-aggregated speech distribution may have non-zero mass on the Andere bucket; the manifesto-side Aggregation A distribution does not have an Andere bucket (A is a partition). For comparability, 
+Decision Claude Code must implement: when comparing hard-A speech distributions to manifesto-A distributions, drop any speech-side mass on Andere and renormalize the speech distribution before computing JSD. (Aggregation A is a partition of the 56 codes, so this corresponds to "keep only sentences whose argmax is above threshold" which is the standard interpretation.) Document this choice as a code comment with reference to MIv2 §3.5.
+Build a comparison table: party × LP × specification → JSD, where specifications are (soft τ=1.0 / hard thr=0.4 / hard thr=0.5).
+Plot: scatter plot, x = soft JSD, y = hard JSD, one panel per threshold, colour by party. 45° reference line.
+Save: results/empirics/H1a_threshold_robustness.csv and figures/H1a_threshold_scatter.pdf.
+4.3.2 H1b threshold sweep
+Same comparison on Aggregation B, restricted to within-domain renormalized distributions. Speech-side hard aggregation produces large Andere mass at high thresholds (because most sentences fall outside the four directional domains anyway); the comparison should renormalize manifesto and speech side identically (drop Andere, renormalize within domain) before JSD.
+Save: results/empirics/H1b_threshold_robustness.csv and figures/H1b_threshold_scatter.pdf.
+4.3.3 Predicted-direction check
+Per MIv2 §3.5, the threshold specification is expected to (a) preserve the cross-cell ordering of JSD values, (b) shift absolute magnitudes upward in directions consistent with over-representing high-confidence codes (especially code 305, Political Authority, which feeds Democracy & Political System). Compute and print:
+Spearman rank correlation between soft and hard JSD, per spec.
+Per-party mean shift Δ JSD = hard − soft.
+On the Aggregation A side (H1a), per-bucket attribution: how much of the hard-vs-soft difference is driven by the Democracy & Political System bucket? Decompose using the per-bucket JSD logic from 05_H2.R.
+4.4 10_robustness_prefilter.R — tightened pre-filter robustness for H2a
+Reads from cache. Reports H2a under the tightened pre-filter and compares against the primary.
+4.4.1 Computation
+Load both sd_list[["soft_tau1.0__A"]] (primary) and sd_list[["tightprefilter__A"]] (tightened).
+For each variant: per (party, LP, bucket) compute the JSD contribution against the M1 manifesto (same per_bucket_jsd helper as H2a).
+Average per bucket across cells in each variant.
+Compute the per-bucket shift: tight − primary. Particular focus: the Democracy & Political System bucket — does its JSD contribution shrink under the tighter filter?
+4.4.2 Outputs
+results/empirics/H2a_prefilter_comparison.csv — long tibble with bucket, variant, mean_contrib.
+results/empirics/H2a_prefilter_shifts.csv — wide tibble with bucket, primary, tight, delta, pct_change.
+results/empirics/H2a_prefilter_dropstats.csv — per-cell sentence drop rate (n_sent_primary, n_sent_tight, drop_pct).
+Plot: side-by-side horizontal bars of mean JSD contribution per bucket, primary vs tightened (paired bars). Save figures/H2a_prefilter_comparison.pdf.
+4.4.3 Pre-committed interpretation (per MIv2 §6.4)
+Print to console:
+If the Democracy & Political System bucket's mean contribution falls by < 25%: "Filter robustness check confirms the procedural-language artefact is intrinsic. H2a finding stands; report as cross-domain artefact."
+If it falls by 25–50%: "Pre-filter material; report both specifications side by side and discuss the artefact diagnosis as partial."
+If it falls by > 50%: "Original pre-filter was too permissive; H2a interpretation requires substantial revision; tighter filter becomes the primary spec."
+
+5. Updated run_all.R driver and final file layout
+5.1 Final R/ directory layout
+R/
+├── 00_config.R                       (extended)
+├── 01_probe_data.R                   (unchanged)
+├── 02_helpers.R                      (extended; promoted shared helpers)
+├── 03_load_and_aggregate.R           (extended; multi-spec cache)
+├── 04_H1.R                           (minor updates)
+├── 05_H2.R                           (H2a reframed; H2c bug fix)
+├── 06_H3.R                           (NEW — H3a + H3b)
+├── 07_H4.R                           (renamed from 06_H6.R)
+├── 08_robustness_temperature.R       (NEW)
+├── 09_robustness_threshold.R         (NEW)
+├── 10_robustness_prefilter.R         (NEW)
+└── run_all.R                         (updated)
+5.2 Updated run_all.R
+# ============================================================================
+# run_all.R — Driver script
+# ============================================================================
+
+needed <- c("tidyverse", "here", "fs", "glue", "scales", "ggrepel", "arrow", "viridisLite")
+missing_pkgs <- setdiff(needed, rownames(installed.packages()))
+if (length(missing_pkgs) > 0) install.packages(missing_pkgs)
+
+library(here)
+
+RUN_PROBE <- FALSE
+if (RUN_PROBE) source(here::here("R/01_probe_data.R"))
+
+# Main pipeline
+source(here::here("R/03_load_and_aggregate.R"))
+source(here::here("R/04_H1.R"))
+source(here::here("R/05_H2.R"))
+source(here::here("R/06_H3.R"))
+source(here::here("R/07_H4.R"))
+
+# Robustness checks (controllable via flags)
+RUN_ROBUSTNESS <- TRUE
+if (RUN_ROBUSTNESS) {
+  source(here::here("R/08_robustness_temperature.R"))
+  source(here::here("R/09_robustness_threshold.R"))
+  source(here::here("R/10_robustness_prefilter.R"))
+}
+
+message("\nAll done. Outputs are in: ", file.path("results", "empirics"))
+5.3 Output catalogue (after the change)
+CSVs in results/empirics/:
+H1a_jsd_table.csv, H1a_temperature_sweep.csv, H1a_threshold_robustness.csv
+H1b_directional_table.csv, H1b_overall_jsd.csv, H1b_temperature_sweep.csv, H1b_threshold_robustness.csv
+H2a_per_bucket_long.csv, H2a_per_bucket_summary.csv, H2a_prefilter_comparison.csv, H2a_prefilter_shifts.csv, H2a_prefilter_dropstats.csv
+H2b_polarization_table.csv, H2b_regression_fits.csv
+H2c_dispersion_table.csv (now Dalton-weighted)
+H3a_per_bucket_table.csv, H3a_ownership_test.csv
+H3b_per_domain_table.csv, H3b_ownership_test.csv
+H4_system_polarization.csv, H4_mean_positions.csv, H4_trend_fits.csv, H4_pre_post_2017.csv
+Figures in results/empirics/figures/ (.pdf and .png):
+H1a_jsd_dotplot, H1a_temperature_sweep
+H1b_directional_bars, H1b_temperature_sweep
+H1a_threshold_scatter, H1b_threshold_scatter
+H2a_per_bucket_bar, H2a_prefilter_comparison
+H2b_polarization_scatter
+H2c_dispersion_lines
+H3a_ownership_heatmap, H3b_ownership_heatmap
+H4_polarization_lines, H4_polarization_lines_robust, H4_mean_positions
+
+6. Acceptance checklist
+Before declaring the implementation complete, Claude Code should run through and confirm each of the following. The first column is a single-shot yes/no Claude Code can verify with a small R snippet.
+Check
+How
+00_config.R sources cleanly; vote-share and seat-share totals ≤ 100.5% per election/LP; AGG_A is a partition of MARPOR_CODES_56; AGG_B is consistent with the directional buckets BUCKETS_B; OWNERSHIP_A and OWNERSHIP_B reference only valid buckets/domains.
+Existing assertions plus new stopifnot() at the bottom of 00_config.R checking each ownership bucket ∈ BUCKETS_A and each ownership domain ∈ DOMAINS_B.
+After 03_load_and_aggregate.R: speech_dists.rds has all 14 named entries plus the legacy $A and $B compatibility shims; per-cell row sums are within 1e-6 of 1 for Aggregation A on every spec; for Aggregation B, sum over (BUCKETS_B + Andere) is within 1e-6 of 1.
+Add a sanity-check block at the end of 03_load_and_aggregate.R that loops over every named entry and asserts row sums.
+H1a CSV mean JSDs match the empirical findings report (CDU/CSU 0.087, SPD 0.077, FDP 0.061, Grüne 0.068, Linke 0.066, AfD 0.072) within ±0.001.
+Print mean per party from H1a_jsd_table.csv; compare against the table in Empirical_Findings_Report.docx.
+H2b OLS slopes match (Economy 0.365, Welfare 0.246, Migration 0.207, Europe 0.372) within ±0.005.
+Inspect H2b_regression_fits.csv.
+H2c values change vs. previous runs (because they are now Dalton-weighted instead of unweighted). New values should be reported in the writeup; previous unweighted numbers in the empirical findings report are now obsolete.
+Diff H2c_dispersion_table.csv against the previous (unweighted) version; expect non-trivial changes especially in LPs where small parties got disproportionate weight.
+H4 trend fits match the H6 trend fits in Empirical_Findings_Report.docx within ±0.001 (the substantive computation is unchanged, only naming changed).
+Compare H4_trend_fits.csv against Table 3 in the empirical findings report.
+H3a ownership heatmap renders; on the predicted ownership cells, mean JSD contribution is visually lower (lighter colour) than the row median in most cases; AfD ↔ Migration cell explicitly checked.
+Inspect figure visually plus compute per-row median and per-row owned-cell value in H3a_ownership_test.csv.
+Temperature sweep: rank correlations between τ-pairs ≥ 0.9 for both H1a and H1b across cells.
+Print Spearman rank correlations from H1a_temperature_sweep.csv and H1b_temperature_sweep.csv.
+Threshold robustness: cross-cell ordering of JSD values preserved between soft and hard specifications (Spearman ≥ 0.85); absolute JSD shifts upward on average; Democracy & Political System bucket dominates the shift on Aggregation A.
+Print Spearman rank correlations and per-bucket shifts from H1a_threshold_robustness.csv.
+Tightened pre-filter robustness: drop rate per cell printed; Democracy & Political System bucket shift quantified; pre-committed interpretation block prints the appropriate verdict.
+Inspect H2a_prefilter_dropstats.csv and the console output from 10_robustness_prefilter.R.
+run_all.R completes end-to-end without errors. Total runtime documented (expected ~10–30 min on the RTX 5070 laptop, dominated by aggregation in 03 and bootstrap in 04).
+Time the full run; record in a comment at the top of run_all.R.
+If any acceptance check fails, Claude Code should stop and report — do not patch silently. The whole point of this spec is to keep Flo's substantive results stable while extending the pipeline.
+
+7. Known pitfalls Claude Code should not stumble over
+7.1 The FDP LP 18 cell
+Empirical findings report explicitly excludes "FDP LP 18 (n=320 sentences from non-fraction speakers)" — this is because FDP was extra-parliamentary in LP 18 and the speech sentences flagged with party=FDP in that LP come from individual non-fraction speakers, not a parliamentary fraction. The current pipeline does NOT explicitly exclude this cell — it relies on the cell having low n_sent and being filtered downstream. Behaviour to keep: the cell shows up in caches with n_sent in the low hundreds; downstream scripts can either (a) drop cells with n_sent < some threshold, or (b) keep them and accept the noise. Recommendation: leave the existing implicit handling in place (the cell has very low n_sent, statistically negligible influence) but add a stop-warn message in 03_load_and_aggregate.R if any cell in the cache has n_sent < 1000, so Flo is alerted in code review.
+7.2 Manifesto-side Aggregation B Andere mass
+On the speech side, Andere mass is computed as 1 − sum(BUCKETS_B) because the soft probabilities partition correctly. On the manifesto side, the same logic is used in 03_load_and_aggregate.R via aggregate_manifesto_row, but the per-category MARPOR percentages may not sum to exactly 100 (uncoded "H" share). This is handled in pull_marpor_align.R by renormalizing to unit sum before joining. Verify this is still the case after any refactoring; if it's not, the Andere mass on the manifesto side will be biased.
+7.3 Linke labeling across LPs
+MARPOR uses three IDs for the German left across the period (PDS, Linkspartei.PDS, Die Linke). The normalize_party() function in 02_helpers.R folds these into "Linke". Do not introduce sub-period splits; treat "Linke" as a single party across LP 13–20 for all hypotheses (this matches MIv2 §1.1 and the empirical findings report).
+7.4 AfD enters in LP 19 only
+AfD has only 2 speech-side cells (LP 19, LP 20). On the manifesto side, AfD has manifestos for the 2013, 2017, and 2021 elections. For H1a/H1b/H2/H3, AfD contributes only LP 19 and LP 20 cells. For H4, the Dalton-weighted polarization at LP 13–18 with AfD's seat share = 0 and vote share ≤ 5% (or 0) means AfD contributes essentially nothing. This is by design (and is why H4 reports both "all parties" and "excl. AfD" lines).
+7.5 polarization_score: positive = right-coded everywhere
+The sign convention used throughout the pipeline (and matched in the H4 mean-position figure caption) is: positive = market-liberal / retrenchment / restrictive / Eurosceptic. Do not invert this for any single domain. If a future hypothesis requires a left-coded sign (e.g. for a particular plot), invert in the plotting code, not in polarization_score.
+7.6 Manifesto data on AfD pre-2013
+AfD has no manifesto before 2013. For LPs 13–17, AfD has no manifesto and no parliamentary representation, so it is absent from H1a/H1b/H2/H3 cells. Don't try to backfill; an absent cell is the correct behaviour.
+
+8. Outstanding judgment calls Claude Code should defer to Flo
+These do not block implementation but should be flagged in the PR / code review:
+Tighter pre-filter parameters. The values in TIGHT_FILTER (min_words_per_sentence = 8, min_speech_words = 50, drop presidium roles) are reasonable starting points but should be reviewed once the H2a robustness numbers come in. If the Democracy & Political System bucket barely moves under TIGHT_FILTER, try a more aggressive variant (min_words = 12 etc.). If it moves a lot, try a less aggressive variant to see how sensitive.
+Heatmap colour ramp for H3. Recommendation is viridis reversed (light = low divergence). Alternative: a diverging palette centred on the per-row median, which would make ownership cells visually pop more. Defer to Flo's aesthetic preference.
+Ownership statistical test. Wilcoxon paired across LPs (per party) is the conservative default. Alternative: a single-equation panel regression with party fixed effects and a binary owned indicator, clustering by party. Both are reportable; the spec uses the Wilcoxon for simplicity.
+Backwards-compatibility shim. If Flo prefers a clean break over the shim in 03_load_and_aggregate.R, all downstream scripts must be updated to use explicit cache keys in the same commit. The spec uses the shim for safety; remove it once everything is verified.
+H4 caption / title. The MIv2 wording for H4 (system polarization over time) emphasizes the post-2017 decomposition. The current 06_H6.R caption emphasizes the AfD-enters reference line. Ideally the new 07_H4.R caption integrates both: "Per-domain Dalton-weighted polarization across LP 13–20. Manifesto and speech series shown separately. Vertical reference line at LP 18.5 marks AfD entry into Bundestag (LP 19, 2017). Per-domain decomposition shows post-2017 shifts concentrated in Europe (both channels) and Migration (speech only)."
+— end of spec —
+
