@@ -13,8 +13,8 @@
 # PART 1 — Per-code DPS decomposition.
 #   17-element partition = {9 DPS codes} ∪ {8 other A-buckets}. Per-cell
 #   per_bucket_jsd over this partition. 305's contribution / (Σ DPS-code
-#   contributions) = 305's share of the DPS divergence (the v2 analog of the
-#   old ~79.6%; it WILL shift on v2). A mass-based |Δ|-share is reported as a
+#   contributions) = 305's share of the DPS divergence (v2: 67.6% mean across
+#   the 38 cells; the old v1 value was ~79.6%). A mass-based |Δ|-share is reported as a
 #   cross-check.
 #
 # PART 2 — Does the null-class filter remove the 305 artefact? (central test, on filtered_000).
@@ -39,7 +39,7 @@
 #   liberal = 607), dropping the national-way-of-life codes 601/602, and compares
 #   the within-Migration speech-vs-manifesto JSD against the 601+608 / 602+607
 #   baseline. Lives here because it needs the per-code parquet pass above; reported
-#   as an EXPLORATORY H1b robustness arm (κ_B≈0.27). Salience-A Migration untouched.
+#   as an EXPLORATORY H1b robustness arm (gold κ(B) = 0.456). Salience-A Migration untouched.
 #
 # Outputs: dps_percode_decomposition.csv, dps_percode_summary.csv,
 #   dps_305_asymmetry.csv, h1b_migration_601608_sensitivity.csv,
@@ -237,7 +237,7 @@ if (file.exists(GOLD_305_FILE)) {
 #   pair — restriktiv = 608, liberal = 607 — then recomputes the within-Migration
 #   directional split (speech vs manifesto) and its 2-bin JSD per cell. Reuses the
 #   per-code cell means from the parquet pass above (no extra I/O). H1b/B layer is
-#   EXPLORATORY (κ_B≈0.27); the salience-A Migration bucket is untouched.
+#   EXPLORATORY (gold κ(B) = 0.456); the salience-A Migration bucket is untouched.
 # ============================================================================
 message("[13] PART 4 — H1b Migration 601/608 directional sensitivity ...")
 
@@ -313,12 +313,12 @@ p_codes <- percode_summary %>% as_tibble() %>%
   scale_fill_manual(values = c(`FALSE` = "#264653", `TRUE` = "#E76F51"), guide = "none") +
   scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(title = "Per-code decomposition of the DPS-bucket divergence",
-       subtitle = sprintf("Mean per-cell JSD contribution of each DPS code (filtered_000, native, incl). Code 305 (highlighted) carries %.0f%% of the DPS divergence on average.",
+       subtitle = sprintf("Mean per-cell JSD contribution of each DPS code (full filter, native tau, code 305 incl). Code 305 (highlighted) carries %.0f%% of the DPS divergence on average.",
                           100*mean(percode$share_305_of_dps_jsd, na.rm = TRUE)),
        x = "Mean JSD contribution (17-element partition)", y = NULL,
        caption = "If 305 dominates, the DPS-bucket divergence is a single-code (procedural-authority) phenomenon, not a substantive democracy-topic disagreement.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "dps_percode_bars.pdf"), p_codes, width = 9, height = 6)
+ggsave(file.path(PATHS$fig_dir, "dps_percode_bars.pdf"), p_codes, width = 9, height = 6, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "dps_percode_bars.png"), p_codes, width = 9, height = 6, dpi = 200, bg = "white")
 
 lim <- max(asym$speech_305, asym$manifesto_305) * 1.05
@@ -334,7 +334,7 @@ p_asym <- asym %>% as_tibble() %>% mutate(party = factor(party, levels = PARTIES
        x = "Manifesto 305 share (genuine common sockel)", y = "Speech 305 share",
        caption = "The vertical gap above 45° is the genre artefact that excl removes; the on-line component is the matched, divergence-neutral sockel.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "dps_305_asymmetry.pdf"), p_asym, width = 8, height = 7)
+ggsave(file.path(PATHS$fig_dir, "dps_305_asymmetry.pdf"), p_asym, width = 8, height = 7, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "dps_305_asymmetry.png"), p_asym, width = 8, height = 7, dpi = 200, bg = "white")
 
 # PART 4 figure — Migration directional JSD: baseline (601+608) vs Multiculturalism-only (608)
@@ -348,11 +348,11 @@ p_mig <- mig_fig %>% as_tibble() %>% mutate(party = factor(party, levels = PARTI
   scale_colour_manual(values = PARTY_COLOURS, name = NULL) +
   coord_equal(xlim = c(0, lim_m), ylim = c(0, lim_m)) +
   labs(title = "Migration directional sensitivity: dropping the 601/602 national-identity codes",
-       subtitle = "Per-(party, LP) within-Migration JSD (restriktiv vs liberal). x: baseline 601+608 / 602+607. y: Multiculturalism-only 608 / 607.",
+       subtitle = "Per-(party, LP) within-Migration JSD (restrictive vs liberal). x: baseline 601+608 / 602+607. y: Multiculturalism-only 608 / 607.",
        x = "Migration JSD — baseline (incl. 601/602)", y = "Migration JSD — 607/608 only",
-       caption = "Points off the 45° line = the national-way-of-life codes (601/602) materially move the directional Migration measure. H1b is exploratory (kappa_B~0.27).") +
+       caption = "Points off the 45° line = the national-way-of-life codes (601/602) materially move the directional Migration measure. H1b is validated at κ(B) = 0.456.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "h1b_migration_601608_sensitivity.pdf"), p_mig, width = 8, height = 7)
+ggsave(file.path(PATHS$fig_dir, "h1b_migration_601608_sensitivity.pdf"), p_mig, width = 8, height = 7, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "h1b_migration_601608_sensitivity.png"), p_mig, width = 8, height = 7, dpi = 200, bg = "white")
 
 # ============================================================================

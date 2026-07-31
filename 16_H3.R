@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------------
 # DESCRIPTIVE: how the spread of party positions evolves across LPs 13–20, per
 # domain and channel. Reframed as descriptive (not a validity-dependent claim);
-# the directional (B) layer is EXPLORATORY (human κ≈0.27). Emphasis on RELATIVE
+# the directional (B) layer is EXPLORATORY (gold κ(B) = 0.456). Emphasis on RELATIVE
 # change over time (more robust than absolute position levels).
 #
 #   Polarization(LP, domain, channel) = Dalton-weighted SD of position scores
@@ -17,6 +17,23 @@
 # pre/post-2017) and the mean positions, and — as a cross-time robustness — the
 # all-vs-excl-AfD TREND-SLOPE comparison (NOT the level/compositional
 # decomposition, which stays in H2c).
+#
+# ----------------------------------------------------------------------------
+# ANALYSIS-BASE FIX (31.07.2026) — see the block "1b. Analysis base" below.
+#   Before this change the party set of every H3 series came from the weight-table
+#   joins alone, which do not enforce the analysis base: the PDS (labelled "Linke"
+#   by 05_pull_marpor.R, which pools MARPOR ids 41221/41222/41223 onto one label)
+#   carries positive vote and seat shares in LP 13-15 and therefore entered the
+#   series in BOTH channels — five parties where the declared base has four.
+#   The restriction is now applied once, right after the position scores.
+#   Canonical twin of this rule: 12_aggregate.R, is_excluded().
+#   Deliberately NOT restricted: the LP-18 manifesto channel keeps the FDP and AfD
+#   2013 programmes although neither party holds a speech cell. That asymmetry is
+#   a stated design feature, not an oversight.
+#   NOTE: the all-vs-excl-AfD slope DIFFERENCE is mathematically unaffected by this
+#   change — the two series differ only in LP 18-20 and OLS is linear, so anything
+#   done to LP 13-15 cancels in the difference.
+# ============================================================================
 #
 # Outputs: H3_system_polarization.csv, H3_mean_positions.csv,
 #   H3_trend_fits.csv, H3_trend_fits_exafd.csv, H3_trend_exafd_compare.csv,
@@ -56,10 +73,40 @@ pol_long <- function(df_tb, scope_col) {
 }
 sp_pos <- pol_long(spkB, "lp")
 mf_pos <- pol_long(manB, "election_date")
+
+# ============================================================================
+# 1b. Analysis base — the party-continuity exclusion, applied ONCE
+# ----------------------------------------------------------------------------
+# The PDS years of the Linke are not part of the analysis base: coded PDS
+# manifestos exist for 1994-2002, but the PDS and Die Linke are not treated as
+# the same programmatic actor. 05_pull_marpor.R pools MARPOR ids 41221 (PDS),
+# 41222 (L-PDS) and 41223 (DIE LINKE) onto a single party_label, so the PDS is
+# indistinguishable from Die Linke downstream and has to be removed here by
+# (party, period). Election dates are derived from LP_ELECTION rather than
+# hard-coded, so a change to the LP grid cannot silently desynchronise them.
+# ============================================================================
+PDS_LPS            <- 13:15
+PDS_ELECTION_DATES <- LP_ELECTION$election_date[LP_ELECTION$lp %in% PDS_LPS]
+chk(length(PDS_ELECTION_DATES) == length(PDS_LPS),
+    "LP_ELECTION does not cover the PDS periods — check the LP grid")
+
+.n_before <- c(speech = nrow(sp_pos), manifesto = nrow(mf_pos))
+sp_pos <- sp_pos %>% filter(!(party == "Linke" & lp %in% PDS_LPS))
+mf_pos <- mf_pos %>% filter(!(party == "Linke" & election_date %in% PDS_ELECTION_DATES))
+message(sprintf("[16][base] PDS rows removed: speech %d, manifesto %d.",
+                .n_before[["speech"]] - nrow(sp_pos),
+                .n_before[["manifesto"]] - nrow(mf_pos)))
+chk(nrow(filter(sp_pos, party == "Linke", lp %in% PDS_LPS)) == 0L,
+    "PDS speech rows survived the analysis-base filter")
+chk(nrow(filter(mf_pos, party == "Linke", election_date %in% PDS_ELECTION_DATES)) == 0L,
+    "PDS manifesto rows survived the analysis-base filter")
+
 flag(all(is.na(sp_pos$position) | abs(sp_pos$position) <= 1 + 1e-9), "speech positions outside [-1,1]")
 flag(all(is.na(mf_pos$position) | abs(mf_pos$position) <= 1 + 1e-9), "manifesto positions outside [-1,1]")
 
 # ---- attach weights, combine channels (weight joins restrict to in-Bundestag / running parties)
+# NOTE: the weight joins alone do NOT enforce the analysis base — the PDS carries a
+# positive vote and seat share in LP 13-15. The base is enforced in block 1b above.
 sp_w <- sp_pos %>% inner_join(as_tibble(SEAT_SHARES), by = c("party","lp")) %>%
   rename(weight = seat_share) %>% inner_join(m1_map, by = "lp") %>%
   mutate(channel = "Speech") %>% select(party, lp, election_date, domain, position, weight, channel)
@@ -79,6 +126,18 @@ flag(all(is.na(h3_main$polarization) | h3_main$polarization >= -1e-12), "negativ
 flag(all(is.na(h3_main$n_parties) | h3_main$n_parties >= 2 | is.na(h3_main$polarization)),
      "a non-NA polarization was computed from < 2 parties")
 
+# ---- BASE AUDIT: party counts per LP and channel ---------------------------
+# Expected after the fix: 4 in LP 13-15, 5 in LP 16-17, 6 manifesto / 4 speech in
+# LP 18, 6 in LP 19-20. A 5 in LP 13-15 means the PDS is back in.
+cat("\n==================== ANALYSIS BASE: parties per LP ====================\n")
+print(as.data.table(h3_main %>%
+  group_by(lp, channel) %>%
+  summarise(n_parties = paste(sort(unique(n_parties)), collapse = "/"), .groups = "drop") %>%
+  pivot_wider(names_from = channel, values_from = n_parties) %>% arrange(lp)), row.names = FALSE)
+.pds_ok <- h3_main %>% filter(lp %in% PDS_LPS) %>% pull(n_parties) %>% max(na.rm = TRUE)
+cat(sprintf("  max parties in LP %s: %d  -> %s\n", paste(range(PDS_LPS), collapse = "-"),
+            .pds_ok, if (.pds_ok <= 4L) "OK, analysis base as declared" else "PROBLEM: PDS still counted"))
+
 fwrite(as.data.table(h3_main), file.path(PATHS$out_dir, "H3_system_polarization.csv"))
 fwrite(as.data.table(h3_main %>% select(lp, domain, channel, mean_pos)),
        file.path(PATHS$out_dir, "H3_mean_positions.csv"))
@@ -97,13 +156,16 @@ trend_fits <- h3_main %>% group_by(domain, channel) %>% group_modify(~ safe_lm(.
 fwrite(as.data.table(trend_fits), file.path(PATHS$out_dir, "H3_trend_fits.csv"))
 
 # ---- excl-AfD trend slope (cross-time robustness) ----------------------------
-# AfD sits in the Bundestag only from LP19, so it enters `both` only for LP19–20
-# (the seat/vote-share joins drop it earlier). dalton_polarization() renormalises
+# AfD enters the SPEECH channel only from LP19 (the seat-share join drops it
+# earlier); in the MANIFESTO channel its 2013 manifesto already enters at LP18
+# (vote share 4.7 > 0, kept by the vote-share join). dalton_polarization() renormalises
 # the remaining weights, so filtering party != "AfD" cleanly re-weights the system
 # to the pre-AfD party set; the slope is refit over the same LP span and only the
-# LP19–20 polarization points move. This isolates whether the descriptive time
-# trend is an AfD-entry artefact. The LEVEL / compositional all-vs-excl-AfD split
-# stays in H2c; this is the cross-TIME (slope) counterpart only.
+# LP19–20 (speech) and LP18–20 (manifesto) polarization points move. This
+# isolates the COMPOSITIONAL contribution of the AfD's own position and weight —
+# whatever its entry set in motion among the established parties stays in the refit.
+# The LEVEL / compositional all-vs-excl-AfD split stays in H2c; this is the
+# cross-TIME (slope) counterpart only.
 message("[H3] excl-AfD trend-slope robustness ...")
 h3_exafd <- both %>%
   filter(party != "AfD") %>%
@@ -144,17 +206,17 @@ CHANNEL_COLOURS <- c("Manifesto" = "#264653", "Speech" = "#E76F51")
 p_main <- h3_main %>%
   ggplot(aes(lp, polarization, colour = channel, group = channel)) +
   geom_vline(xintercept = AFD_ENTRY_X, linetype = "dotted", colour = "grey50") +
-  annotate("text", x = AFD_ENTRY_X, y = Inf, label = "  AfD enters\n  (LP 19, 2017)", hjust = 0, vjust = 1.3, colour = "grey40", size = 3) +
+  annotate("text", x = AFD_ENTRY_X, y = Inf, label = "  AfD enters the\n  Bundestag (LP 19)", hjust = 0, vjust = 1.3, colour = "grey40", size = 3) +
   geom_line(linewidth = 0.8) + geom_point(size = 2.2) +
   scale_x_continuous(breaks = LEGISLATIVE_PERIODS) +
   scale_colour_manual(values = CHANNEL_COLOURS, name = NULL) +
   facet_wrap(~ domain, scales = "free_y", ncol = 2) +
-  labs(title = "H3 — System-level polarization over time  [EXPLORATORY]",
-       subtitle = "Per-domain Dalton-weighted polarization across LP 13–20 · manifesto weighted by vote share, speech by seat share",
-       x = "Legislative period", y = "Weighted polarization (SD of positions)",
-       caption = "Descriptive; directional layer exploratory (kappa~0.27). Reference line at LP 18.5 = AfD entry. The AfD compositional decomposition is in H2c.") +
+  labs(title = "H3: System-level polarisation over time",
+       subtitle = "Per-domain Dalton-weighted polarisation across LP 13–20 · manifesto weighted by vote share, speech by seat share",
+       x = "Legislative period", y = "Weighted polarisation (SD of positions)",
+       caption = "Descriptive trends on the directional layer, validated at κ(B) = 0.456. Dotted line = AfD Bundestag entry; the manifesto channel includes the AfD's 2013 manifesto from LP 18. The PDS periods (LP 13-15) are outside the analysis base. The AfD compositional decomposition is in H2c.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H3_polarization_lines.pdf"), p_main, width = 10, height = 7)
+ggsave(file.path(PATHS$fig_dir, "H3_polarization_lines.pdf"), p_main, width = 10, height = 7, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "H3_polarization_lines.png"), p_main, width = 10, height = 7, dpi = 200, bg = "white")
 
 p_means <- h3_main %>%
@@ -165,12 +227,12 @@ p_means <- h3_main %>%
   scale_x_continuous(breaks = LEGISLATIVE_PERIODS) +
   scale_colour_manual(values = CHANNEL_COLOURS, name = NULL) +
   facet_wrap(~ domain, ncol = 2) +
-  labs(title = "H3 — Weighted mean position over time  [EXPLORATORY]",
+  labs(title = "H3: Weighted mean position over time",
        subtitle = "Centre of mass of the party system per domain · positive = market-liberal / retrenchment / restrictive / Eurosceptic",
        x = "Legislative period", y = "Weighted mean position",
-       caption = "Distinguishes 'parties moved together' (mean shifts) from 'parties moved apart' (polarization rises). Directional layer exploratory (kappa~0.27).") +
+       caption = "Distinguishes 'parties moved together' (mean shifts) from 'parties moved apart' (polarisation rises). Directional layer validated at κ(B) = 0.456.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H3_mean_positions.pdf"), p_means, width = 10, height = 7)
+ggsave(file.path(PATHS$fig_dir, "H3_mean_positions.pdf"), p_means, width = 10, height = 7, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "H3_mean_positions.png"), p_means, width = 10, height = 7, dpi = 200, bg = "white")
 
 # excl-AfD trend-slope comparison (dumbbell: all parties vs excl-AfD, per domain × channel)
@@ -188,12 +250,12 @@ p_exafd <- slope_long %>%
   geom_point(aes(colour = set), size = 3) +
   scale_colour_manual(values = c("All parties" = "#E76F51", "Excl. AfD" = "#264653"), name = NULL) +
   facet_wrap(~ channel) +
-  labs(title = "H3 robustness — polarization trend slope, all parties vs excl-AfD  [EXPLORATORY]",
-       subtitle = "OLS slope of Dalton-weighted polarization on LP, per domain and channel. AfD is in the system only for LP 19–20.",
-       x = "Trend slope (delta weighted polarization per LP)", y = NULL,
-       caption = "Coinciding points = the time trend is not an AfD-entry artefact. The LEVEL/compositional decomposition is in H2c. Directional layer exploratory (kappa~0.27).") +
+  labs(title = "H3 robustness: polarisation trend slope, all parties vs excl-AfD",
+       subtitle = "OLS slope of Dalton-weighted polarisation on LP, per domain and channel. AfD: speech channel from LP 19; manifesto channel from LP 18 (2013 manifesto).",
+       x = "Trend slope (delta weighted polarisation per LP)", y = NULL,
+       caption = "Coinciding points = the time trend is not carried by the AfD's own position. The LEVEL/compositional decomposition is in H2c. Directional layer validated at κ(B) = 0.456.") +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H3_trend_exafd.pdf"), p_exafd, width = 9, height = 6)
+ggsave(file.path(PATHS$fig_dir, "H3_trend_exafd.pdf"), p_exafd, width = 9, height = 6, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "H3_trend_exafd.png"), p_exafd, width = 9, height = 6, dpi = 200, bg = "white")
 
 # ============================================================================
@@ -208,5 +270,5 @@ print(as.data.table(trend_compare)[, .(domain, channel,
         slope_all   = round(slope_all, 4),
         slope_exafd = round(slope_exafd, 4),
         slope_delta = round(slope_delta, 4))], row.names = FALSE)
-cat("  (AfD is in the system only for LP 19–20, so slope_delta localises its contribution to the trend.)\n")
+cat("  (AfD: speech channel LP 19–20 only, manifesto channel from LP 18; slope_delta localises the contribution of its own position.)\n")
 message("\n[H3] Done. Outputs in ", PATHS$out_dir, " and ", PATHS$fig_dir)

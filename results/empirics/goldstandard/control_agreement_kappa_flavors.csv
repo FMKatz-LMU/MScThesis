@@ -1,3 +1,3 @@
-Teilmenge,n,Accuracy,Kappa,Delta_Kappa
-roh (inkl. 000),10000,0.501,0.429,0
-codeable-only (ohne Sonnet-000),7711,0.649,0.583,0.154
+Teilmenge,n,Accuracy,Kappa,Alpha,Delta_Kappa,Delta_Alpha
+roh (inkl. 000),10000,0.501,0.429,0.408,0,0
+codeable-only (ohne Sonnet-000),7711,0.649,0.583,0.579,0.154,0.171

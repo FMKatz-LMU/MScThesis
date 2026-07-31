@@ -37,6 +37,27 @@ cohen_kappa <- function(a, b) {
   pe <- sum(pa * pb)
   list(n = n, po = po, kappa = if (pe < 1) (po - pe) / (1 - pe) else NA)
 }
+# Krippendorff's alpha (nominal, 2 Coder, vollstaendige Paare nach NA-Drop) --
+# Selbst implementiert wie cohen_kappa (keine Paketabhaengigkeit).
+# Formel (Krippendorff 2004, Kap. 11; 2-Coder-Spezialfall):
+#   n = 2N gepoolte Werte; n_c = Haeufigkeit von Kategorie c ueber BEIDE Coder
+#   A_e   = sum_c n_c*(n_c-1) / (n*(n-1))     (erwartete Uebereinstimmung)
+#   alpha = (p_o - A_e) / (1 - A_e)
+# Unterschied zu Cohens kappa: gepoolte Randverteilung statt coder-
+# spezifischer Raender + (n-1)-Kleinstichprobenkorrektur.
+kripp_alpha <- function(a, b) {
+  a <- as.character(a); b <- as.character(b)
+  ok <- !is.na(a) & !is.na(b); a <- a[ok]; b <- b[ok]
+  if (!length(a)) return(NA_real_)
+  po  <- mean(a == b)
+  n_c <- table(c(a, b)); n <- 2L * length(a)
+  Ae  <- sum(n_c * (n_c - 1)) / (n * (n - 1))
+  if (Ae >= 1) return(NA_real_)
+  (po - Ae) / (1 - Ae)
+}
+# Selbsttest (von Hand verifiziert): Paare (a,a),(a,b),(b,b),(b,b)
+# po=3/4; n_a=3, n_b=5, n=8; Ae=(3*2+5*4)/(8*7)=13/28; alpha=(3/4-13/28)/(1-13/28)=8/15
+stopifnot(abs(kripp_alpha(c("a","a","b","b"), c("a","b","b","b")) - 8/15) < 1e-12)
 per_class <- function(ref, pred, classes = NULL) {
   ok <- !is.na(ref) & !is.na(pred); ref <- ref[ok]; pred <- pred[ok]
   if (is.null(classes)) classes <- sort(union(unique(ref), unique(pred)))
@@ -85,7 +106,7 @@ dat[, sonnet_B := norm_B(sonnet_A, bb_lk[sonnet_code])]
 N <- nrow(dat)
 A_CLASSES <- union(unique(dat$sonnet_A), unique(dat$bert_A))
 out <- list()  # für CSV-Export
-cat(sprintf("\n[09] Kontrollstichprobe: %d kodierte Sätze (Sonnet=Referenz, BERT=Prüfling)\n", N))
+cat(sprintf("\n[17] Kontrollstichprobe: %d kodierte Sätze (Sonnet=Referenz, BERT=Prüfling)\n", N))
 
 # ============================================================================
 # 1) ÜBERBLICK: A / B / F  (BERT vs. Sonnet)
@@ -98,12 +119,16 @@ kB <- cohen_kappa(mB$bert_B, mB$sonnet_B)
 prfB <- per_class(mB$sonnet_B, mB$bert_B)
 
 kF <- cohen_kappa(dat$bert_code, dat$sonnet_code)
+aA <- kripp_alpha(dat$bert_A, dat$sonnet_A)
+aB <- kripp_alpha(mB$bert_B, mB$sonnet_B)
+aF <- kripp_alpha(dat$bert_code, dat$sonnet_code)
 
 overview <- data.table(
   Ebene    = c("A – Domäne (10, inkl. 000)", "B – Richtung (streng)", "F – Feincode (56)"),
   n        = c(kA$n, kB$n, kF$n),
   Accuracy = round(c(kA$po, kB$po, kF$po), 3),
   Kappa    = round(c(kA$kappa, kB$kappa, kF$kappa), 3),
+  Alpha    = round(c(aA, aB, aF), 3),
   gew_F1   = round(c(wF1(prfA), wF1(prfB), NA), 3)
 )
 out[["control_agreement_overview.csv"]] <- overview
@@ -114,13 +139,16 @@ cat("\n== 1) Überblick (BERT vs. Sonnet) ==\n"); print(overview, row.names = FA
 # ============================================================================
 cod <- dat[sonnet_A != NULL000]
 kA_cod <- cohen_kappa(cod$bert_A, cod$sonnet_A)
+aA_cod <- kripp_alpha(cod$bert_A, cod$sonnet_A)
 flavors <- data.table(
   Teilmenge = c("roh (inkl. 000)", "codeable-only (ohne Sonnet-000)"),
   n         = c(kA$n, kA_cod$n),
   Accuracy  = round(c(kA$po, kA_cod$po), 3),
-  Kappa     = round(c(kA$kappa, kA_cod$kappa), 3)
+  Kappa     = round(c(kA$kappa, kA_cod$kappa), 3),
+  Alpha     = round(c(aA, aA_cod), 3)
 )
 flavors[, Delta_Kappa := round(Kappa - Kappa[1], 3)]
+flavors[, Delta_Alpha := round(Alpha - Alpha[1], 3)]
 out[["control_agreement_kappa_flavors.csv"]] <- flavors
 cat("\n== 2) Kappa: roh vs. codeable-only (Domäne A) ==\n"); print(flavors, row.names = FALSE)
 
@@ -278,8 +306,8 @@ cat(sprintf("JSD(Sonnet || BERT) Domänen: voll (inkl. 000) = %.4f | codeable = 
 # 11) Export
 # ============================================================================
 for (fn in names(out)) fwrite(out[[fn]], file.path(GS_DIR, fn))
-cat(sprintf("\n[09] %d Tabellen geschrieben nach %s\n", length(out), GS_DIR))
-cat("Headline:  Domäne κ =", round(kA$kappa, 3),
+cat(sprintf("\n[17] %d Tabellen geschrieben nach %s\n", length(out), GS_DIR))
+cat("Headline:  Domäne κ =", round(kA$kappa, 3), "(α =", round(aA, 3), ")",
     "| codeable κ =", round(kA_cod$kappa, 3),
     "| Sonnet-000-Rate =", round(s000, 3),
     "| JSD(Agenda) =", round(jsd_full, 4), "\n")

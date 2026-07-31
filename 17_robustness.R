@@ -135,9 +135,9 @@ sweep_plot <- function(sw, rho, yvar, title, ylab) {
     theme_thesis()
 }
 p_h1a <- sweep_plot(h1a_sweep, h1a_rho, "jsd",
-                    "H1a — Manifesto–speech JSD across temperature settings (A, excl)", "Jensen–Shannon Divergence")
+                    "H1a: Manifesto–speech JSD across temperature settings (A, excl)", "Jensen–Shannon Divergence")
 p_h1b <- sweep_plot(h1b_sweep, h1b_rho, "jsd",
-                    "H1b — Directional JSD across temperature settings (B, incl, Andere excl)", "Within-domain JSD (B)")
+                    "H1b: Directional JSD across temperature settings (B, incl, Andere excl)", "Within-domain JSD (B)")
 ggsave(file.path(PATHS$fig_dir, "H1a_temperature_sweep.pdf"), p_h1a, width = 10, height = 6.5)
 ggsave(file.path(PATHS$fig_dir, "H1a_temperature_sweep.png"), p_h1a, width = 10, height = 6.5, dpi = 200, bg = "white")
 ggsave(file.path(PATHS$fig_dir, "H1b_temperature_sweep.pdf"), p_h1b, width = 10, height = 6.5)
@@ -291,8 +291,8 @@ scatter <- function(h, title, ylab) {
          x = "Soft JSD (native tau)", y = ylab, caption = "Rank correlations & shifts in the threshold CSVs.") +
     theme_thesis()
 }
-p_a <- scatter(h1a, "H1a — Soft vs hard-threshold JSD (Aggregation A)", "Hard JSD (argmax + threshold; Andere dropped & renormalized)")
-p_b <- scatter(h1b, "H1b — Soft vs hard-threshold within-domain JSD (Aggregation B)", "Hard JSD (argmax + threshold)")
+p_a <- scatter(h1a, "H1a: Soft vs hard-threshold JSD (Aggregation A)", "Hard JSD (argmax + threshold; Andere dropped & renormalized)")
+p_b <- scatter(h1b, "H1b: Soft vs hard-threshold within-domain JSD (Aggregation B)", "Hard JSD (argmax + threshold)")
 ggsave(file.path(PATHS$fig_dir, "H1a_threshold_scatter.pdf"), p_a, width = 11, height = 6)
 ggsave(file.path(PATHS$fig_dir, "H1a_threshold_scatter.png"), p_a, width = 11, height = 6, dpi = 200, bg = "white")
 ggsave(file.path(PATHS$fig_dir, "H1b_threshold_scatter.pdf"), p_b, width = 11, height = 6)

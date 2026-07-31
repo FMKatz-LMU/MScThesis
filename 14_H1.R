@@ -11,7 +11,7 @@
 #
 #   H1b  Directional composition within the four B domains (manifesto vs speech)
 #        + per-cell overall JSD on B. Spec: scheme B, filtered_000, native, incl.
-#        (Directional layer — reported as EXPLORATORY; κ≈0.27.)
+#        (Directional layer — reported as EXPLORATORY; gold κ(B) = 0.456, Section 3.5.)
 #
 #   Benchmarks (Justyna's H1a feedback: absolute JSD is uninterpretable alone)
 #        On the SAME footing as H1a (scheme A, filtered_000, native, excl):
@@ -158,8 +158,8 @@ p_h1a <- h1a_tbl %>% as_tibble() %>%
   scale_x_continuous(breaks = LEGISLATIVE_PERIODS) +
   scale_colour_manual(values = PARTY_COLOURS, drop = FALSE) +
   facet_wrap(~ party, ncol = 3, drop = FALSE) +
-  labs(title = "H1a — Manifesto–speech salience divergence (Aggregation A)",
-       subtitle = "Per-cell JSD with 95% sentence-bootstrap intervals · primary spec: filtered_000 (procedural + null-class removed), native tau, code 305 excluded",
+  labs(title = "H1a: Manifesto–speech salience divergence (Aggregation A)",
+       subtitle = "Per-cell JSD with 95% sentence-bootstrap intervals · primary specification: full filter (procedural + null-class sentences removed), native tau, code-305 mass removed",
        x = "Legislative period", y = "Jensen–Shannon Divergence",
        caption = "M1 mapping: speeches in LP X vs. the manifesto of the election that produced LP X.") +
   theme_thesis() + theme(legend.position = "none")
@@ -207,6 +207,9 @@ fwrite(h1b_jsd, file.path(PATHS$out_dir, "H1b_overall_jsd.csv"))
 SUB_COLOURS <- c("Marktliberalismus"="#F4A261","Staatsintervention"="#264653",
   "Wirtschaft Allgemein"="#A8C0CC","Sozialstaat Ausbau"="#2A9D8F","Sozialstaat Begrenzung"="#E76F51",
   "Migration restriktiv"="#6D597A","Migration liberal"="#B5838D","Pro-EU"="#003399","Contra-EU"="#FFCC00")
+SUB_LABELS_EN <- c("Marktliberalismus"="market liberalism","Staatsintervention"="state intervention",
+  "Wirtschaft Allgemein"="general economy","Sozialstaat Ausbau"="welfare expansion","Sozialstaat Begrenzung"="welfare retrenchment",
+  "Migration restriktiv"="restrictive migration","Migration liberal"="liberal migration","Pro-EU"="pro-EU","Contra-EU"="contra-EU")
 h1b_pooled <- h1b_long %>% as_tibble() %>%
   group_by(party, source, domain, sub_bucket) %>%
   summarise(share_within_domain = mean(share_within_domain), .groups = "drop") %>%
@@ -223,12 +226,12 @@ p_h1b <- h1b_pooled %>%
   geom_col(width = 0.7) + geom_vline(xintercept = 1.5, colour = "grey85", linewidth = 0.3) +
   facet_grid(rows = vars(party), cols = vars(domain), switch = "y",
              labeller = labeller(party = strip_labels)) +
-  scale_fill_manual(values = SUB_COLOURS, name = NULL, guide = guide_legend(nrow = 3)) +
+  scale_fill_manual(values = SUB_COLOURS, labels = SUB_LABELS_EN, name = NULL, guide = guide_legend(nrow = 3)) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.02))) +
-  labs(title = "H1b — Directional composition: manifesto (M) vs. speech (S)  [EXPLORATORY]",
+  labs(title = "H1b: Directional composition, manifesto (M) vs. speech (S)",
        subtitle = "Within-domain share of directional sub-labels, averaged across LP 13–20 (scheme B, code 305 incl)",
        x = NULL, y = NULL,
-       caption = "Directional layer reported as exploratory (human kappa~0.27). Row strips show each party's mean overall JSD on B. M1 mapping.") +
+       caption = "Directional layer validated at κ(B) = 0.456. Row strips show each party's mean overall JSD on B. M1 mapping.") +
   theme_thesis() +
   theme(panel.spacing.x = unit(0.7, "lines"),
         strip.text.y.left = element_text(angle = 0, face = "bold"),
@@ -299,7 +302,7 @@ p_bench <- ggplot() +
   geom_jitter(data = own_pts, aes(x = factor(lp), y = jsd, colour = party),
               width = 0.12, size = 2, alpha = 0.9) +
   scale_colour_manual(values = PARTY_COLOURS, drop = FALSE, name = NULL) +
-  labs(title = "Benchmark — own manifesto–speech divergence vs. the between-party reference",
+  labs(title = "Benchmark: own manifesto–speech divergence vs. the between-party reference",
        subtitle = "Grey box: spread of pairwise between-party speech JSDs per LP. Points: each party's own H1a JSD (scheme A, excl).",
        x = "Legislative period", y = "Jensen–Shannon Divergence",
        caption = "Points below the box = the party's speeches are closer to its own manifesto than parties typically are to each other.") +

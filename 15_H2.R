@@ -6,7 +6,7 @@
 #        EXCLUDED. The null-class (filtered_000) filter removes most of the 305
 #        artefact at source; the surgical 305-exclusion removes the residual, so the
 #        per-bucket attribution reflects substantive drivers. The artefact magnitude
-#        (incl-vs-excl before/after, DPS code decomposition) lives in 10 and 11.
+#        (incl-vs-excl before/after, DPS code decomposition) lives in 17 (PART 3) and 13.
 #
 #   H2b  Directional moderation: per-party manifesto vs speech polarization
 #        score, OLS fit per domain (slope < 1 => moderation). [EXPLORATORY]
@@ -14,9 +14,25 @@
 #   H2c  Inter-party dispersion: Dalton-weighted SD of polarization scores per
 #        LP and domain, speech vs manifesto, all vs excl-AfD. [EXPLORATORY]
 #
-#   H2b/H2c sit on the directional (B) layer (human κ≈0.27) -> exploratory.
+#   H2b/H2c sit on the directional (B) layer (gold κ(B) = 0.456) -> exploratory.
 #   The B-side polarization scores are computed WITHIN the 4 domains, which do
 #   not contain code 305, so incl/excl is irrelevant there -> default incl.
+#
+# ----------------------------------------------------------------------------
+# ANALYSIS-BASE FIX (31.07.2026) — see the block "0b. Analysis base" below.
+#   Before this change H2c did NOT apply the analysis-cell restriction: its party
+#   set came from the weight-table joins alone, so the PDS (labelled "Linke" by
+#   05_pull_marpor.R, which maps MARPOR ids 41221/41222/41223 onto one label)
+#   entered the LP 13-15 dispersion in BOTH channels — five parties where the
+#   declared base has four. H2a and H2b were never affected; both merge on `valid`.
+#   The restriction is now applied once, immediately after the position scores are
+#   computed, so every downstream H2 quantity runs on the declared base.
+#   Canonical twin of this rule: 12_aggregate.R, is_excluded().
+#   Deliberately NOT restricted: the LP-18 manifesto channel keeps the FDP and AfD
+#   2013 programmes although neither party holds a speech cell. That asymmetry is
+#   a stated design feature (six manifesto parties against four speech parties),
+#   not an oversight.
+# ============================================================================
 #
 # Outputs: H2a_per_bucket_long.csv, H2a_per_bucket_summary.csv,
 #   figures/H2a_per_bucket_bar.{pdf,png}, H2b_polarization_table.csv,
@@ -54,6 +70,27 @@ valid <- ci[is_primary==TRUE, .(party, lp)]                 # the analysis cells
 chk(nrow(valid)>0, "bootstrap_ci has no is_primary band")
 spkA_v <- merge(spkA, valid, by=c("party","lp"))
 manA_v <- merge(manA, valid, by=c("party","lp"))
+
+# ============================================================================
+# 0b. Analysis base — the party-continuity exclusion, applied ONCE
+# ----------------------------------------------------------------------------
+# The PDS years of the Linke are not part of the analysis base: coded PDS
+# manifestos exist for 1994-2002, but the PDS and Die Linke are not treated as
+# the same programmatic actor. 05_pull_marpor.R pools MARPOR ids 41221 (PDS),
+# 41222 (L-PDS) and 41223 (DIE LINKE) onto a single party_label, so the PDS is
+# indistinguishable from Die Linke downstream and has to be removed here by
+# (party, period). The election dates are derived from LP_ELECTION rather than
+# hard-coded, so a change to the LP grid cannot silently desynchronise them.
+# ============================================================================
+PDS_LPS             <- 13:15
+PDS_ELECTION_DATES  <- LP_ELECTION$election_date[LP_ELECTION$lp %in% PDS_LPS]
+chk(length(PDS_ELECTION_DATES) == length(PDS_LPS),
+    "LP_ELECTION does not cover the PDS periods — check the LP grid")
+
+drop_pds_by_lp <- function(d)
+  dplyr::filter(d, !(party == "Linke" & lp %in% PDS_LPS))
+drop_pds_by_election <- function(d)
+  dplyr::filter(d, !(party == "Linke" & election_date %in% PDS_ELECTION_DATES))
 
 # ============================================================================
 # H2a — per-bucket JSD attribution on the filtered_000 primary, excl (clean drivers)
@@ -104,6 +141,36 @@ signed_A <- signed_long[, .(mean_speech    = round(mean(share_speech), 4),
 fwrite(signed_A, file.path(PATHS$out_dir, "signed_divergence_A.csv"))
 message(sprintf("[H2a] signed_divergence_A.csv written (excl, %d party×bucket rows).", nrow(signed_A)))
 
+# H2a agenda-shares figure — the LEVEL view (replaces the signed-difference chart,
+# which hid the base level: the AfD "under-weights" migration only because its manifesto
+# is even more migration-heavy than its already migration-heavy speech). For each of the
+# nine salience buckets, the manifesto share (hollow) and the speech share (filled) per
+# party, connected by a line. Facet by topic; SHARED x so levels are comparable across
+# topics. Aggregation A, primary spec, party means over LPs.
+shares_long <- as_tibble(signed_A) %>%
+  transmute(party = factor(party, levels = rev(PARTIES_KEEP)),
+            bucket, Manifesto = 100 * mean_manifesto, Speech = 100 * mean_speech) %>%
+  pivot_longer(c(Manifesto, Speech), names_to = "channel", values_to = "share") %>%
+  mutate(channel = factor(channel, levels = c("Manifesto", "Speech")))
+buck_order  <- as_tibble(signed_A) %>% group_by(bucket) %>%
+  summarise(md = mean(mean_diff), .groups = "drop") %>% arrange(desc(md)) %>% pull(bucket)
+shares_long <- shares_long %>% mutate(bucket = factor(bucket, levels = buck_order))
+p_shares <- ggplot(shares_long, aes(share, party)) +
+  geom_line(aes(group = party), colour = "grey70", linewidth = 0.7) +
+  geom_point(aes(colour = party, shape = channel), fill = "white", size = 2.6, stroke = 1) +
+  scale_shape_manual(values = c(Manifesto = 21, Speech = 19), name = NULL) +
+  scale_colour_manual(values = PARTY_COLOURS, guide = "none") +
+  guides(shape = guide_legend(override.aes = list(colour = "grey20", fill = "white"))) +
+  facet_wrap(~ bucket, ncol = 3) +
+  scale_x_continuous(labels = function(z) paste0(z, "%")) +
+  labs(title = "H2a: Manifesto vs. speech share of the salience agenda, by topic",
+       subtitle = str_wrap("Hollow point = manifesto share, filled point = speech share (party colour); the line is the manifesto-to-speech shift. Shared axis, Aggregation A, primary specification.", 112),
+       x = "Share of the salience agenda", y = NULL,
+       caption = str_wrap("Levels, not differences: a party can move down on a topic and still lead it (the AfD's migration share falls from 16% to 9% but stays far the highest; the Linke's welfare share falls from 32% to 21% and stays the highest). Both channels show every party over-weighting system-and-procedure and foreign-policy content.", 130)) +
+  theme_thesis()
+ggsave(file.path(PATHS$fig_dir, "H2a_manifesto_speech_shares.pdf"), p_shares, width = 11, height = 8, device = cairo_pdf)
+ggsave(file.path(PATHS$fig_dir, "H2a_manifesto_speech_shares.png"), p_shares, width = 11, height = 8, dpi = 200, bg = "white")
+
 # H2a figure — neutral single-fill bars (NO artefact highlight: on filtered_000 the
 # null-class filter already removes the 305 artefact source; clean post-correction attribution)
 h2a_plot <- h2a_summary %>% as_tibble() %>% mutate(bucket = fct_reorder(bucket, mean_contrib))
@@ -113,13 +180,13 @@ p_h2a <- ggplot(h2a_plot, aes(mean_contrib, bucket)) +
   geom_jitter(data = h2a_long %>% as_tibble() %>% mutate(bucket = factor(bucket, levels = blevels)),
               aes(jsd_contrib, bucket), height = 0.18, width = 0, size = 1.4, alpha = 0.5, colour = "#1A3640") +
   scale_x_continuous(expand = expansion(mult = c(0, 0.08))) +
-  labs(title = "H2a — Topic-level salience divergence (clean attribution)",
-       subtitle = "Mean per-bucket contribution to JSD; dots = individual (party, LP) cells · spec: filtered_000, native tau, code 305 EXCLUDED",
+  labs(title = "H2a: Topic-level salience divergence (clean attribution)",
+       subtitle = str_wrap("Mean per-bucket contribution to JSD; dots = individual (party, LP) cells · spec: full filter, native tau, code-305 mass removed", 95),
        x = "Mean JSD contribution", y = NULL,
-       caption = "Drivers of divergence AFTER removing the code-305 procedural artefact. The artefact's magnitude (incl-vs-excl) and its code-level source are shown in scripts 10 and 11.") +
+       caption = str_wrap("Drivers of divergence AFTER removing the code-305 procedural artefact. The artefact's magnitude (incl-vs-excl) and its code-level source are shown in 17 (PART 3) and 13.", 105)) +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H2a_per_bucket_bar.pdf"), p_h2a, width = 8.5, height = 6)
-ggsave(file.path(PATHS$fig_dir, "H2a_per_bucket_bar.png"), p_h2a, width = 8.5, height = 6, dpi = 200, bg = "white")
+ggsave(file.path(PATHS$fig_dir, "H2a_per_bucket_bar.pdf"), p_h2a, width = 9.5, height = 6, device = cairo_pdf)
+ggsave(file.path(PATHS$fig_dir, "H2a_per_bucket_bar.png"), p_h2a, width = 9.5, height = 6, dpi = 200, bg = "white")
 
 # ============================================================================
 # H2b / H2c — directional polarization (scheme B, incl) [EXPLORATORY]
@@ -136,6 +203,20 @@ pol_long <- function(df_tb, scope_col, value_name) {
 }
 speech_pol    <- pol_long(spkB_tb, "lp",            "speech_pol")
 manifesto_pol <- pol_long(manB_tb, "election_date", "manifesto_pol")
+
+# ---- APPLY THE ANALYSIS BASE (see block 0b) --------------------------------
+# Everything below — H2b and H2c alike — runs on the restricted set.
+.n_before <- c(speech = nrow(speech_pol), manifesto = nrow(manifesto_pol))
+speech_pol    <- drop_pds_by_lp(speech_pol)
+manifesto_pol <- drop_pds_by_election(manifesto_pol)
+message(sprintf("[15][base] PDS rows removed: speech %d, manifesto %d.",
+                .n_before[["speech"]] - nrow(speech_pol),
+                .n_before[["manifesto"]] - nrow(manifesto_pol)))
+chk(nrow(filter(speech_pol, party == "Linke", lp %in% PDS_LPS)) == 0L,
+    "PDS speech rows survived the analysis-base filter")
+chk(nrow(filter(manifesto_pol, party == "Linke",
+                election_date %in% PDS_ELECTION_DATES)) == 0L,
+    "PDS manifesto rows survived the analysis-base filter")
 
 # polarization score sanity: signed, in [-1, 1]
 flag(all(is.na(speech_pol$speech_pol)       | abs(speech_pol$speech_pol)       <= 1 + 1e-9), "speech_pol outside [-1,1]")
@@ -164,18 +245,28 @@ p_h2b <- h2b_long %>%
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey50") +
   geom_smooth(aes(group = 1), method = "lm", se = TRUE, colour = "black", fill = "grey80", linewidth = 0.6) +
   geom_point(size = 2.5, alpha = 0.85) +
-  ggrepel::geom_text_repel(aes(label = paste0(party, " ", lp)), size = 2.6, max.overlaps = 12, show.legend = FALSE) +
+  ggrepel::geom_text_repel(aes(label = paste0(party, " ", lp)), size = 2.4,
+                           max.overlaps = 12, min.segment.length = 0,
+                           segment.size = 0.25, segment.colour = "grey70",
+                           show.legend = FALSE) +
   scale_colour_manual(values = PARTY_COLOURS, name = NULL) +
-  facet_wrap(~ domain, scales = "free", ncol = 2) +
-  labs(title = "H2b — Directional moderation in parliamentary speech  [EXPLORATORY]",
+  # Fixed, equal axes across all panels: the score lives on [-1, 1] in both channels,
+  # so a shared square frame makes the four domains directly comparable and renders the
+  # dashed reference as a TRUE 45-degree diagonal (slope < 1 then reads as a flatter cloud,
+  # and an off-diagonal cloud as a level shift). scales="free" is dropped on purpose.
+  facet_wrap(~ domain, ncol = 2) +
+  coord_fixed(ratio = 1, xlim = c(-1, 1), ylim = c(-1, 1)) +
+  labs(title = "H2b: Directional moderation in parliamentary speech",
        subtitle = "Polarization score: signed within-domain balance of directional sub-labels (scheme B)",
-       x = "Manifesto polarization (M1)", y = "Speech polarization",
-       caption = "Dashed: 45° (perfect consistency). Solid: per-domain OLS. Slope < 1 = moderation. Directional layer exploratory (kappa~0.27).") +
+       x = "Manifesto polarisation (M1)", y = "Speech polarisation",
+       caption = str_wrap("Axes fixed to the score range [-1, 1] with equal aspect, so the dashed line is a true 45-degree diagonal (perfect consistency). Solid: per-domain OLS. Slope < 1 is moderation, seen as a flatter cloud; a cloud sitting off the diagonal is a level shift (see migration, above the diagonal). Welfare is a tight far-left cluster, so its labels are thinned. Directional layer validated at κ(B) = 0.456.", 120)) +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H2b_polarization_scatter.pdf"), p_h2b, width = 10, height = 8)
-ggsave(file.path(PATHS$fig_dir, "H2b_polarization_scatter.png"), p_h2b, width = 10, height = 8, dpi = 200, bg = "white")
+ggsave(file.path(PATHS$fig_dir, "H2b_polarization_scatter.pdf"), p_h2b, width = 9, height = 9, device = cairo_pdf)
+ggsave(file.path(PATHS$fig_dir, "H2b_polarization_scatter.png"), p_h2b, width = 9, height = 9, dpi = 200, bg = "white")
 
 # ---- H2c: Dalton-weighted inter-party dispersion (weight joins restrict to in-Bundestag / running parties)
+# NOTE: the weight joins alone do NOT enforce the analysis base — the PDS carries a
+# positive vote and seat share in LP 13-15. The base is enforced in block 0b above.
 message("\n[H2c] Dalton-weighted inter-party dispersion ...")
 disp <- function(pol_df, weight_df, by_cols, val_col, weight_col, project_lp = FALSE, out_name) {
   d <- pol_df %>% inner_join(weight_df, by = by_cols)
@@ -202,10 +293,67 @@ h2c_long <- d_mf_all %>%
 flag(all(is.na(h2c_long$sd_polarization) | h2c_long$sd_polarization >= -1e-12), "negative dispersion encountered")
 fwrite(as.data.table(h2c_long), file.path(PATHS$out_dir, "H2c_dispersion_table.csv"))
 
+# ---- BASE AUDIT: party counts per LP and channel ---------------------------
+# Printed so the analysis base is visible in the run log rather than only in the
+# code. Expected after the fix: 4/4/4/5/5 and 4 (speech LP18) / 6 (manifesto LP18),
+# then 6/6. A "5" in LP 13-15 means the PDS is back in.
+base_audit <- bind_rows(
+  speech_pol %>% inner_join(SEAT, by = c("party","lp")) %>%
+    filter(seat_share > 0, !is.na(speech_pol)) %>%
+    distinct(lp, domain, party) %>% count(lp, domain, name = "n_parties") %>%
+    mutate(channel = "Speech"),
+  manifesto_pol %>% inner_join(VOTE, by = c("party","election_date")) %>%
+    inner_join(m1_map, by = "election_date") %>%
+    filter(vote_share > 0, !is.na(manifesto_pol)) %>%
+    distinct(lp, domain, party) %>% count(lp, domain, name = "n_parties") %>%
+    mutate(channel = "Manifesto")) %>%
+  group_by(lp, channel) %>%
+  summarise(n_parties = paste(sort(unique(n_parties)), collapse = "/"), .groups = "drop") %>%
+  pivot_wider(names_from = channel, values_from = n_parties) %>% arrange(lp)
+cat("\n==================== ANALYSIS BASE: parties per LP ====================\n")
+print(as.data.table(base_audit), row.names = FALSE)
+pds_back <- speech_pol %>% filter(party == "Linke", lp %in% PDS_LPS) %>% nrow()
+cat(sprintf("  PDS rows in LP %s: %d  -> %s\n", paste(range(PDS_LPS), collapse = "-"),
+            pds_back, if (pds_back == 0L) "OK, analysis base as declared" else "PROBLEM"))
+
+# ---- H2c IN-TEXT FIGURE: cross-channel convergence as LEVELS (no time axis) ----
+# Decision 24.07: H2c analyses levels, not time. This dumbbell shows the mean
+# dispersion over LPs per domain, hollow = manifesto, filled = speech (same
+# convention as the H2a figure). The per-LP time series below is now an H3 figure.
+h2c_levels <- h2c_long %>%
+  filter(series %in% c("Manifesto (all)", "Speech (all)")) %>%
+  mutate(channel = if_else(series == "Manifesto (all)", "Manifesto", "Speech")) %>%
+  group_by(domain, channel) %>%
+  summarise(mean_sd = mean(sd_polarization, na.rm = TRUE), .groups = "drop")
+h2c_levels_wide <- h2c_levels %>%
+  pivot_wider(names_from = channel, values_from = mean_sd)
+lvl_order <- as.character(h2c_levels_wide %>% arrange(Manifesto) %>% pull(domain))
+h2c_levels      <- h2c_levels      %>% mutate(domain = factor(domain, levels = lvl_order))
+h2c_levels_wide <- h2c_levels_wide %>% mutate(domain = factor(domain, levels = lvl_order))
+
+p_h2c_lvl <- ggplot() +
+  geom_segment(data = h2c_levels_wide,
+               aes(x = Speech, xend = Manifesto, y = domain, yend = domain),
+               colour = "grey70", linewidth = 1) +
+  geom_point(data = h2c_levels,
+             aes(mean_sd, domain, fill = channel),
+             shape = 21, size = 3.4, colour = "black", stroke = 0.7) +
+  scale_fill_manual(values = c("Manifesto" = "white", "Speech" = "black"), name = NULL) +
+  labs(title = "H2c: Cross-channel convergence in dispersion levels",
+       subtitle = "Dalton-weighted SD of party polarisation scores, mean over legislative periods",
+       x = "Weighted SD of polarisation score (mean over LPs)", y = NULL,
+       caption = str_wrap("Hollow = manifesto dispersion, filled = speech dispersion; the connecting line is the cross-channel gap. Manifesto weighted by vote share, speech by seat share. Parties disperse less in speech than in their manifestos in every domain. Directional layer validated at κ(B) = 0.456.", 120)) +
+  theme_thesis()
+ggsave(file.path(PATHS$fig_dir, "H2c_dispersion_levels.pdf"), p_h2c_lvl, width = 8, height = 4.2, device = cairo_pdf)
+ggsave(file.path(PATHS$fig_dir, "H2c_dispersion_levels.png"), p_h2c_lvl, width = 8, height = 4.2, dpi = 200, bg = "white")
+
+# ---- H3 IN-TEXT FIGURE (time series): dispersion over LPs, manifesto vs speech ----
+# Moved out of H2c (Decision 24.07): the time axis belongs to H3. Output name kept
+# as H2c_dispersion_lines to avoid breaking references; retitled for H3.
 p_h2c <- h2c_long %>%
   ggplot(aes(lp, sd_polarization, colour = series, linetype = series, group = series)) +
   geom_vline(xintercept = 18.5, linetype = "dotted", colour = "grey50") +
-  annotate("text", x = 18.5, y = Inf, label = "  AfD enters", hjust = 0, vjust = 1.4, colour = "grey40", size = 3) +
+  annotate("text", x = 18.5, y = Inf, label = "  AfD enters the Bundestag", hjust = 0, vjust = 1.4, colour = "grey40", size = 3) +
   geom_line(linewidth = 0.8) + geom_point(size = 1.8) +
   scale_x_continuous(breaks = LEGISLATIVE_PERIODS) +
   scale_colour_manual(values = c("Manifesto (all)"="#264653","Manifesto (excl. AfD)"="#264653",
@@ -213,12 +361,12 @@ p_h2c <- h2c_long %>%
   scale_linetype_manual(values = c("Manifesto (all)"="dashed","Manifesto (excl. AfD)"="dotted",
                                    "Speech (all)"="solid","Speech (excl. AfD)"="twodash"), name = NULL) +
   facet_wrap(~ domain, scales = "free_y", ncol = 2) +
-  labs(title = "H2c — Inter-party dispersion: manifesto vs. speech  [EXPLORATORY]",
-       subtitle = "Dalton-weighted SD of party polarization scores per LP, by domain",
-       x = "Legislative period", y = "Weighted SD of polarization score",
-       caption = "Manifesto weighted by vote share, speech by seat share. AfD entered LP19 (2017). Directional layer exploratory (kappa~0.27).") +
+  labs(title = "Inter-party dispersion over the observation period, manifesto vs. speech",
+       subtitle = "Dalton-weighted SD of party polarisation scores per LP, by domain",
+       x = "Legislative period", y = "Weighted SD of polarisation score",
+       caption = str_wrap("Manifesto weighted by vote share, speech by seat share. AfD enters the speech channel at LP 19 (2017); the manifesto channel includes its 2013 manifesto from LP 18. The PDS periods (LP 13-15) are outside the analysis base and are not counted in either channel. Directional layer validated at κ(B) = 0.456.", 120)) +
   theme_thesis()
-ggsave(file.path(PATHS$fig_dir, "H2c_dispersion_lines.pdf"), p_h2c, width = 10, height = 7)
+ggsave(file.path(PATHS$fig_dir, "H2c_dispersion_lines.pdf"), p_h2c, width = 10, height = 7, device = cairo_pdf)
 ggsave(file.path(PATHS$fig_dir, "H2c_dispersion_lines.png"), p_h2c, width = 10, height = 7, dpi = 200, bg = "white")
 
 # ============================================================================

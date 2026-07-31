@@ -43,6 +43,12 @@ PATHS <- list(
 )
 invisible(lapply(PATHS[c("out_dir", "fig_dir", "cache_dir")], dir_create))
 
+# ---- CWB / GermaParl2 --------------------------------------------------------
+# Registry des indexierten Rohkorpus (gelesen von 01). Der Rohkorpus wird nie
+# kopiert — im Testprojekt diese EINE Zeile auf das Original zeigen lassen:
+#   CWB_REGISTRY_DIR <- "C:/RProj_MSc/MScThesis/cwb/registry"
+CWB_REGISTRY_DIR <- file.path(PROJECT_ROOT, "cwb", "registry")
+
 # ---- 000-Korpus-Override (exact-only Prozedural-Reflag, 2026-06) ------------
 # reflag_procedural_exact_only.py hat das exact-only is_procedural in einen
 # SCHWESTER-Ordner geschrieben (nicht in-place). 03 und 11 lesen

@@ -1,4 +1,4 @@
-Ebene,n,Accuracy,Kappa,gew_F1
-"A – Domäne (10, inkl. 000)",10000,0.501,0.429,0.592
-B – Richtung (streng),2576,0.761,0.698,0.767
-F – Feincode (56),10000,0.382,0.363,
+Ebene,n,Accuracy,Kappa,Alpha,gew_F1
+"A – Domäne (10, inkl. 000)",10000,0.501,0.429,0.408,0.592
+B – Richtung (streng),2576,0.761,0.698,0.698,0.767
+F – Feincode (56),10000,0.382,0.363,0.346,

@@ -958,6 +958,60 @@ kappa_flavors <- tibble::tibble(
 )
 write_out(kappa_flavors, "agreement_kappa_flavors.csv")
 
+# (b2) DASSELBE auf CARRIED-Basis (249/226) — konsistent mit TEIL-1-Reporting
+# ----------------------------------------------------------------------------
+# WARUM: Die Tabelle oben laeuft ueber ALLE kodierten gs_ids (n=259/236).
+#   TEIL 1 (und damit Abschnitt 3.5.1 der Arbeit) berichtet aber auf dem
+#   carried-Set: den Saetzen, die auf den v2-Korpus uebertragen werden konnten
+#   (n=249/226). Damit der CLAUDE_vs_HUMAN-Anker in 3.5.2 auf DERSELBEN
+#   Satzbasis steht wie die BERT-Zahlen aus 3.5.1, hier die Wiederholung
+#   restringiert auf die carried gs_ids. Claudes Kodierung selbst ist
+#   korpusversionsunabhaengig (nur Satztext + Kontext); die Restriktion ist
+#   eine reine Teilmengenbildung, keine Neuberechnung der Labels.
+# HINWEIS: BERT_vs_HUMAN hier nutzt weiterhin die rds-Vorhersagen (Ziehungs-
+#   zeitpunkt), NICHT den frischen v2-Argmax aus TEIL 1 — kleine Abweichungen
+#   zu den TEIL-1-Kappas (0.562/0.630) sind deshalb erwartbar und kein Fehler.
+#   Fuer den Text zaehlt: CLAUDE_vs_HUMAN (carried) vs. TEIL-1-BERT-Werte.
+carried_csv <- p("goldstandard_v2_carried.csv")
+if (file.exists(carried_csv)) {
+  carried_ids <- readr::read_csv(carried_csv, show_col_types = FALSE)$gs_id
+
+  eval_c <- eval_set |> filter(gs_id %in% carried_ids)
+  code_c <- code_set |> filter(gs_id %in% carried_ids)
+
+  if (nrow(eval_c) == 0L) {
+    warning("[06b] carried-Filter ergab 0 Saetze — gs_id-Formate pruefen ",
+            "(carried csv vs. dat).")
+  } else {
+    kappa_flavors_carried <- tibble::tibble(
+      vergleich = c("BERT_vs_HUMAN","BERT_vs_HUMAN",
+                    "CLAUDE_vs_HUMAN","CLAUDE_vs_HUMAN"),
+      subset    = c("raw_incl_000","codeable_only",
+                    "raw_incl_000","codeable_only"),
+      n         = c(nrow(eval_c), nrow(code_c), nrow(eval_c), nrow(code_c)),
+      accuracy  = c(accuracy(eval_c$human_A, eval_c$bert_A),
+                    accuracy(code_c$human_A, code_c$bert_A),
+                    accuracy(eval_c$human_A, eval_c$claude_A),
+                    accuracy(code_c$human_A, code_c$claude_A)),
+      kappa     = c(cohen_kappa(eval_c$human_A, eval_c$bert_A),
+                    cohen_kappa(code_c$human_A, code_c$bert_A),
+                    cohen_kappa(eval_c$human_A, eval_c$claude_A),
+                    cohen_kappa(code_c$human_A, code_c$claude_A))
+    )
+    write_out(kappa_flavors_carried, "agreement_kappa_flavors_carried.csv")
+
+    cat("\n== Kappa flavors auf CARRIED-Basis (fuer 3.5.2, Absatz 2) ==\n")
+    cat(sprintf("carried gs_ids: %d | eval (raw): %d | codeable: %d",
+                length(carried_ids), nrow(eval_c), nrow(code_c)),
+        "(erwartet: ~249 / ~226)\n")
+    print(as.data.frame(kappa_flavors_carried), row.names = FALSE)
+    cat("-> geschrieben: agreement_kappa_flavors_carried.csv\n\n")
+  }
+} else {
+  warning("[06b] '", carried_csv, "' nicht gefunden — TEIL 1 zuerst laufen ",
+          "lassen; carried-Kappa-Tabelle uebersprungen.")
+}
+
 # (c) Per-Party Kappa_A (codeable; BERT vs. HUMAN), wie in 13
 perparty_A <- code_set |>
   group_by(party) |>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-run_pipeline.py — Orchestrator fuer die gesamte Thesis-Pipeline (01 .. 17).
+run_pipeline.py — Orchestrator fuer die gesamte Thesis-Pipeline (01 .. 19).
 
 Faehrt die nummerierte Pipeline der Reihe nach ab und startet R- wie Python-
 Schritte selbst. Schwere Schritte (GPU-Klassifikation, gbert-Training/-Apply,
@@ -18,10 +18,16 @@ Beispiele
   python run_pipeline.py --list                 # nur den Plan zeigen
   python run_pipeline.py --dry-run              # Plan + was passieren WUERDE
   python run_pipeline.py                        # ganze Pipeline (mit Pausen)
-  python run_pipeline.py --stage analysis       # nur 12..17 (R-Auswertung)
+  python run_pipeline.py --stage analysis       # nur 12..19 (R-Auswertung)
   python run_pipeline.py --from 12 --to 16      # nur einen Bereich
-  python run_pipeline.py --stage analysis --yes # 12..17 ohne Rueckfragen
+  python run_pipeline.py --stage analysis --yes # 12..19 ohne Rueckfragen
   python run_pipeline.py --root D:/pfad/zum/Projekt
+
+Nicht Teil des automatischen Laufs (bewusst; einzeln aufrufen)
+  * 20_pull_chapter3_numbers.R — Zahlen-Ernter fuer das Numbers-Dok. UEBERSCHREIBT
+    results/empirics/chapter3_numbers.md und .csv, deshalb absichtlich kein Schritt.
+  * eval_000_on_gold.R, gold_000_check.py, lp13_manifesto_history.R — einmalige
+    Diagnostik (GPU-Modell bzw. MARPOR-API); Outputs liegen vor.
 
 Voraussetzungen
   * Aus der Python-Umgebung starten, die fuer die confirm-Schritte (02/04)
@@ -37,6 +43,15 @@ import shutil
 import subprocess
 import sys
 
+# Windows/Pipe-Robustheit: bei Umleitung (Tee-Object, > datei) faellt Python
+# sonst auf cp1252 zurueck und crasht an Nicht-ASCII-Zeichen (UnicodeEncodeError).
+for _stream in (sys.stdout, sys.stderr):
+    if _stream is not None and hasattr(_stream, "reconfigure"):
+        try:
+            _stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
 # ---------------------------------------------------------------------------
 # Projekt-Defaults (anpassbar via CLI)
 # ---------------------------------------------------------------------------
@@ -48,14 +63,14 @@ GBERT_VENV    = r"C:\masterarbeit\.venv"   # nur fuer die Anzeige der manual-Sch
 #   n      : Pipeline-Nummer (fuer --from/--to)
 #   file   : Dateiname im Projektwurzel-Verzeichnis
 #   lang   : "R" | "py"
-#   stage  : "build" (01..11, selten/teuer) | "analysis" (12..17, oft/billig)
+#   stage  : "build" (01..11, selten/teuer) | "analysis" (12..19, oft/billig)
 #   mode   : "auto" | "confirm" | "manual"
 #   note   : Voraussetzung / Hinweis (eine Zeile)
 # ---------------------------------------------------------------------------
 PIPELINE = [
     dict(n=1,  file="01_build_speech_corpus.R",      lang="R",  stage="build",
          mode="auto",    note="braucht GERMAPARL2/CWB (polmineR)"),
-    dict(n=2,  file="02_resegment_somajo.py",        lang="py", stage="build",
+    dict(n=2,  file="02_resegment_somajo.py",        lang="py", stage="build", pip=["somajo", "pandas"],
          mode="confirm", note="CPU, ~Stunden; braucht somajo + pandas; liest all_speeches.csv -> sentences_somajo.csv"),
     dict(n=3,  file="03_procedural_flag.py",         lang="py", stage="build",
          mode="confirm", note="CPU; braucht procedural_filter_decisions_v1.csv; liest sentences_somajo.csv"),
@@ -87,6 +102,10 @@ PIPELINE = [
          mode="auto",    note="braucht 12-Caches"),
     dict(n=17, file="17_robustness.R",               lang="R",  stage="analysis",
          mode="auto",    note="braucht 12-Caches (speech_soft/method/manifesto/bootstrap)"),
+    dict(n=18, file="18_agenda_centre_of_gravity.R", lang="R",  stage="analysis",
+         mode="auto",    note="braucht 12-Caches (speech_soft/manifesto_dists); Figure 4.3 (4.2 P3)"),
+    dict(n=19, file="19_migration_position_trajectories.R", lang="R", stage="analysis",
+         mode="auto",    note="braucht 12-Caches; Migrations-Trajektorien (Kapitel 5)"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -150,8 +169,42 @@ def print_plan(steps, args):
         print(paint(f"        {s['note']}", C.DIM))
 
 
+def ensure_py_deps(step, args):
+    """Prueft im Schritt deklarierte Python-Pakete (key 'pip') im Ziel-Interpreter
+    und installiert Fehlendes automatisch nach. Bewusst NUR fuer deklarierte
+    CPU-Schritte — GPU-Schritte (04/10/11) laufen in der masterarbeit-venv mit
+    gepinnten Versionen und deklarieren daher nichts."""
+    mods = step.get("pip") or []
+    if not mods:
+        return True
+    missing = [m for m in mods
+               if subprocess.run([args.python, "-c", f"import {m}"],
+                                 capture_output=True).returncode != 0]
+    if not missing:
+        return True
+    print(paint(f"    Fehlende Pakete im Interpreter: {', '.join(missing)}"
+                f" -> pip install ...", C.YELLOW))
+    if args.dry_run:
+        print(paint("    [dry-run] pip install uebersprungen", C.YELLOW))
+        return True
+    r = subprocess.run([args.python, "-m", "pip", "install", *missing])
+    if r.returncode != 0:
+        print(paint("    FEHLER: pip install fehlgeschlagen", C.RED))
+        return False
+    still = [m for m in missing
+             if subprocess.run([args.python, "-c", f"import {m}"],
+                               capture_output=True).returncode != 0]
+    if still:
+        print(paint(f"    FEHLER: weiterhin nicht importierbar: {', '.join(still)}", C.RED))
+        return False
+    print(paint(f"    Installiert: {', '.join(missing)}", C.GREEN))
+    return True
+
+
 def run_subprocess(step, args):
     """Fuehrt einen Schritt aus, gibt True bei Erfolg zurueck."""
+    if step.get("lang") == "py" and not ensure_py_deps(step, args):
+        return False
     cmd = cmd_for(step, args)
     print(paint(f"  $ {' '.join(cmd)}   (cwd={args.root})", C.DIM))
     if args.dry_run:
@@ -207,7 +260,7 @@ def handle_step(step, args):
         return "ok" if run_subprocess(step, args) else "fail"
 
     # mode == "manual"
-    print(paint("  ⏸  MANUELLER SCHRITT — bitte EXTERN ausfuehren:", C.YELLOW))
+    print(paint("  >> MANUELLER SCHRITT — bitte EXTERN ausfuehren:", C.YELLOW))
     print(paint(f"     {cmd_str(step, args)}", C.BOLD))
     if step["file"] in ("04_classify_manifestoberta.py", "10_train_000.py", "11_apply_000.py"):
         print(paint(f"     (zuerst venv aktivieren: {GBERT_VENV}\\Scripts\\activate)", C.DIM))
@@ -221,7 +274,7 @@ def handle_step(step, args):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Thesis-Pipeline-Orchestrator (01..17).")
+    ap = argparse.ArgumentParser(description="Thesis-Pipeline-Orchestrator (01..19).")
     ap.add_argument("--root", default=DEFAULT_ROOT, help="Projektwurzel (Default: %(default)s)")
     ap.add_argument("--rscript", default="Rscript", help="Rscript-Pfad/-Befehl")
     ap.add_argument("--python", default=sys.executable, help="Python-Interpreter fuer py-Schritte")
